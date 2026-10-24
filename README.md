@@ -1,34 +1,27 @@
-# Service Weaver [![Go Reference](https://pkg.go.dev/badge/github.com/ServiceWeaver/weaver.svg)](https://pkg.go.dev/github.com/ServiceWeaver/weaver)
+# Weft
 
-## 🚨 Important Announcement
+**Write a modular monolith in Go, deploy it as microservices.**
 
-> **Service Weaver** began as an exploratory initiative to understand the challenges of developing, deploying, and maintaining distributed applications. We were excited by the strong interest from the developer community, which led us to open-source the project.
->
-> We greatly appreciate the continued advocacy and support of the Service Weaver community. However, we realized that it was hard for users to adopt Service Weaver directly since it required rewriting large parts of existing applications. Therefore, Service Weaver did not see much direct use, and **effective December 5, 2024**, we will transition Service Weaver into maintenance mode. After this date, for the next 6 months, we will only push critical commits to the GitHub repository, respond to critical issues, merge critical pull requests, and patch new releases. We recommend that users fork the repository and report any issues preventing them from maintaining a stable version of the code.
->
-> **On June 6, 2025**, we plan to permanently freeze and archive the GitHub repository, after which no new commits or releases will be made.
+Weft is a community-maintained continuation of [Service Weaver](https://github.com/ServiceWeaver/weaver), a programming framework for writing, deploying, and managing distributed applications in Go. The original project was archived by its maintainers; Weft picks it up to keep it alive, fix bugs, and keep evolving it.
 
-Service Weaver is a programming framework for writing, deploying, and managing
-distributed applications. You can run, test, and debug a Service Weaver
-application locally on your machine, and then deploy it to the
-cloud with a single command.
+You write your application as a single modular binary made of components, run and test it locally, and then deploy it as a set of distributed services without rewriting your code.
 
-```bash
-$ go run .                      # Run locally.
-$ weaver gke deploy weaver.toml # Run in the cloud.
-```
+## Status
 
-Visit [https://serviceweaver.dev][website] to learn more about Service Weaver.
+Weft is in its early days. The codebase is currently identical to the last release of Service Weaver, and work is underway to rename packages, update dependencies, and publish new releases.
 
-## Installation and Getting Started
+## Getting started
 
-Visit [https://serviceweaver.dev/docs.html][docs] for installation
-instructions and information on getting started.
+Until the Weft documentation is published, the [Service Weaver docs](https://serviceweaver.dev/docs.html) still apply. The documentation source lives in the [`website/`](website/) folder of this repository.
 
 ## Contributing
 
-Please read our [contribution guide](./CONTRIBUTING.md) for details on how
-to contribute.
+Contributions are welcome. Please read [CONTRIBUTING.md](CONTRIBUTING.md) before opening an issue or pull request.
 
-[website]: https://serviceweaver.dev
-[docs]: https://serviceweaver.dev/docs.html
+## Acknowledgements
+
+Weft is a fork of [Service Weaver](https://github.com/ServiceWeaver/weaver), created by Google and its community. Weft is not affiliated with or endorsed by Google.
+
+## License
+
+Weft is licensed under the Apache License 2.0. See [LICENSE](LICENSE) for details.
