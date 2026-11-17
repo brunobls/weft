@@ -6,6 +6,8 @@ Weft is a derivative work of Service Weaver
 the Apache License, Version 2.0. Weft is maintained by brunobls since 2026.
 
 Modifications from Service Weaver: the Go module path was renamed from
-github.com/ServiceWeaver/weaver to github.com/brunobls/weft, and the command-line
-tool was renamed from `weaver` to `weft` (`weaver` is kept as an alias). The
-original "Copyright Google LLC" notices in source files are retained unchanged.
+github.com/ServiceWeaver/weaver to github.com/brunobls/weft, the root Go package
+was renamed from `weaver` to `weft`, and the command-line tool was renamed from
+`weaver` to `weft` (`weaver` is kept as an alias). The git history of this
+repository records the changes made to each file. The original "Copyright
+Google LLC" notices in source files are retained unchanged.
