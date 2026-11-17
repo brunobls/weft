@@ -62,10 +62,12 @@ to start and the error names the section to use instead, for example
 
 This also applies to the app section, to the deployer sections (`multi`,
 `single`, `ssh`), to component names, and to component names listed in
-`colocate`. They used to be ignored silently, which would have started an app
-without, for example, `mtls = true`. Rename them by replacing the prefix
-`github.com/ServiceWeaver/weaver` with `github.com/brunobls/weft`. The short
-section `[serviceweaver]` keeps working.
+`colocate`: every name that starts with `github.com/ServiceWeaver/weaver`
+is an error. Weft does not read them, and it refuses to start rather than
+ignore them, which would for example start an app without `mtls = true`.
+Rename them by replacing the prefix `github.com/ServiceWeaver/weaver` with
+`github.com/brunobls/weft`. The short section `[serviceweaver]` keeps
+working.
 
 A deployer outside this repository that builds the application's config
 sections without calling `runtime.ParseConfig` does not get this error: pass
@@ -82,5 +84,10 @@ the config through `runtime.ParseConfig`.
   the span names `weaver.deployerControl.*` and `weaver.weaveletControl.*`
   become `weft.deployerControl.*` and `weft.weaveletControl.*`. Spans of your
   components are named after your own package and do not change.
+- In logs, the name of the main component changes with its path: the full
+  name in the `component` attribute goes from
+  `github.com/ServiceWeaver/weaver/Main` to `github.com/brunobls/weft/Main`,
+  and the short name that tools print goes from `weaver.Main` to `weft.Main`.
+  Log filters on either value need the new one.
 - Metric names, the `serviceweaver_*` prefix and the OpenTelemetry
   instrumentation library name (`.../weaver/serviceweaver`) are unchanged.

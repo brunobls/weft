@@ -54,9 +54,9 @@ import (
 
 // componentInfo includes information about components.
 type componentInfo struct {
-	hasRefs      map[reflect.Type]bool // does a component have weaver.Refs?
-	hasListeners map[reflect.Type]bool // does a component have weaver.Listeners?
-	hasConfig    map[reflect.Type]bool // does a component have a weaver.Config?
+	hasRefs      map[reflect.Type]bool // does a component have weft.Refs?
+	hasListeners map[reflect.Type]bool // does a component have weft.Listeners?
+	hasConfig    map[reflect.Type]bool // does a component have a weft.Config?
 }
 
 // hyperparameters configure an execution.

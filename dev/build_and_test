@@ -35,6 +35,10 @@ function cmd_generate() {
   # explicitly; otherwise their weaver_gen.go files go stale.
   ./cmd/weaver/weaver generate ./examples/bankofanthos/... ./sim/internal/bank
 
+  # Record the dependencies once everything is generated, so that godeps.txt
+  # is right after a single pass.
+  ./dev/writedeps.sh
+
   # Add license headers.
   if ! exists addlicense; then
     printf "addlicense not found; install via\ngo install github.com/google/addlicense@latest\n" >&2

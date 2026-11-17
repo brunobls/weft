@@ -8,11 +8,9 @@ You write your application as a single modular binary made of components, run an
 
 ## Status
 
-Weft is in its early days. It started from the last release of Service Weaver and is being renamed and modernized: the Go module is now `github.com/brunobls/weft`, and the toolchain and dependencies are being updated. Import paths and some configuration keys differ from Service Weaver, so Weft is not yet a drop-in replacement; see the migration notes once they are published.
+Weft is in its early days. It started from the last release of Service Weaver and is being renamed and modernized: the Go module is now `github.com/brunobls/weft`, and the toolchain and dependencies are being updated. Import paths and some configuration keys differ from Service Weaver, so Weft is not yet a drop-in replacement; see [Migrating from Service Weaver](docs/migrating-from-service-weaver.md).
 
 ## Getting started
-
-Coming from Service Weaver? See [Migrating from Service Weaver](docs/migrating-from-service-weaver.md) for what changed.
 
 Until the Weft documentation is published, the [Service Weaver docs](https://serviceweaver.dev/docs.html) still apply. The documentation source lives in the [`website/`](website/) folder of this repository.
 
