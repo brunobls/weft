@@ -713,6 +713,7 @@ github.com/brunobls/weft/runtime
     os
     os/signal
     path/filepath
+    sort
     strings
     sync
     syscall
