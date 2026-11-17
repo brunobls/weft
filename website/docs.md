@@ -122,28 +122,28 @@ import (
 )
 
 func main() {
-    if err := weaver.Run(context.Background(), serve); err != nil {
+    if err := weft.Run(context.Background(), serve); err != nil {
         log.Fatal(err)
     }
 }
 
-// app is the main component of the application. weaver.Run creates
+// app is the main component of the application. weft.Run creates
 // it and passes it to serve.
 type app struct{
-    weaver.Implements[weaver.Main]
+    weft.Implements[weft.Main]
 }
 
-// serve is called by weaver.Run and contains the body of the application.
+// serve is called by weft.Run and contains the body of the application.
 func serve(context.Context, *app) error {
     fmt.Println("Hello")
     return nil
 }
 ```
 
-`weaver.Run(...)` initializes and runs the Service Weaver application. In
-particular, `weaver.Run` finds the main component, creates it, and passes it to
+`weft.Run(...)` initializes and runs the Service Weaver application. In
+particular, `weft.Run` finds the main component, creates it, and passes it to
 a supplied function. In this example,`app` is the main component since it
-contains a `weaver.Implements[weaver.Main]` field.
+contains a `weft.Implements[weft.Main]` field.
 
 Before we build and run the app, we need to run Service Weaver's code generator,
 called `weaver generate`. `weaver generate` writes a `weaver_gen.go` file that
@@ -194,7 +194,7 @@ type Reverser interface {
 
 // Implementation of the Reverser component.
 type reverser struct{
-    weaver.Implements[Reverser]
+    weft.Implements[Reverser]
 }
 
 func (r *reverser) Reverse(_ context.Context, s string) (string, error) {
@@ -210,7 +210,7 @@ func (r *reverser) Reverse(_ context.Context, s string) (string, error) {
 The `Reverser` component is represented by a `Reverser` interface with,
 unsurprisingly, a `Reverse` method that reverses strings. The `reverser` struct
 is our implementation of the `Reverser` component (as indicated by the
-`weaver.Implements[Reverser]` field it contains).
+`weft.Implements[Reverser]` field it contains).
 
 Next, edit the app component in `main.go` to use the `Reverser` component:
 
@@ -226,14 +226,14 @@ import (
 )
 
 func main() {
-    if err := weaver.Run(context.Background(), serve); err != nil {
+    if err := weft.Run(context.Background(), serve); err != nil {
         log.Fatal(err)
     }
 }
 
 type app struct{
-    weaver.Implements[weaver.Main]
-    reverser weaver.Ref[Reverser]
+    weft.Implements[weft.Main]
+    reverser weft.Ref[Reverser]
 }
 
 func serve(ctx context.Context, app *app) error {
@@ -248,14 +248,14 @@ func serve(ctx context.Context, app *app) error {
 }
 ```
 
-The `app` struct has a new field of type `weaver.Ref[Reverser]` that provides
+The `app` struct has a new field of type `weft.Ref[Reverser]` that provides
 access to the `Reverser` component.
 
 In general, if component X uses component Y, the implementation struct for X
-should contain a field of type `weaver.Ref[Y]`. When an X component instance is
+should contain a field of type `weft.Ref[Y]`. When an X component instance is
 created, Service Weaver will automatically create the Y component as well and
-will fill the `weaver.Ref[Y]` field with a handle to the Y component.  The
-implementation of X can call `Get()` on the `weaver.Ref[Y]` field to get the Y
+will fill the `weft.Ref[Y]` field with a handle to the Y component.  The
+implementation of X can call `Get()` on the `weft.Ref[Y]` field to get the Y
 component, as demonstrated by the following lines in the preceding examples:
 
 ```go
@@ -282,15 +282,15 @@ import (
 )
 
 func main() {
-    if err := weaver.Run(context.Background(), serve); err != nil {
+    if err := weft.Run(context.Background(), serve); err != nil {
         log.Fatal(err)
     }
 }
 
 type app struct {
-    weaver.Implements[weaver.Main]
-    reverser weaver.Ref[Reverser]
-    hello    weaver.Listener
+    weft.Implements[weft.Main]
+    reverser weft.Ref[Reverser]
+    hello    weft.Listener
 }
 
 func serve(ctx context.Context, app *app) error {
@@ -341,9 +341,9 @@ using a `"weaver"` field tag like this:
 
 ```go
 type app struct {
-    weaver.Implements[weaver.Main]
-    reverser weaver.Ref[Reverser]
-    hello    weaver.Listener `weaver:"my_custom_listener_name"`
+    weft.Implements[weft.Main]
+    reverser weft.Ref[Reverser]
+    hello    weft.Listener `weaver:"my_custom_listener_name"`
 }
 ```
 
@@ -558,7 +558,7 @@ type Adder interface {
 }
 
 type adder struct {
-    weaver.Implements[Adder]
+    weft.Implements[Adder]
 }
 
 func (*adder) Add(_ context.Context, x, y int) (int, error) {
@@ -567,8 +567,8 @@ func (*adder) Add(_ context.Context, x, y int) (int, error) {
 ```
 
 `Adder` defines the component's interface, and `adder` defines the component's
-implementation. The two are linked with the embedded `weaver.Implements[Adder]`
-field. You can call `weaver.Ref[Adder].Get()` to get a client to the `Adder`
+implementation. The two are linked with the embedded `weft.Implements[Adder]`
+field. You can call `weft.Ref[Adder].Get()` to get a client to the `Adder`
 component. The returned client implements the component's interface, so you can
 invoke the component's methods as you would any regular Go method. When you
 invoke a component's method, the method call is performed by one of the possibly
@@ -618,13 +618,13 @@ A component implementation must be a struct that looks like:
 
 ```go
 type foo struct{
-    weaver.Implements[Foo]
+    weft.Implements[Foo]
     // ...
 }
 ```
 
 -   It must be a struct.
--   It must embed a `weaver.Implements[T]` field where `T` is the component
+-   It must embed a `weft.Implements[T]` field where `T` is the component
     interface it implements.
 
 If a component implementation implements an `Init(context.Context) error`
@@ -701,12 +701,12 @@ Noting the points above:
 
 If a remote method call fails to execute properly&mdash;because of a machine
 crash or a network partition, for example&mdash;it returns an error with an
-embedded `weaver.RemoteCallError`. Here's an illustrative example:
+embedded `weft.RemoteCallError`. Here's an illustrative example:
 
 ```go
 // Call the cache.Get method.
 value, err := cache.Get(ctx, "key")
-if errors.Is(err, weaver.RemoteCallError) {
+if errors.Is(err, weft.RemoteCallError) {
     // cache.Get did not execute properly.
 } else if err != nil {
     // cache.Get executed properly, but returned an error.
@@ -716,7 +716,7 @@ if errors.Is(err, weaver.RemoteCallError) {
 ```
 
 Note that if a method call returns an error with an embedded
-`weaver.RemoteCallError`, it does *not* mean that the method never executed. The
+`weft.RemoteCallError`, it does *not* mean that the method never executed. The
 method may have executed partially, or fully, or multiple times due to automatic
 retries.
 
@@ -739,21 +739,21 @@ type Cache interface{
 }
 
 // Do not retry Cache.Append.
-var _ weaver.NotRetriable = Cache.Append
+var _ weft.NotRetriable = Cache.Append
 ```
 
 ## Listeners
 
 A component implementation may wish to use one or more network listeners, e.g.,
-to serve HTTP network traffic. To do so, named `weaver.Listener` fields must
+to serve HTTP network traffic. To do so, named `weft.Listener` fields must
 be added to the implementation struct. For example, the following component
 implementation creates two network listeners:
 
 ```go
 type impl struct{
-    weaver.Implements[MyComponent]
-    foo weaver.Listener
-    Bar weaver.Listener
+    weft.Implements[MyComponent]
+    foo weft.Listener
+    Bar weft.Listener
 }
 ```
 
@@ -764,9 +764,9 @@ can be added to the struct field to specify the listener name explicitly:
 
 ```go
 type impl struct{
-    weaver.Implements[MyComponent]
-    foo weaver.Listener
-    lis weaver.Listener `weaver:"bar"`
+    weft.Implements[MyComponent]
+    foo weft.Listener
+    lis weft.Listener `weaver:"bar"`
 }
 ```
 
@@ -820,7 +820,7 @@ type Greeter interface {
 }
 
 type greeter struct {
-    weaver.Implements[Greeter]
+    weft.Implements[Greeter]
 }
 
 func (g *greeter) Greet(_ context.Context, name string) (string, error) {
@@ -838,12 +838,12 @@ type greeterOptions struct {
 ```
 
 Next, we associate the options struct with the `greeter` implementation by
-embedding the `weaver.WithConfig[T]` struct.
+embedding the `weft.WithConfig[T]` struct.
 
 ```go
 type greeter struct {
-    weaver.Implements[Greeter]
-    weaver.WithConfig[greeterOptions]
+    weft.Implements[Greeter]
+    weft.WithConfig[greeterOptions]
 }
 ```
 
@@ -935,7 +935,7 @@ func (*adder) Add(ctx context.Context, x, y int) (int, error) {
 TODO(mwhittaker): Pick a better name for node ids?
 </div>
 
-Service Weaver provides a logging API, `weaver.Logger`. By using Service
+Service Weaver provides a logging API, `weft.Logger`. By using Service
 Weaver's logging API, you can cat, tail, search, and filter logs from every one
 of your Service Weaver applications (past or present). Service Weaver also
 integrates the logs into the environment where your application is deployed. If
@@ -951,11 +951,11 @@ type Adder interface {
 }
 
 type adder struct {
-    weaver.Implements[Adder]
+    weft.Implements[Adder]
 }
 
 func (a *adder) Add(ctx context.Context, x, y int) (int, error) {
-    // adder embeds weaver.Implements[Adder] which provides the Logger method.
+    // adder embeds weft.Implements[Adder] which provides the Logger method.
     logger := a.Logger(ctx)
     logger.Debug("A debug log.")
     logger.Info("An info log.")
@@ -997,7 +997,7 @@ fooLogger.Info("A log with attributes.")  // adds foo="bar"
 **Note**: You can also add normal print statements to your code. These prints
 will be captured and logged by Service Weaver, but they won't be associated with
 a particular component, they won't have `file:line` information, and they won't
-have any attributes, so we recommend you use a `weaver.Logger` whenever
+have any attributes, so we recommend you use a `weft.Logger` whenever
 possible.
 
 ```console
@@ -1053,7 +1053,7 @@ type Adder interface {
 }
 
 type adder struct {
-    weaver.Implements[Adder]
+    weft.Implements[Adder]
 }
 
 func (*adder) Add(_ context.Context, x, y int) (int, error) {
@@ -1094,7 +1094,7 @@ type Halver interface {
 }
 
 type halver struct {
-    weaver.Implements[Halver]
+    weft.Implements[Halver]
 }
 
 func (halver) Halve(_ context.Context, val int) (int, error) {
@@ -1152,7 +1152,7 @@ Service Weaver declares the following set of HTTP related metrics.
     an HTTP handler.
 
 If you pass an [`http.Handler`](https://pkg.go.dev/net/http#Handler) to the
-`weaver.InstrumentHandler` function, it will return a new `http.Handler` that
+`weft.InstrumentHandler` function, it will return a new `http.Handler` that
 updates these metrics automatically, labeled with the provided label. For
 example:
 
@@ -1160,7 +1160,7 @@ example:
 // Metrics are recorded for fooHandler with label "foo".
 var mux http.ServeMux
 var fooHandler http.Handler = ...
-mux.Handle("/foo", weaver.InstrumentHandler("foo", fooHandler))
+mux.Handle("/foo", weft.InstrumentHandler("foo", fooHandler))
 ```
 
 # Tracing
@@ -1172,14 +1172,14 @@ for example, traces are automatically exported to
 [Google Cloud Trace][cloud_trace].
 
 If you pass an [`http.Handler`](https://pkg.go.dev/net/http#Handler) to the
-`weaver.InstrumentHandler` function, it will return a new `http.Handler` that
+`weft.InstrumentHandler` function, it will return a new `http.Handler` that
 traces an HTTP request every second.
 
 ```go
 // Tracing is enabled for one request every second.
 var mux http.ServeMux
 var fooHandler http.Handler = ...
-mux.Handle("/foo", weaver.InstrumentHandler("foo", fooHandler))
+mux.Handle("/foo", weft.InstrumentHandler("foo", fooHandler))
 ```
 
 Alternatively, you can enable tracing manually using the [OpenTelemetry][otel]
@@ -1197,14 +1197,14 @@ import (
 )
 
 func main() {
-    if err := weaver.Run(context.Background(), serve); err != nil {
+    if err := weft.Run(context.Background(), serve); err != nil {
         log.Fatal(err)
     }
 }
 
 type app struct {
-    weaver.Implements[weaver.Main]
-    lis weaver.Listener
+    weft.Implements[weft.Main]
+    lis weft.Listener
 }
 
 func serve(ctx context.Context, app *app) error {
@@ -1221,7 +1221,7 @@ func serve(ctx context.Context, app *app) error {
 }
 ```
 
-Regardless of whether you use `weaver.InstrumentHandler` or you manually enable
+Regardless of whether you use `weft.InstrumentHandler` or you manually enable
 tracing, once tracing is enabled for a given HTTP request, that request
 and the resulting component method calls will be automatically traced. Service
 Weaver will collect and export the traces for you. Refer to the
@@ -1275,7 +1275,7 @@ type Cache interface {
 }
 
 type cache struct {
-    weaver.Implements[Cache]
+    weft.Implements[Cache]
     // ...
 }
 ```
@@ -1302,9 +1302,9 @@ A routing key can be
 
 -   any integer (e.g., `int`, `int32`), float (i.e. `float32`, `float64`), or
     string; or
--   a struct that may optionally embed `weaver.AutoMarshal`, and all remaining
+-   a struct that may optionally embed `weft.AutoMarshal`, and all remaining
     fields must be either integers, floats, or strings. (e.g.
-    `struct{weaver.AutoMarshal; x int; y string}`, `struct{x int; y string}`, etc )
+    `struct{weft.AutoMarshal; x int; y string}`, `struct{x int; y string}`, etc )
 
 Every router method must return the same routing key type. The following, for
 example, is invalid:
@@ -1315,13 +1315,13 @@ func (cacheRouter) Get(_ context.Context, key string) string { return key }
 func (cacheRouter) Put(_ context.Context, key, value string) int { return 42 }
 ```
 
-To associate a router with its component, embed a `weaver.WithRouter[T]` field in
+To associate a router with its component, embed a `weft.WithRouter[T]` field in
 the component implementation where `T` is the type of the router.
 
 ```go
 type cache struct {
-    weaver.Implements[Cache]
-    weaver.WithRouter[cacheRouter]
+    weft.Implements[Cache]
+    weft.WithRouter[cacheRouter]
     // ...
 }
 ```
@@ -1364,8 +1364,8 @@ type Adder interface {
 }
 
 type adder struct {
-    weaver.Implements[Adder]
-    weaver.WithConfig[config]
+    weft.Implements[Adder]
+    weft.WithConfig[config]
 
     db *sql.DB
 }
@@ -1403,7 +1403,7 @@ environment variables.
 
 Service Weaver includes a `weavertest` package that you can use to test your
 Service Weaver applications. The package provides a `Runner` type with `Test`
-and `Bench` methods. Tests use `Runner.Test` instead of `weaver.Run`. To test an
+and `Bench` methods. Tests use `Runner.Test` instead of `weft.Run`. To test an
 `Adder` component with an `Add` method, for example, create an `adder_test.go`
 file with the following contents.
 
@@ -1660,14 +1660,14 @@ You can also run `weaver single dashboard` to open a dashboard in a web browser.
 
 ## Listeners
 
-You can add `weaver.Listener` fields to the component implementation to trigger
+You can add `weft.Listener` fields to the component implementation to trigger
 creation of network listeners (see the
 [Step by Step Tutorial](#step-by-step-tutorial) section for context).
 
 ```go
 type app struct {
-    weaver.Implements[weaver.Main]
-    hello    weaver.Listener
+    weft.Implements[weft.Main]
+    hello    weft.Listener
 }
 ```
 
@@ -1855,14 +1855,14 @@ You can also run `weaver multi dashboard` to open a dashboard in a web browser.
 
 ## Listeners
 
-You can add `weaver.Listener` fields to the component implementation to trigger
+You can add `weft.Listener` fields to the component implementation to trigger
 creation of network listeners (see the
 [Step by Step Tutorial](#step-by-step-tutorial) section for context).
 
 ```go
 type app struct {
-    weaver.Implements[weaver.Main]
-    hello    weaver.Listener
+    weft.Implements[weft.Main]
+    hello    weft.Listener
 }
 ```
 
@@ -2265,8 +2265,8 @@ I1107 23:39:38.350108 weavelet             49c6e04e call.go:690                 
 I1107 23:39:38.350252 weavelet             49c6e04e call.go:690                        │ connection addr="tcp://10.244.2.74:10000" from="checking" to="idle"
 D1107 23:39:38.358632 weavelet             49c6e04e remoteweavelet.go:429                │ Connected to remote component="hello.Reverser"
 S0101 00:00:00.000000 stdout               49c6e04e                       │ hello listener available on [::]:20000
-D1107 23:39:38.360294 weavelet             49c6e04e remoteweavelet.go:336                │ Constructed component="weaver.Main"
-D1107 23:39:38.360337 weavelet             49c6e04e remoteweavelet.go:491                │ Updated component="weaver.Main"
+D1107 23:39:38.360294 weavelet             49c6e04e remoteweavelet.go:336                │ Constructed component="weft.Main"
+D1107 23:39:38.360337 weavelet             49c6e04e remoteweavelet.go:491                │ Updated component="weft.Main"
 ```
 
 ## Config
@@ -3378,7 +3378,7 @@ serializable:
     -   `t` implements [`encoding.BinaryMarshaler`][binary_marshaler] and
         [`encoding.BinaryUnmarshaler`][binary_unmarshaler];
     -   `u` is serializable; or
-    -   `u` is a struct type that embeds `weaver.AutoMarshal` (see below).
+    -   `u` is a struct type that embeds `weft.AutoMarshal` (see below).
 
 The following types are not serializable:
 
@@ -3390,17 +3390,17 @@ The following types are not serializable:
 **Note**: Named struct types that don't implement `proto.Message` or
 `BinaryMarshaler` and `BinaryUnmarshaler` are *not* serializable by default.
 However, they can trivially be made serializable by embedding
-`weaver.AutoMarshal`.
+`weft.AutoMarshal`.
 
 ```go
 type Pair struct {
-    weaver.AutoMarshal
+    weft.AutoMarshal
     x, y int
 }
 ```
 
-The `weaver.AutoMarshal` embedding instructs `weaver generate` to generate
-serialization methods for the struct. Note, however, that `weaver.AutoMarshal`
+The `weft.AutoMarshal` embedding instructs `weaver generate` to generate
+serialization methods for the struct. Note, however, that `weft.AutoMarshal`
 cannot magically make *any type* serializable. For example, `weaver generate`
 will raise an error for the following code because the `NotSerializable` struct
 is fundamentally not serializable.
@@ -3408,18 +3408,18 @@ is fundamentally not serializable.
 ```go
 // ERROR: NotSerializable cannot be made serializable.
 type NotSerializable struct {
-    weaver.AutoMarshal
+    weft.AutoMarshal
     f func()   // functions are not serializable
     c chan int // chans are not serializable
 }
 ```
 
-Also note that `weaver.AutoMarshal` can *not* be embedded in generic structs.
+Also note that `weft.AutoMarshal` can *not* be embedded in generic structs.
 
 ```go
-// ERROR: Cannot embed weaver.AutoMarshal in a generic struct.
+// ERROR: Cannot embed weft.AutoMarshal in a generic struct.
 type Pair[A any] struct {
-    weaver.AutoMarshal
+    weft.AutoMarshal
     x A
     y A
 }
@@ -3436,7 +3436,7 @@ by default transmits the textual representation of the error. Therefore any
 custom information stored in the error value, or custom `Is` or `As` methods,
 are not available to the caller.
 
-Applications that need custom error information can embed a `weaver.AutoMarshal`
+Applications that need custom error information can embed a `weft.AutoMarshal`
 in their custom error type. Service Weaver will then serialize and deserialize
 such errors properly and make them available to the caller.
 
@@ -3524,7 +3524,7 @@ overly burdensome, you can explicitly place relevant components in the same
 process.
 
 **Note**: Service Weaver guarantees that all system errors are surfaced to the
-application code as `weaver.RemoteCallError`, which can be handled as described
+application code as `weft.RemoteCallError`, which can be handled as described
 in an [earlier section](#components-semantics).
 
 ### What types of distributed applications does Service Weaver target?

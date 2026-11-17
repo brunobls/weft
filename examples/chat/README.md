@@ -6,7 +6,7 @@ An example chat application.
 %%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     %% Nodes.
-    github.com/brunobls/weft/Main(weaver.Main)
+    github.com/brunobls/weft/Main(weft.Main)
     github.com/brunobls/weft/examples/chat/ImageScaler(chat.ImageScaler)
     github.com/brunobls/weft/examples/chat/LocalCache(chat.LocalCache)
     github.com/brunobls/weft/examples/chat/SQLStore(chat.SQLStore)

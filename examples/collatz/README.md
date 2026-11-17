@@ -28,7 +28,7 @@ positive number `x`, main repeatedly calls `Odd` (if `x` is odd) or `Even` (if
 %%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     %% Nodes.
-    github.com/brunobls/weft/Main(weaver.Main)
+    github.com/brunobls/weft/Main(weft.Main)
     github.com/brunobls/weft/examples/collatz/Even(collatz.Even)
     github.com/brunobls/weft/examples/collatz/Odd(collatz.Odd)
 

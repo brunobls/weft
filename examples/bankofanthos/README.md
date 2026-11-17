@@ -7,7 +7,7 @@ application.
 %%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     %% Nodes.
-    github.com/brunobls/weft/Main(weaver.Main)
+    github.com/brunobls/weft/Main(weft.Main)
     github.com/brunobls/weft/examples/bankofanthos/balancereader/T(balancereader.T)
     github.com/brunobls/weft/examples/bankofanthos/contacts/T(contacts.T)
     github.com/brunobls/weft/examples/bankofanthos/ledgerwriter/T(ledgerwriter.T)

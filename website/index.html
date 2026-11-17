@@ -51,7 +51,7 @@ type Adder interface {
 }
 
 type adder struct {
-    weaver.Implements[Adder]
+    weft.Implements[Adder]
 }
 
 func (adder) Add(_ context.Context, x, y int) (int, error) {
@@ -133,7 +133,7 @@ $ weaver kube deploy weaver.toml  # Run on Kubernetes.
 ```go
 // Automatically encoded and decoded.
 type pair struct {
-    weaver.AutoMarshal
+    weft.AutoMarshal
     x, y int32
 }
 </markdown>

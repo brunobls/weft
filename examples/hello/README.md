@@ -9,7 +9,7 @@ localhost:12345/hello?name=Alice`).
 %%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     %% Nodes.
-    github.com/brunobls/weft/Main(weaver.Main)
+    github.com/brunobls/weft/Main(weft.Main)
     github.com/brunobls/weft/examples/hello/Reverser(hello.Reverser)
 
     %% Edges.
