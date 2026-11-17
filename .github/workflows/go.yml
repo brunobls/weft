@@ -81,15 +81,15 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/go/bin/staticcheck
-          key: staticcheck-v0.5.0
+          key: staticcheck-v0.8.2
         if: ${{ matrix.command == 'lint' }}
 
       - name: Install linter
-        run: go install honnef.co/go/tools/cmd/staticcheck@v0.5.0
+        run: go install honnef.co/go/tools/cmd/staticcheck@v0.8.2
         if: ${{ matrix.command == 'lint' }}
 
       - name: Build the weaver binary
-        run: cd cmd/weaver; go build .
+        run: cd cmd/weaver; go build -buildvcs=false .
         if: ${{ matrix.command == 'test' || matrix.command == 'testrace' }}
 
       - name: ${{ matrix.command }}
@@ -115,7 +115,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/go/bin/protoc-gen-go
-          key: protoc-gen-go-v1.26
+          key: protoc-gen-go-v1.34.1
 
       - name: Cache addlicense
         uses: actions/cache@v3
@@ -127,7 +127,7 @@ jobs:
         run: sudo apt install -y protobuf-compiler
 
       - name: Install protoc-gen-go
-        run: go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.26
+        run: go install google.golang.org/protobuf/cmd/protoc-gen-go@v1.34.1
 
       - name: Install addlicense
         run: go install github.com/google/addlicense@v1.1.1
