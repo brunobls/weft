@@ -117,7 +117,7 @@ Here is a detailed outline of the steps needed to make changes to Weft.
 
    ```shell
    # ... editing, testing, ... 
-   git commit ...
+   git commit -s ...
    ```
 
 3. Pull any changes that may have been made in the upstream repository
@@ -180,7 +180,9 @@ Here is a detailed outline of the steps needed to make changes to Weft.
 
     Select the `Squash and merge` option on https://github.com/brunobls/weft
     or use the command line instructions found on that page. Edit the commit message
-    as appropriate for the squashed commit.
+    as appropriate for the squashed commit, and keep the `Signed-off-by` trailer(s)
+    of the commits being squashed in the final message (see
+    [Sign off your commits](#sign-off-your-commits-developer-certificate-of-origin)).
 
 9.  Delete the branch from `origin`:
 
