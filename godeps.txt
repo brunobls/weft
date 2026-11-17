@@ -28,20 +28,9 @@ github.com/brunobls/weft
     time
     unicode
 github.com/brunobls/weft/cmd/weaver
-    context
-    errors
-    flag
-    fmt
-    github.com/brunobls/weft/internal/tool
-    github.com/brunobls/weft/internal/tool/callgraph
-    github.com/brunobls/weft/internal/tool/generate
-    github.com/brunobls/weft/internal/tool/multi
-    github.com/brunobls/weft/internal/tool/single
-    github.com/brunobls/weft/internal/tool/ssh
-    github.com/brunobls/weft/runtime/tool
-    os
-    os/exec
-    strings
+    github.com/brunobls/weft/internal/tool/cli
+github.com/brunobls/weft/cmd/weft
+    github.com/brunobls/weft/internal/tool/cli
 github.com/brunobls/weft/dev/docgen
     bytes
     flag
@@ -455,6 +444,21 @@ github.com/brunobls/weft/internal/tool/certs
     fmt
     math/big
     time
+github.com/brunobls/weft/internal/tool/cli
+    context
+    errors
+    flag
+    fmt
+    github.com/brunobls/weft/internal/tool
+    github.com/brunobls/weft/internal/tool/callgraph
+    github.com/brunobls/weft/internal/tool/generate
+    github.com/brunobls/weft/internal/tool/multi
+    github.com/brunobls/weft/internal/tool/single
+    github.com/brunobls/weft/internal/tool/ssh
+    github.com/brunobls/weft/runtime/tool
+    os
+    os/exec
+    strings
 github.com/brunobls/weft/internal/tool/config
     fmt
     github.com/brunobls/weft/runtime

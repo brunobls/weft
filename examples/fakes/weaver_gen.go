@@ -133,20 +133,20 @@ func (s clock_client_stub) UnixMicro(ctx context.Context) (r0 int64, err error) 
 // you run "go build" or "go run".
 var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`
 
-ERROR: You generated this file with 'weaver generate' (devel) (codegen
+ERROR: You generated this file with 'weft generate' (devel) (codegen
 version v0.24.0). The generated code is incompatible with the version of the
-github.com/brunobls/weft module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weft module
 version can be found in your go.mod file or by running the following command.
 
     go list -m github.com/brunobls/weft
 
-We recommend updating the weaver module and the 'weaver generate' command by
+We recommend updating the weft module and the 'weft generate' command by
 running the following.
 
     go get github.com/brunobls/weft@latest
-    go install github.com/brunobls/weft/cmd/weaver@latest
+    go install github.com/brunobls/weft/cmd/weft@latest
 
-Then, re-run 'weaver generate' and re-build your code. If the problem persists,
+Then, re-run 'weft generate' and re-build your code. If the problem persists,
 please file an issue at https://github.com/brunobls/weft/issues.
 
 `)
