@@ -14,11 +14,11 @@ rate of the `Factorer` component.
 %%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     %% Nodes.
-    github.com/ServiceWeaver/weaver/Main(weaver.Main)
-    github.com/ServiceWeaver/weaver/examples/factors/Factorer(factors.Factorer)
+    github.com/brunobls/weft/Main(weaver.Main)
+    github.com/brunobls/weft/examples/factors/Factorer(factors.Factorer)
 
     %% Edges.
-    github.com/ServiceWeaver/weaver/Main --> github.com/ServiceWeaver/weaver/examples/factors/Factorer
+    github.com/brunobls/weft/Main --> github.com/brunobls/weft/examples/factors/Factorer
 ```
 
 ## Running Locally

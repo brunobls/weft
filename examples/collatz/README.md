@@ -28,13 +28,13 @@ positive number `x`, main repeatedly calls `Odd` (if `x` is odd) or `Even` (if
 %%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     %% Nodes.
-    github.com/ServiceWeaver/weaver/Main(weaver.Main)
-    github.com/ServiceWeaver/weaver/examples/collatz/Even(collatz.Even)
-    github.com/ServiceWeaver/weaver/examples/collatz/Odd(collatz.Odd)
+    github.com/brunobls/weft/Main(weaver.Main)
+    github.com/brunobls/weft/examples/collatz/Even(collatz.Even)
+    github.com/brunobls/weft/examples/collatz/Odd(collatz.Odd)
 
     %% Edges.
-    github.com/ServiceWeaver/weaver/Main --> github.com/ServiceWeaver/weaver/examples/collatz/Even
-    github.com/ServiceWeaver/weaver/Main --> github.com/ServiceWeaver/weaver/examples/collatz/Odd
+    github.com/brunobls/weft/Main --> github.com/brunobls/weft/examples/collatz/Even
+    github.com/brunobls/weft/Main --> github.com/brunobls/weft/examples/collatz/Odd
 ```
 
 This application highlights the benefits of colocation. The performance of the

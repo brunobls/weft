@@ -98,7 +98,7 @@ fi
 
 if test ${#packages[@]} -eq 0; then
   # Find interesting packages
-  packages=( $(go list ./... | egrep -v '/internal/|/examples\b|/cmd/|/docgen$|/runtime/bin$|/blog/|/testprogram$' | sed -e s,github.com/ServiceWeaver/weaver,.,) )
+  packages=( $(go list ./... | egrep -v '/internal/|/examples\b|/cmd/|/docgen$|/runtime/bin$|/blog/|/testprogram$' | sed -e s,github.com/brunobls/weft,.,) )
 fi
 
 # Compare packages.

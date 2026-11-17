@@ -7,11 +7,11 @@ The application has a main component and a `Reverser` component.
 %%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     %% Nodes.
-    github.com/ServiceWeaver/weaver/Main(weaver.Main)
-    github.com/ServiceWeaver/weaver/examples/reverser/Reverser(reverser.Reverser)
+    github.com/brunobls/weft/Main(weaver.Main)
+    github.com/brunobls/weft/examples/reverser/Reverser(reverser.Reverser)
 
     %% Edges.
-    github.com/ServiceWeaver/weaver/Main --> github.com/ServiceWeaver/weaver/examples/reverser/Reverser
+    github.com/brunobls/weft/Main --> github.com/brunobls/weft/examples/reverser/Reverser
 ```
 
 ## How to run?

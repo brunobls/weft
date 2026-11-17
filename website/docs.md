@@ -42,7 +42,7 @@ Ensure you have [Go installed][go_install], version 1.21 or higher. Then, run
 the following to install the `weaver` command:
 
 ```console
-$ go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+$ go install github.com/brunobls/weft/cmd/weaver@latest
 ```
 
 `go install` installs the `weaver` command to `$GOBIN`, which defaults to
@@ -81,7 +81,7 @@ commands on macOS, you may want to prefix the install command with
 `export CGO_ENABLED=1; export CC=gcc`.
 For example:
 ```console
-$ export CGO_ENABLED=1; export CC=gcc; go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+$ export CGO_ENABLED=1; export CC=gcc; go install github.com/brunobls/weft/cmd/weaver@latest
 ```
 
 # Step by Step Tutorial
@@ -118,7 +118,7 @@ import (
     "fmt"
     "log"
 
-    "github.com/ServiceWeaver/weaver"
+    "github.com/brunobls/weft"
 )
 
 func main() {
@@ -184,7 +184,7 @@ package main
 import (
     "context"
 
-    "github.com/ServiceWeaver/weaver"
+    "github.com/brunobls/weft"
 )
 
 // Reverser component.
@@ -222,7 +222,7 @@ import (
     "fmt"
     "log"
 
-    "github.com/ServiceWeaver/weaver"
+    "github.com/brunobls/weft"
 )
 
 func main() {
@@ -278,7 +278,7 @@ import (
     "log"
     "net/http"
 
-    "github.com/ServiceWeaver/weaver"
+    "github.com/brunobls/weft"
 )
 
 func main() {
@@ -1193,7 +1193,7 @@ import (
     "net/http"
 
     "go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
-    "github.com/ServiceWeaver/weaver"
+    "github.com/brunobls/weft"
 )
 
 func main() {
@@ -1414,8 +1414,8 @@ import (
     "context"
     "testing"
 
-    "github.com/ServiceWeaver/weaver"
-    "github.com/ServiceWeaver/weaver/weavertest"
+    "github.com/brunobls/weft"
+    "github.com/brunobls/weft/weavertest"
 )
 
 func TestAdd(t *testing.T) {
@@ -2146,7 +2146,7 @@ kube deployment information successfully generated
 "Hello, World!" application.
 
 ```yaml
-# Listener Service for group github.com/ServiceWeaver/weaver/Main
+# Listener Service for group github.com/brunobls/weft/Main
 apiVersion: v1
 kind: Service
 spec:
@@ -2154,25 +2154,25 @@ spec:
 ...
 
 ---
-# Deployment for group github.com/ServiceWeaver/weaver/Main
+# Deployment for group github.com/brunobls/weft/Main
 apiVersion: apps/v1
 kind: Deployment
 ...
 
 ---
-# Autoscaler for group github.com/ServiceWeaver/weaver/Main
+# Autoscaler for group github.com/brunobls/weft/Main
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 ...
 
 ---
-# Deployment for group github.com/ServiceWeaver/weaver/examples/hello/Reverser
+# Deployment for group github.com/brunobls/weft/examples/hello/Reverser
 apiVersion: apps/v1
 kind: Deployment
 ...
 
 ---
-# Autoscaler for group github.com/ServiceWeaver/weaver/examples/hello/Reverser
+# Autoscaler for group github.com/brunobls/weft/examples/hello/Reverser
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 ...
@@ -2319,7 +2319,7 @@ resourceSpec:
 groups:
   - name: reverser-group
     components:
-      -  github.com/ServiceWeaver/weaver/examples/hello/Reverser
+      -  github.com/brunobls/weft/examples/hello/Reverser
     resourceSpec:
       requests:
         memory: "256Mi"
