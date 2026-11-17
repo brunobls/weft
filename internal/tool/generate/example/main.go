@@ -22,7 +22,7 @@ import (
 	"github.com/brunobls/weft"
 )
 
-//go:generate ../../../../cmd/weaver/weaver generate
+//go:generate ../../../../cmd/weft/weft generate
 
 type message struct {
 	weft.AutoMarshal

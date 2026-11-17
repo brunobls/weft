@@ -20,7 +20,7 @@ import (
 	"github.com/brunobls/weft"
 )
 
-//go:generate ../../cmd/weaver/weaver generate
+//go:generate ../../cmd/weft/weft generate
 //go:generate ../../dev/protoc.sh payload.proto
 
 // We want a chain of ten components, each one calling the next.

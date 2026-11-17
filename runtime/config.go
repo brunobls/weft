@@ -152,7 +152,16 @@ func ParseConfigSection(key, shortKey string, sections map[string]string, dst an
 
 func extractApp(file string, config *protos.AppConfig) error {
 	const appKey = "github.com/brunobls/weft"
-	const shortAppKey = "serviceweaver"
+	// The short keys of the app section: "weft", and the legacy "serviceweaver"
+	// which stays accepted. At most one of them (or appKey) may be present.
+	const weftShortKey, legacyShortKey = "weft", "serviceweaver"
+	shortAppKey := legacyShortKey
+	if _, ok := config.Sections[weftShortKey]; ok {
+		if _, ok := config.Sections[legacyShortKey]; ok {
+			return fmt.Errorf("conflicting sections %q and %q", legacyShortKey, weftShortKey)
+		}
+		shortAppKey = weftShortKey
+	}
 
 	// appConfig holds the data from under appKey in the TOML config.
 	// It matches the contents of the Config proto.

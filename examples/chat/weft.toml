@@ -1,4 +1,4 @@
-[serviceweaver]
+[weft]
 binary = "./chat"
 rollout = "5m"
 

@@ -45,7 +45,7 @@ func TestBinaryPath(t *testing.T) {
 	} {
 		t.Run(c.name, func(t *testing.T) {
 			spec := fmt.Sprintf("[serviceweaver]\nbinary = '%s'\n", c.binary)
-			cfgFile := filepath.Join(c.dir, "weaver.toml")
+			cfgFile := filepath.Join(c.dir, "weft.toml")
 			cfg, err := runtime.ParseConfig(cfgFile, spec, codegen.ComponentConfigValidator)
 			if err != nil {
 				t.Fatalf("unexpected error %v", err)
@@ -154,7 +154,7 @@ rollout = "hello"
 		},
 	} {
 		t.Run(c.name, func(t *testing.T) {
-			_, err := runtime.ParseConfig("weaver.toml", c.cfg, codegen.ComponentConfigValidator)
+			_, err := runtime.ParseConfig("weft.toml", c.cfg, codegen.ComponentConfigValidator)
 			if err == nil {
 				t.Fatalf("unexpected success when expecting %q in\n%s", c.expectedError, c.cfg)
 			}

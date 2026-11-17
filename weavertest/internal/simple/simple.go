@@ -32,7 +32,7 @@ import (
 	"github.com/brunobls/weft/metadata"
 )
 
-//go:generate ../../../cmd/weaver/weaver generate
+//go:generate ../../../cmd/weft/weft generate
 
 type Source interface {
 	Emit(ctx context.Context, file, msg string) error

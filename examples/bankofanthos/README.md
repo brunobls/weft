@@ -76,10 +76,10 @@ Finally, run the application.
 $ go build .
 
 # Run the application in a single process.
-$ weaver single deploy weaver.toml
+$ weaver single deploy weft.toml
 
 # Run the application in multiple processes.
-$ weaver multi deploy weaver.toml
+$ weaver multi deploy weft.toml
 ```
 
 [accounts-db]: https://github.com/GoogleCloudPlatform/bank-of-anthos/tree/main/src/accounts/accounts-db/initdb

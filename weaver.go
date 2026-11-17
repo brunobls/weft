@@ -47,7 +47,7 @@ import (
 //go:generate ./dev/protoc.sh internal/tool/ssh/impl/ssh.proto
 //go:generate ./dev/protoc.sh runtime/protos/runtime.proto
 //go:generate ./dev/protoc.sh runtime/protos/config.proto
-//go:generate ./cmd/weaver/weaver generate . ./internal/tool/multi
+//go:generate ./cmd/weft/weft generate . ./internal/tool/multi
 //go:generate ./dev/writedeps.sh
 
 // RemoteCallError indicates that a remote component method call failed to
@@ -146,10 +146,20 @@ func Run[T any, P PointerToMain[T]](ctx context.Context, app func(context.Contex
 	return runRemote[T, P](ctx, app, bootstrap)
 }
 
+// configFileFromEnv returns the config file named by WEFT_CONFIG or, if that is
+// empty, by the legacy SERVICEWEAVER_CONFIG variable.
+func configFileFromEnv() string {
+	if f := os.Getenv("WEFT_CONFIG"); f != "" {
+		return f
+	}
+	return os.Getenv("SERVICEWEAVER_CONFIG")
+}
+
 func runLocal[T any, _ PointerToMain[T]](ctx context.Context, app func(context.Context, *T) error) error {
-	// Read config from SERVICEWEAVER_CONFIG env variable, if non-empty.
+	// Read config from the WEFT_CONFIG (or legacy SERVICEWEAVER_CONFIG) env
+	// variable, if non-empty.
 	opts := weaver.SingleWeaveletOptions{}
-	if filename := os.Getenv("SERVICEWEAVER_CONFIG"); filename != "" {
+	if filename := configFileFromEnv(); filename != "" {
 		contents, err := os.ReadFile(filename)
 		if err != nil {
 			return fmt.Errorf("config file: %w", err)

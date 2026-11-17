@@ -89,7 +89,7 @@ jobs:
         if: ${{ matrix.command == 'lint' }}
 
       - name: Build the weaver binary
-        run: cd cmd/weaver; go build -buildvcs=false .
+        run: cd cmd/weft; go build -buildvcs=false .
         if: ${{ matrix.command == 'test' || matrix.command == 'testrace' }}
 
       - name: ${{ matrix.command }}
@@ -139,7 +139,7 @@ jobs:
         run: |
           # TODO(mwhittaker): Check .pb.go files.
           # Exclude the weaver binary, which is built by the generate tool.
-          rm ./cmd/weaver/weaver
+          rm ./cmd/weft/weft
           # Exclude .pb.go files, as the protoc version may differ.
           if [[ $(git ls-files --modified --others | grep -v '.*\.pb\.go') ]]; then
             for f in $(git ls-files --modified); do

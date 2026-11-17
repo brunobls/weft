@@ -21,7 +21,7 @@ import (
 )
 
 //go:generate ../../../dev/protoc.sh ping.proto
-//go:generate ../../../cmd/weaver/weaver generate ./...
+//go:generate ../../../cmd/weft/weft generate ./...
 
 type PingPonger interface {
 	Ping(context.Context, *Ping) (*Pong, error)

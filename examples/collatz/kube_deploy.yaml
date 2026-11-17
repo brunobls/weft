@@ -13,7 +13,7 @@
 # limitations under the License.
 
 # Path to the app config.
-appConfig: weaver.toml
+appConfig: weft.toml
 
 # Registry to upload the app docker image.
 repo: docker.io/my_docker_hub_username/

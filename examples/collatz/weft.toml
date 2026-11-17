@@ -1,4 +1,4 @@
-[serviceweaver]
+[weft]
 binary = "./collatz"
 rollout = "5m"
 

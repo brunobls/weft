@@ -28,7 +28,7 @@ func main() {
 	}
 }
 
-//go:generate ../../cmd/weaver/weaver generate
+//go:generate ../../cmd/weft/weft generate
 
 type app struct {
 	weft.Implements[weft.Main]

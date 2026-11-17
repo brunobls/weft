@@ -25,7 +25,7 @@ import (
 	"github.com/brunobls/weft"
 )
 
-//go:generate ../../cmd/weaver/weaver generate
+//go:generate ../../cmd/weft/weft generate
 
 //go:embed index.html
 var indexHtml string // index.html served on "/"

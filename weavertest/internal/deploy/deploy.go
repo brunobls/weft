@@ -24,7 +24,7 @@ import (
 	"github.com/google/uuid"
 )
 
-//go:generate ../../../cmd/weaver/weaver generate
+//go:generate ../../../cmd/weft/weft generate
 
 type Started interface {
 	MarkStarted(_ context.Context, dir string) error

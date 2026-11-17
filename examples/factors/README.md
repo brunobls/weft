@@ -39,7 +39,7 @@ $ curl localhost:9000?x=100
 To run the app across multiple processes, use `weaver multi deploy`:
 
 ```console
-weaver multi deploy weaver.toml
+weaver multi deploy weft.toml
 ```
 
 When a `Factorer` component receives an invocation of its `Factor` method, it
@@ -51,5 +51,5 @@ pids to confirm that requests are being routed.
 To run the app on GKE, use `weaver gke deploy`:
 
 ```console
-$ weaver gke deploy weaver.toml
+$ weaver gke deploy weft.toml
 ```

@@ -51,15 +51,15 @@ import (
 const (
 	generatedCodeFile = "weaver_gen.go"
 
-	Usage = `Generate code for a Service Weaver application.
+	usageTemplate = `Generate code for a Weft application.
 
 Usage:
   weaver generate [-tags taglist] [packages]
 
 Description:
-  "weaver generate" generates code for the Service Weaver applications in the
+  "weaver generate" generates code for the Weft applications in the
   provided packages. For example, "weaver generate . ./foo" will generate code
-  for the Service Weaver applications in the current directory and in the ./foo
+  for the Weft applications in the current directory and in the ./foo
   directory. For every package, the generated code is placed in a weaver_gen.go
   file in the package's directory. For example, "weaver generate . ./foo" will
   create ./weaver_gen.go and ./foo/weaver_gen.go.
@@ -109,6 +109,12 @@ type Options struct {
 // Generate generates Service Weaver code for the specified packages.
 // The list of supplied packages are treated similarly to the arguments
 // passed to "go build" (see "go help packages" for details).
+// Usage returns the help text of the generate subcommand of the command
+// invoked as name.
+func Usage(name string) string {
+	return strings.ReplaceAll(usageTemplate, "weaver generate", name+" generate")
+}
+
 func Generate(dir string, pkgs []string, opt Options) error {
 	if opt.Warn == nil {
 		opt.Warn = func(err error) { fmt.Fprintln(os.Stderr, err) }
@@ -1053,20 +1059,20 @@ func (g *generator) generateVersionCheck(p printFn) error {
 		version.CodegenMajor, version.CodegenMinor,
 		fmt.Sprintf("`"+`
 
-ERROR: You generated this file with 'weaver generate' %s (codegen
+ERROR: You generated this file with 'weft generate' %s (codegen
 version %s). The generated code is incompatible with the version of the
-github.com/brunobls/weft module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weft module
 version can be found in your go.mod file or by running the following command.
 
     go list -m github.com/brunobls/weft
 
-We recommend updating the weaver module and the 'weaver generate' command by
+We recommend updating the weft module and the 'weft generate' command by
 running the following.
 
     go get github.com/brunobls/weft@latest
-    go install github.com/brunobls/weft/cmd/weaver@latest
+    go install github.com/brunobls/weft/cmd/weft@latest
 
-Then, re-run 'weaver generate' and re-build your code. If the problem persists,
+Then, re-run 'weft generate' and re-build your code. If the problem persists,
 please file an issue at https://github.com/brunobls/weft/issues.
 
 `+"`", selfVersion, version.CodegenVersion),

@@ -21,7 +21,7 @@ application locally across multiple processes, use `weaver multi deploy`.
 
 ```console
 $ go run .                        # Run in a single process.
-$ weaver multi deploy weaver.toml # Run in multiple processes.
+$ weaver multi deploy weft.toml # Run in multiple processes.
 ```
 
 ## How to interact with the application?

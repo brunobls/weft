@@ -1,4 +1,4 @@
-[serviceweaver]
+[weft]
 binary = "./collatz"
 args = ["--local_addr=localhost:10000"]
 rollout = "5m"

@@ -28,12 +28,12 @@ function cmd_tidy() {
 
 function cmd_generate() {
   # Generate go files.
-  (cd cmd/weaver && go build -buildvcs=false)
+  (cd cmd/weft && go build -buildvcs=false)
   go generate ./...
 
   # No go:generate directive covers these packages, so generate them
   # explicitly; otherwise their weaver_gen.go files go stale.
-  ./cmd/weaver/weaver generate ./examples/bankofanthos/... ./sim/internal/bank
+  ./cmd/weft/weft generate ./examples/bankofanthos/... ./sim/internal/bank
 
   # Record the dependencies once everything is generated, so that godeps.txt
   # is right after a single pass.
@@ -51,9 +51,9 @@ function cmd_build() {
   go build ./...
 
   # Also build the important binaries (go build does not build them if passed
-  # any arguments). Note; we build cmd/weaver since user may have skipped the
+  # any arguments). Note; we build cmd/weft since user may have skipped the
   # generate phase.
-  (cd cmd/weaver && go build -buildvcs=false)
+  (cd cmd/weft && go build -buildvcs=false)
 }
 
 function cmd_vet() {

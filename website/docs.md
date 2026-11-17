@@ -11,9 +11,9 @@ single command.
 
 ```console
 $ go run .                       # Run locally.
-$ weaver ssh deploy weaver.toml  # Run on multiple machines.
-$ weaver gke deploy weaver.toml  # Run on Google Cloud.
-$ weaver kube deploy weaver.toml # Run on Kubernetes.
+$ weaver ssh deploy weft.toml  # Run on multiple machines.
+$ weaver gke deploy weft.toml  # Run on Google Cloud.
+$ weaver kube deploy weft.toml # Run on Kubernetes.
 ```
 
 A Service Weaver application is composed of a number of **components**. A
@@ -327,7 +327,7 @@ Here's an explanation of the code:
 By default, all application listeners listen on a random port chosen by the
 operating system. Here, we want to change this default behavior and assign a
 fixed local listener port for the `hello` listener. To do so, create a
-[TOML](https://toml.io) config file named `weaver.toml` with
+[TOML](https://toml.io) config file named `weft.toml` with
 the following contents:
 
 ```toml
@@ -352,7 +352,7 @@ names `"foo"`, `"bar42"`, and `"_moo"` are legal, while `""`, `"foo bar"`, and
 `"foo-bar"` are illegal.
 
 Run `weaver generate`, then `go mod tidy`, and then
-`SERVICEWEAVER_CONFIG=weaver.toml go run .`.
+`WEFT_CONFIG=weft.toml go run .`.
 The program should print out the name of the application and a unique
 deployment id. It should then block serving HTTP requests on `localhost:12345`.
 
@@ -411,7 +411,7 @@ You can also run `weaver single dashboard` to open a dashboard in a web browser.
 We've seen how to run a Service Weaver application in a single process with `go
 run`. Now, we'll run our application in multiple processes, with method calls
 between components executed as RPCs. First, create a [TOML](https://toml.io)
-config file named `weaver.toml` with the following contents:
+config file named `weft.toml` with the following contents:
 
 ```toml
 [serviceweaver]
@@ -427,7 +427,7 @@ using `weaver multi deploy`:
 
 ```console
 $ go build                        # build the ./hello binary
-$ weaver multi deploy weaver.toml # deploy the application
+$ weaver multi deploy weft.toml # deploy the application
 ╭───────────────────────────────────────────────────╮
 │ app        : hello                                │
 │ deployment : 6b285407-423a-46cc-9a18-727b5891fc57 │
@@ -499,7 +499,7 @@ Engine][gke], Google Cloud's hosted Kubernetes offering, as easily as running a
 single command (see the [GKE](#gke) section for details):
 
 ```console
-$ weaver gke deploy weaver.toml
+$ weaver gke deploy weft.toml
 ```
 
 When you run this command, Service Weaver will
@@ -888,16 +888,16 @@ my_custom_name = "Bonjour"
 ```
 
 If you run an application directly (i.e. using `go run`), you can pass the
-config file using the `SERVICEWEAVER_CONFIG` environment variable:
+config file using the `WEFT_CONFIG` environment variable:
 
 ```console
-$ SERVICEWEAVER_CONFIG=weaver.toml go run .
+$ WEFT_CONFIG=weft.toml go run .
 ```
 
 Or, use `weaver single deploy`:
 
 ```console
-$ weaver single deploy weaver.toml
+$ weaver single deploy weft.toml
 ```
 
 ## Context Propagation
@@ -1605,10 +1605,10 @@ $ go run .
 ```
 
 If you run an application using `go run`, you can provide a config file using
-the `SERVICEWEAVER_CONFIG` environment variable:
+the `WEFT_CONFIG` environment variable:
 
 ```console
-$ SERVICEWEAVER_CONFIG=weaver.toml go run .
+$ WEFT_CONFIG=weft.toml go run .
 ```
 
 Or, you can use the `weaver single deploy` command. `weaver single deploy` is
@@ -1616,7 +1616,7 @@ practically identical to `go run .`, but it makes it easier to provide a config
 file.
 
 ```console
-$ weaver single deploy weaver.toml
+$ weaver single deploy weft.toml
 ```
 
 You can run `weaver single status` to view the status of all active Service
@@ -1794,7 +1794,7 @@ to learn more about how to use the tracing UI.
 
 You can use `weaver multi` to deploy a Service Weaver application across
 multiple processes on your local machine, with each component replica running in
-a separate OS process. Create [a config file](#config-files), say `weaver.toml`,
+a separate OS process. Create [a config file](#config-files), say `weft.toml`,
 that points to your compiled Service Weaver application.
 
 ```toml
@@ -1805,7 +1805,7 @@ binary = "./your_compiled_serviceweaver_binary"
 Deploy the application using `weaver multi deploy`:
 
 ```console
-$ weaver multi deploy weaver.toml
+$ weaver multi deploy weft.toml
 ```
 
 Refer to the [Step by Step Tutorial](#step-by-step-tutorial) section for a full
@@ -1987,7 +1987,7 @@ imagine you `weaver multi deploy` your Service Weaver application and it gets a 
 id `28807368-1101-41a3-bdcb-9625e0f02ca0`.
 
 ```console
-$ weaver multi deploy weaver.toml
+$ weaver multi deploy weft.toml
 ╭───────────────────────────────────────────────────╮
 │ app        : hello                                │
 │ deployment : 28807368-1101-41a3-bdcb-9625e0f02ca0 │
@@ -2096,7 +2096,7 @@ Consider again the "Hello, World!" Service Weaver application from the [Step by
 Step Tutorial](#step-by-step-tutorial) section. The application runs an HTTP
 server on a listener named `hello` with a `/hello?name=<name>` endpoint that
 returns a `Hello, <name>!` greeting. To deploy this application on Kubernetes, first
-create a [Service Weaver application config file](#config-files), say `weaver.toml`,
+create a [Service Weaver application config file](#config-files), say `weft.toml`,
 with the following contents:
 
 ```toml
@@ -2111,7 +2111,7 @@ Then, create a `Kube` configuration file say `config.yaml`, with the following
 contents:
 
 ```yaml
-appConfig: weaver.toml
+appConfig: weft.toml
 repo: docker.io/mydockerid
 
 listeners:
@@ -2305,7 +2305,7 @@ the `Kube` deployer will run two colocation groups, where the pods that run the
 `Main` component require at least `64Mi` memory.
 
 ```yaml
-appConfig: weaver.toml
+appConfig: weft.toml
 repo: docker.io/mydockerid
 
 listeners:
@@ -2404,7 +2404,7 @@ For example, if you want to do atomic rollouts across multiple versions of the
 listener as follows:
 
 ```yaml
-appConfig: weaver.toml
+appConfig: weft.toml
 repo: docker.io/mydockerid
 
 listeners:
@@ -2484,7 +2484,7 @@ Consider again the "Hello, World!" Service Weaver application from the [Step by
 Step Tutorial](#step-by-step-tutorial) section. The application runs an HTTP
 server on a listener named `hello` with a `/hello?name=<name>` endpoint that
 returns a `Hello, <name>!` greeting. To deploy this application to GKE, first
-create a [Service Weaver config file](#config-files), say `weaver.toml`, with
+create a [Service Weaver config file](#config-files), say `weft.toml`, with
 the following contents:
 
 ```toml
@@ -2518,7 +2518,7 @@ Deploy the application using `weaver gke deploy`:
 
 ```console
 $ GOOS=linux GOARCH=amd64 go build
-$ weaver gke deploy weaver.toml
+$ weaver gke deploy weft.toml
 ...
 Deploying the application... Done
 Version "8e1c640a-d87b-4020-b3dd-4efc1850756c" of app "hello" started successfully.
@@ -2908,14 +2908,14 @@ If you want to deploy in a different project then you should pass the name of th
 new Google Cloud project as a flag when deploying your application:
 
 ```console
-$ weaver gke deploy --project=new_project_name weaver.toml
+$ weaver gke deploy --project=new_project_name weft.toml
 ```
 
 If you want to deploy using a different account then you should pass the name of the
 new Google Cloud Account as a flag when deploying your application:
 
 ```console
-$ weaver gke deploy --account=new_account_name weaver.toml
+$ weaver gke deploy --account=new_account_name weft.toml
 ```
 
 ### Telemetry
@@ -2979,7 +2979,7 @@ World!" application to GKE using `weaver gke deploy`. We can deploy the same app
 locally using `weaver gke-local deploy`:
 
 ```console
-$ cat weaver.toml
+$ cat weft.toml
 [serviceweaver]
 binary = "./hello"
 
@@ -2987,7 +2987,7 @@ binary = "./hello"
 regions = ["us-west1"]
 listeners.hello = {is_public = true, hostname = "hello.com"}
 
-$ weaver gke-local deploy weaver.toml
+$ weaver gke-local deploy weft.toml
 Deploying the application... Done
 Version "a2bc7a7a-fcf6-45df-91fe-6e6af171885d" of app "hello" started successfully.
 Note that stopping this binary will not affect the app in any way.
@@ -3036,7 +3036,7 @@ $ weaver gke-local status
 The output is, unsurprisingly, identical to that of `weaver gke status`. There is
 information about every app, component, and listener. Note that for this
 example, `weaver gke-local` is running the "Hello, World!" application in a fake
-us-west1 "region", as specified in the `weaver.toml` config file.
+us-west1 "region", as specified in the `weft.toml` config file.
 
 `weaver gke-local` runs a proxy on port 8000 that simulates the global load
 balancer used by `weaver gke`. We can curl the proxy in the same way we curled
@@ -3251,7 +3251,7 @@ Step Tutorial](#step-by-step-tutorial) section. The application runs an HTTP
 server on a listener named `hello` with a `/hello?name=<name>` endpoint that
 returns a `Hello, <name>!` greeting. To deploy this application using the `SSH`
 deployer, first create a [Service Weaver application config file](#config-files),
-say `weaver.toml`, with the following contents:
+say `weft.toml`, with the following contents:
 
 ```toml
 [serviceweaver]
@@ -3277,7 +3277,7 @@ machines is specified as follows in `ssh_locations.txt`:
 Deploy the application using `weaver ssh deploy`:
 
 ```console
-$ weaver ssh deploy weaver.toml
+$ weaver ssh deploy weft.toml
 ```
 
 When `weaver ssh deploy` terminates (e.g., when you press `ctrl+c`), the

@@ -620,6 +620,13 @@ func (m *manager) handleRecvMetrics(_ context.Context, metrics *BabysitterMetric
 	return nil
 }
 
+// babysitterPath returns the path, in the deployment directory dir of a remote
+// location, of the copy of the executable exe. The executable is copied with
+// scp, which keeps its file name ("weft", "weaver", ...).
+func babysitterPath(dir, exe string) string {
+	return filepath.Join(dir, filepath.Base(exe))
+}
+
 // startBabysitter starts a new babysitter that manages a colocation group using SSH.
 func (m *manager) startBabysitter(loc string, info *BabysitterInfo) error {
 	input, err := proto.ToEnv(info)
@@ -628,7 +635,11 @@ func (m *manager) startBabysitter(loc string, info *BabysitterInfo) error {
 	}
 
 	env := fmt.Sprintf("%s=%s", babysitterInfoKey, input)
-	binaryPath := filepath.Join(m.locations[loc], "weaver")
+	exe, err := os.Executable()
+	if err != nil {
+		return err
+	}
+	binaryPath := babysitterPath(m.locations[loc], exe)
 	cmd := exec.Command("ssh", loc, env, binaryPath, "ssh", "babysitter")
 	return cmd.Start()
 }

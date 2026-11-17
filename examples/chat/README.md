@@ -39,7 +39,7 @@ $ docker run \
 $ docker exec mysql sh -c "mysql --password=password < /app/chat.sql"
 ```
 
-Next, update the `db_uri` field in `weaver.toml` to point to your MySQL
+Next, update the `db_uri` field in `weft.toml` to point to your MySQL
 instance. If you used the Docker commands above, the default value of `db_uri`
 should already point to your database. You don't have to change anything.
 
@@ -49,10 +49,10 @@ Finally, run the application.
 $ go build .
 
 # Run the application in a single process.
-$ weaver single deploy weaver.toml
+$ weaver single deploy weft.toml
 
 # Run the application in multiple processes.
-$ weaver multi deploy weaver.toml
+$ weaver multi deploy weft.toml
 ```
 
 ## How to Run on Kubernetes
@@ -64,9 +64,9 @@ First, run a MySQL instance in your Kubernetes cluster and initialize it with
 $ kubectl apply -f mysql.yaml
 ```
 
-Next, update the `db_uri` field in `weaver.toml` to point to your MySQL
+Next, update the `db_uri` field in `weft.toml` to point to your MySQL
 instance. If you're using `mysql.yaml`, then you should update the `SQLStore`
-section of `weaver.toml` to have the following contents:
+section of `weft.toml` to have the following contents:
 
 ```toml
 ["github.com/brunobls/weft/examples/chat/SQLStore"]
@@ -102,12 +102,12 @@ the `"No password"` and `"Private IP"` options are checked and the latter is
 configured to use the `"default"` network.
 
 Once the instance is created, copy the IP address from the instance dashboard
-and substitute it for `localhost` in the `weaver.toml` file.
+and substitute it for `localhost` in the `weft.toml` file.
 
 Deploy the app:
 
 ```sh
-$ weaver-gke deploy ./weaver.toml
+$ weaver-gke deploy ./weft.toml
 ```
 
 [cloud_sql]: https://cloud.google.com/sql

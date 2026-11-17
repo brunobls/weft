@@ -52,11 +52,11 @@ $ curl localhost:9000?x=27  # In a different terminal.
 ```
 
 To run the app across multiple processes, use `weaver multi deploy`. The
-`weaver.toml` config file runs every component in a separate process, and the
+`weft.toml` config file runs every component in a separate process, and the
 `colocated.toml` config file colocates all three components.
 
 ```console
-$ weaver multi deploy weaver.toml     # not colocated
+$ weaver multi deploy weft.toml     # not colocated
 $ weaver multi deploy colocated.toml # colocated
 ```
 
@@ -65,7 +65,7 @@ $ weaver multi deploy colocated.toml # colocated
 To run the app on GKE, use `weaver gke deploy`:
 
 ```console
-$ weaver gke deploy weaver.toml
+$ weaver gke deploy weft.toml
 ```
 
 [collatz]: https://en.wikipedia.org/wiki/Collatz_conjecture

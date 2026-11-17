@@ -21,7 +21,7 @@ import (
 	"github.com/brunobls/weft"
 )
 
-//go:generate ../cmd/weaver/weaver generate .
+//go:generate ../cmd/weft/weft generate .
 
 // This file contains components used to test the simulator in sim_test.go. The
 // callgraph is intentionally overcomplicated to exercise the simulator.

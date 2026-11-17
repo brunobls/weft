@@ -21,7 +21,7 @@ import (
 	"github.com/brunobls/weft"
 )
 
-//go:generate ../../cmd/weaver/weaver generate
+//go:generate ../../cmd/weft/weft generate
 
 // Clock component interface.
 type Clock interface {

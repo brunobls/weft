@@ -15,6 +15,7 @@
 package runtime
 
 import (
+	"path/filepath"
 	"strings"
 	"testing"
 )
@@ -69,6 +70,38 @@ func TestNewConfigSectionsAccepted(t *testing.T) {
 		t.Run(c.name, func(t *testing.T) {
 			if _, err := ParseConfig("weaver.toml", c.cfg, noValidation); err != nil {
 				t.Fatalf("ParseConfig: unexpected error %v", err)
+			}
+		})
+	}
+}
+
+// TestWeftShortSection checks the [weft] short key of the application section,
+// next to the kept [serviceweaver] one.
+func TestWeftShortSection(t *testing.T) {
+	for _, c := range []struct {
+		name, cfg string
+		wantBin   string // base name of the resolved binary
+		wantErr   string
+	}{
+		{"weft", "[weft]\nbinary = \"./x\"\n", "x", ""},
+		{"serviceweaver kept", "[serviceweaver]\nbinary = \"./y\"\n", "y", ""},
+		{"both", "[weft]\nbinary = \"./x\"\n[serviceweaver]\nbinary = \"./y\"\n", "", "conflicting sections"},
+		{"weft and long key", "[weft]\nbinary = \"./x\"\n[\"" + modulePath + "\"]\nbinary = \"./y\"\n", "", "conflicting sections"},
+		{"weft unknown key", "[weft]\nnope = 1\n", "", "unknown keys"},
+	} {
+		t.Run(c.name, func(t *testing.T) {
+			cfg, err := ParseConfig("weft.toml", c.cfg, noValidation)
+			if c.wantErr != "" {
+				if err == nil || !strings.Contains(err.Error(), c.wantErr) {
+					t.Fatalf("err = %v, want containing %q", err, c.wantErr)
+				}
+				return
+			}
+			if err != nil {
+				t.Fatal(err)
+			}
+			if filepath.Base(cfg.Binary) != c.wantBin {
+				t.Errorf("Binary = %q, want %q", cfg.Binary, c.wantBin)
 			}
 		})
 	}

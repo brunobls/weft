@@ -52,7 +52,7 @@ const (
 var deployCmd = tool.Command{
 	Name:        "deploy",
 	Description: "Deploy a Service Weaver app",
-	Help:        "Usage:\n  weaver ssh deploy <configfile>",
+	Help:        "Usage:\n  weft ssh deploy <configfile>",
 	Flags:       flag.NewFlagSet("deploy", flag.ContinueOnError),
 	Fn:          deploy,
 }
@@ -112,15 +112,15 @@ func deploy(ctx context.Context, args []string) error {
 		}
 		return fmt.Errorf(`
 ERROR: The binary you're trying to deploy (%q) was built with
-github.com/brunobls/weft module version %s. However, the 'weaver
-ssh' binary you're using was built with weaver module version %s.
+github.com/brunobls/weft module version %s. However, the 'weft
+ssh' binary you're using was built with weft module version %s.
 These versions are incompatible.
 
-We recommend updating both the weaver module your application is built with and
-updating the 'weaver ssh' command by running the following.
+We recommend updating both the weft module your application is built with and
+updating the 'weft ssh' command by running the following.
 
     go get github.com/brunobls/weft@latest
-    go install github.com/brunobls/weft/cmd/weaver@latest
+    go install github.com/brunobls/weft/cmd/weft@latest
 
 Then, re-build your code and re-run 'weaver ssh deploy'. If the problem
 persists, please file an issue at https://github.com/brunobls/weft/issues.`,

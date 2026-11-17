@@ -34,9 +34,9 @@ type test struct {
 }
 
 func TestExamples(t *testing.T) {
-	// Build the weaver binary.
-	cmd := exec.Command("go", "build")
-	cmd.Dir = "../cmd/weaver"
+	// Build the weft binary.
+	cmd := exec.Command("go", "build", "-buildvcs=false")
+	cmd.Dir = "../cmd/weft"
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
 		t.Fatal(err)
@@ -92,7 +92,7 @@ func TestExamples(t *testing.T) {
 
 			// Run the application directly.
 			t.Run("single", func(t *testing.T) {
-				env := []string{"SERVICEWEAVER_CONFIG=weaver.toml"}
+				env := []string{"WEFT_CONFIG=weft.toml"}
 				cmd := startCmd(ctx, t, env, "./"+name)
 				t.Cleanup(terminateCmdAndWait(t, cmd))
 				run(t, test)
@@ -100,14 +100,14 @@ func TestExamples(t *testing.T) {
 
 			// "weaver single deploy" the application.
 			t.Run("weaver-single", func(t *testing.T) {
-				cmd := startCmd(ctx, t, nil, "../../cmd/weaver/weaver", "single", "deploy", "weaver.toml")
+				cmd := startCmd(ctx, t, nil, "../../cmd/weft/weft", "single", "deploy", "weft.toml")
 				t.Cleanup(terminateCmdAndWait(t, cmd))
 				run(t, test)
 			})
 
 			// "weaver multi deploy" the application.
 			t.Run("weaver-multi-nomtls", func(t *testing.T) {
-				cmd := startCmd(ctx, t, nil, "../../cmd/weaver/weaver", "multi", "deploy", "weaver.toml")
+				cmd := startCmd(ctx, t, nil, "../../cmd/weft/weft", "multi", "deploy", "weft.toml")
 				t.Cleanup(terminateCmdAndWait(t, cmd))
 				run(t, test)
 
@@ -128,7 +128,7 @@ func TestExamples(t *testing.T) {
 					if os.Getenv("GITHUB_RUN_ID") != "" {
 						t.Skip("test takes too long (over 30s) on github")
 					}
-					cmd := startCmd(ctx, t, nil, "../../cmd/weaver/weaver", "multi", "deploy", "weaver_mtls.toml")
+					cmd := startCmd(ctx, t, nil, "../../cmd/weft/weft", "multi", "deploy", "weft_mtls.toml")
 					t.Cleanup(terminateCmdAndWait(t, cmd))
 					run(t, test)
 				})

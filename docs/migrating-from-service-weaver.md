@@ -42,15 +42,31 @@ func main() { weft.Run(ctx, serve) }
 ## Installing the Weft generator
 
 The `weaver generate` you already have installed is Service Weaver's: it
-generates code for the old module and package. Install the Weft generator:
+generates code for the old module and package. Install the Weft command line
+tool, `weft`:
+
+    go install github.com/brunobls/weft/cmd/weft@latest
+
+Then run `weft generate` in your module, as before. The `weft` command accepts
+the same subcommands as `weaver` (`generate`, `version`, `single`, `multi`,
+`ssh`, ...). Deployers outside this repository are found as `weft-<deployer>`,
+and as `weaver-<deployer>` when no `weft-<deployer>` exists.
+
+For compatibility Weft also provides a `weaver` command, which is an alias of
+`weft` and reports itself as `weaver`. It is installed with
 
     go install github.com/brunobls/weft/cmd/weaver@latest
 
-The Weft binary is also named `weaver` for now, so this overwrites the Service
-Weaver `weaver` in `$GOBIN` (and installing Service Weaver again overwrites
-Weft's). If you still need both, install one of them with a different
-directory, for example `GOBIN=$HOME/weft-bin go install ...`, and run it by
-its full path. Then run `weaver generate` in your module, as before.
+Beware that this overwrites the Service Weaver `weaver` in `$GOBIN`, and that
+installing Service Weaver again overwrites Weft's. To tell which `weaver` is
+the active one, ask Go for the module it was built from:
+
+    go version -m "$(command -v weaver)"
+
+The `mod` line names `github.com/brunobls/weft` for Weft and
+`github.com/ServiceWeaver/weaver` for Service Weaver. If you still need both,
+install one of them in a different directory, for example
+`GOBIN=$HOME/weft-bin go install ...`, and run it by its full path.
 
 ## 2. Configuration files
 
@@ -67,7 +83,10 @@ is an error. Weft does not read them, and it refuses to start rather than
 ignore them, which would for example start an app without `mtls = true`.
 Rename them by replacing the prefix `github.com/ServiceWeaver/weaver` with
 `github.com/brunobls/weft`. The short section `[serviceweaver]` keeps
-working.
+working, and `[weft]` is accepted as well (not both in the same file).
+
+The environment variable `WEFT_CONFIG` names the config file of an application
+run directly; `SERVICEWEAVER_CONFIG` is still read when `WEFT_CONFIG` is empty.
 
 A deployer outside this repository that builds the application's config
 sections without calling `runtime.ParseConfig` does not get this error: pass

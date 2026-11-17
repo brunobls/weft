@@ -22,7 +22,7 @@ import (
 	"github.com/brunobls/weft/weavertest"
 )
 
-//go:generate ../../../cmd/weaver/weaver generate ./...
+//go:generate ../../../cmd/weft/weft generate ./...
 
 // TestDealiasing demonstrates that pointers are only de-aliased when we use RPCs.
 func TestDealiasing(t *testing.T) {

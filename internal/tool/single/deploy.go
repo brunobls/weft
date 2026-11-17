@@ -82,7 +82,7 @@ func deploy(ctx context.Context, args []string) error {
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	cmd.Env = append(cmd.Environ(), "SERVICEWEAVER_CONFIG="+configFile)
+	cmd.Env = append(cmd.Environ(), "WEFT_CONFIG="+configFile)
 
 	// Make sure that the subprocess dies when we die. This isn't perfect, as
 	// we can't catch a SIGKILL, but it's good in the common case.

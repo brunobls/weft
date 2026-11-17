@@ -24,7 +24,7 @@ import (
 	"github.com/brunobls/weft/metrics"
 )
 
-//go:generate ../../cmd/weaver/weaver generate .
+//go:generate ../../cmd/weft/weft generate .
 
 // Define three components---a, b, and c---that are used in unit tests.
 
