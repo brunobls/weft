@@ -24,7 +24,7 @@ import (
 	"sync"
 	"sync/atomic"
 
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/runtime/protos"
 	"github.com/google/uuid"
 	"golang.org/x/exp/maps"
 )

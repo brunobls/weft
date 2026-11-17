@@ -6,8 +6,8 @@ package protos
 import (
 	"context"
 	"errors"
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/runtime/codegen"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 	"reflect"
@@ -15,14 +15,14 @@ import (
 
 func init() {
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/weavertest/internal/protos/PingPonger",
+		Name:  "github.com/brunobls/weft/weavertest/internal/protos/PingPonger",
 		Iface: reflect.TypeOf((*PingPonger)(nil)).Elem(),
 		Impl:  reflect.TypeOf(impl{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return pingPonger_local_stub{impl: impl.(PingPonger), tracer: tracer, pingMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/weavertest/internal/protos/PingPonger", Method: "Ping", Remote: false, Generated: true})}
+			return pingPonger_local_stub{impl: impl.(PingPonger), tracer: tracer, pingMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/weavertest/internal/protos/PingPonger", Method: "Ping", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return pingPonger_client_stub{stub: stub, pingMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/weavertest/internal/protos/PingPonger", Method: "Ping", Remote: true, Generated: true})}
+			return pingPonger_client_stub{stub: stub, pingMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/weavertest/internal/protos/PingPonger", Method: "Ping", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return pingPonger_server_stub{impl: impl.(PingPonger), addLoad: addLoad}
@@ -112,7 +112,7 @@ func (s pingPonger_client_stub) Ping(ctx context.Context, a0 *Ping) (r0 *Pong, e
 
 	// Encode arguments.
 	enc := codegen.NewEncoder()
-	serviceweaver_enc_ptr_Ping_53efca65(enc, a0)
+	serviceweaver_enc_ptr_Ping_2cc76480(enc, a0)
 	var shardKey uint64
 
 	// Call the remote method.
@@ -127,7 +127,7 @@ func (s pingPonger_client_stub) Ping(ctx context.Context, a0 *Ping) (r0 *Pong, e
 
 	// Decode the results.
 	dec := codegen.NewDecoder(results)
-	r0 = serviceweaver_dec_ptr_Pong_10ae1a4e(dec)
+	r0 = serviceweaver_dec_ptr_Pong_1b875042(dec)
 	err = dec.Error()
 	return
 }
@@ -139,19 +139,19 @@ var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`
 
 ERROR: You generated this file with 'weaver generate' (devel) (codegen
 version v0.24.0). The generated code is incompatible with the version of the
-github.com/ServiceWeaver/weaver module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weaver module
 version can be found in your go.mod file or by running the following command.
 
-    go list -m github.com/ServiceWeaver/weaver
+    go list -m github.com/brunobls/weft
 
 We recommend updating the weaver module and the 'weaver generate' command by
 running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weaver@latest
 
 Then, re-run 'weaver generate' and re-build your code. If the problem persists,
-please file an issue at https://github.com/ServiceWeaver/weaver/issues.
+please file an issue at https://github.com/brunobls/weft/issues.
 
 `)
 
@@ -186,7 +186,7 @@ func (s pingPonger_server_stub) ping(ctx context.Context, args []byte) (res []by
 	// Decode arguments.
 	dec := codegen.NewDecoder(args)
 	var a0 *Ping
-	a0 = serviceweaver_dec_ptr_Ping_53efca65(dec)
+	a0 = serviceweaver_dec_ptr_Ping_2cc76480(dec)
 
 	// TODO(rgrandl): The deferred function above will recover from panics in the
 	// user code: fix this.
@@ -195,7 +195,7 @@ func (s pingPonger_server_stub) ping(ctx context.Context, args []byte) (res []by
 
 	// Encode the results.
 	enc := codegen.NewEncoder()
-	serviceweaver_enc_ptr_Pong_10ae1a4e(enc, r0)
+	serviceweaver_enc_ptr_Pong_1b875042(enc, r0)
 	enc.Error(appErr)
 	return enc.Data(), nil
 }
@@ -216,7 +216,7 @@ func (s pingPonger_reflect_stub) Ping(ctx context.Context, a0 *Ping) (r0 *Pong, 
 
 // Encoding/decoding implementations.
 
-func serviceweaver_enc_ptr_Ping_53efca65(enc *codegen.Encoder, arg *Ping) {
+func serviceweaver_enc_ptr_Ping_2cc76480(enc *codegen.Encoder, arg *Ping) {
 	if arg == nil {
 		enc.Bool(false)
 	} else {
@@ -225,7 +225,7 @@ func serviceweaver_enc_ptr_Ping_53efca65(enc *codegen.Encoder, arg *Ping) {
 	}
 }
 
-func serviceweaver_dec_ptr_Ping_53efca65(dec *codegen.Decoder) *Ping {
+func serviceweaver_dec_ptr_Ping_2cc76480(dec *codegen.Decoder) *Ping {
 	if !dec.Bool() {
 		return nil
 	}
@@ -234,7 +234,7 @@ func serviceweaver_dec_ptr_Ping_53efca65(dec *codegen.Decoder) *Ping {
 	return &res
 }
 
-func serviceweaver_enc_ptr_Pong_10ae1a4e(enc *codegen.Encoder, arg *Pong) {
+func serviceweaver_enc_ptr_Pong_1b875042(enc *codegen.Encoder, arg *Pong) {
 	if arg == nil {
 		enc.Bool(false)
 	} else {
@@ -243,7 +243,7 @@ func serviceweaver_enc_ptr_Pong_10ae1a4e(enc *codegen.Encoder, arg *Pong) {
 	}
 }
 
-func serviceweaver_dec_ptr_Pong_10ae1a4e(dec *codegen.Decoder) *Pong {
+func serviceweaver_dec_ptr_Pong_1b875042(dec *codegen.Decoder) *Pong {
 	if !dec.Bool() {
 		return nil
 	}

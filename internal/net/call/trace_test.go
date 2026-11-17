@@ -19,7 +19,7 @@ import (
 	"encoding/json"
 	"testing"
 
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft/runtime/codegen"
 	"github.com/google/uuid"
 	"go.opentelemetry.io/otel/trace"
 )

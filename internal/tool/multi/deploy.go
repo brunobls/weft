@@ -24,20 +24,20 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/ServiceWeaver/weaver/internal/status"
-	itool "github.com/ServiceWeaver/weaver/internal/tool"
-	"github.com/ServiceWeaver/weaver/internal/tool/config"
-	"github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/bin"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/runtime/retry"
-	"github.com/ServiceWeaver/weaver/runtime/tool"
-	"github.com/ServiceWeaver/weaver/runtime/version"
+	"github.com/brunobls/weft/internal/status"
+	itool "github.com/brunobls/weft/internal/tool"
+	"github.com/brunobls/weft/internal/tool/config"
+	"github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/bin"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/runtime/retry"
+	"github.com/brunobls/weft/runtime/tool"
+	"github.com/brunobls/weft/runtime/version"
 	"github.com/google/uuid"
 )
 
 const (
-	configKey      = "github.com/ServiceWeaver/weaver/multi"
+	configKey      = "github.com/brunobls/weft/multi"
 	shortConfigKey = "multi"
 )
 
@@ -103,18 +103,18 @@ func deploy(ctx context.Context, args []string) error {
 		}
 		return fmt.Errorf(`
 ERROR: The binary you're trying to deploy (%q) was built with
-github.com/ServiceWeaver/weaver module version %s. However, the 'weaver
+github.com/brunobls/weft module version %s. However, the 'weaver
 multi' binary you're using was built with weaver module version %s.
 These versions are incompatible.
 
 We recommend updating both the weaver module your application is built with and
 updating the 'weaver multi' command by running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weaver@latest
 
 Then, re-build your code and re-run 'weaver multi deploy'. If the problem
-persists, please file an issue at https://github.com/ServiceWeaver/weaver/issues.`,
+persists, please file an issue at https://github.com/brunobls/weft/issues.`,
 			binary, versions.ModuleVersion, selfVersion)
 	}
 

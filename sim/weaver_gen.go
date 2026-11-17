@@ -7,8 +7,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/runtime/codegen"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 	"reflect"
@@ -16,14 +16,14 @@ import (
 
 func init() {
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/sim/blocker",
+		Name:  "github.com/brunobls/weft/sim/blocker",
 		Iface: reflect.TypeOf((*blocker)(nil)).Elem(),
 		Impl:  reflect.TypeOf(blockerImpl{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return blocker_local_stub{impl: impl.(blocker), tracer: tracer, blockMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/blocker", Method: "Block", Remote: false, Generated: true})}
+			return blocker_local_stub{impl: impl.(blocker), tracer: tracer, blockMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/blocker", Method: "Block", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return blocker_client_stub{stub: stub, blockMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/blocker", Method: "Block", Remote: true, Generated: true})}
+			return blocker_client_stub{stub: stub, blockMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/blocker", Method: "Block", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return blocker_server_stub{impl: impl.(blocker), addLoad: addLoad}
@@ -34,14 +34,14 @@ func init() {
 		RefData: "",
 	})
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/sim/div",
+		Name:  "github.com/brunobls/weft/sim/div",
 		Iface: reflect.TypeOf((*div)(nil)).Elem(),
 		Impl:  reflect.TypeOf(divImpl{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return div_local_stub{impl: impl.(div), tracer: tracer, divMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/div", Method: "Div", Remote: false, Generated: true})}
+			return div_local_stub{impl: impl.(div), tracer: tracer, divMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/div", Method: "Div", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return div_client_stub{stub: stub, divMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/div", Method: "Div", Remote: true, Generated: true})}
+			return div_client_stub{stub: stub, divMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/div", Method: "Div", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return div_server_stub{impl: impl.(div), addLoad: addLoad}
@@ -49,17 +49,17 @@ func init() {
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return div_reflect_stub{caller: caller}
 		},
-		RefData: "⟦6ddebe91:wEaVeReDgE:github.com/ServiceWeaver/weaver/sim/div→github.com/ServiceWeaver/weaver/sim/identity⟧\n",
+		RefData: "⟦1685c660:wEaVeReDgE:github.com/brunobls/weft/sim/div→github.com/brunobls/weft/sim/identity⟧\n",
 	})
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/sim/divMod",
+		Name:  "github.com/brunobls/weft/sim/divMod",
 		Iface: reflect.TypeOf((*divMod)(nil)).Elem(),
 		Impl:  reflect.TypeOf(divModImpl{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return divMod_local_stub{impl: impl.(divMod), tracer: tracer, divModMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/divMod", Method: "DivMod", Remote: false, Generated: true})}
+			return divMod_local_stub{impl: impl.(divMod), tracer: tracer, divModMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/divMod", Method: "DivMod", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return divMod_client_stub{stub: stub, divModMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/divMod", Method: "DivMod", Remote: true, Generated: true})}
+			return divMod_client_stub{stub: stub, divModMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/divMod", Method: "DivMod", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return divMod_server_stub{impl: impl.(divMod), addLoad: addLoad}
@@ -67,17 +67,17 @@ func init() {
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return divMod_reflect_stub{caller: caller}
 		},
-		RefData: "⟦df3a80a0:wEaVeReDgE:github.com/ServiceWeaver/weaver/sim/divMod→github.com/ServiceWeaver/weaver/sim/div⟧\n⟦b28314dd:wEaVeReDgE:github.com/ServiceWeaver/weaver/sim/divMod→github.com/ServiceWeaver/weaver/sim/mod⟧\n",
+		RefData: "⟦b33b0871:wEaVeReDgE:github.com/brunobls/weft/sim/divMod→github.com/brunobls/weft/sim/div⟧\n⟦2f142e47:wEaVeReDgE:github.com/brunobls/weft/sim/divMod→github.com/brunobls/weft/sim/mod⟧\n",
 	})
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/sim/identity",
+		Name:  "github.com/brunobls/weft/sim/identity",
 		Iface: reflect.TypeOf((*identity)(nil)).Elem(),
 		Impl:  reflect.TypeOf(identityImpl{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return identity_local_stub{impl: impl.(identity), tracer: tracer, identityMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/identity", Method: "Identity", Remote: false, Generated: true})}
+			return identity_local_stub{impl: impl.(identity), tracer: tracer, identityMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/identity", Method: "Identity", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return identity_client_stub{stub: stub, identityMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/identity", Method: "Identity", Remote: true, Generated: true})}
+			return identity_client_stub{stub: stub, identityMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/identity", Method: "Identity", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return identity_server_stub{impl: impl.(identity), addLoad: addLoad}
@@ -88,14 +88,14 @@ func init() {
 		RefData: "",
 	})
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/sim/mod",
+		Name:  "github.com/brunobls/weft/sim/mod",
 		Iface: reflect.TypeOf((*mod)(nil)).Elem(),
 		Impl:  reflect.TypeOf(modImpl{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return mod_local_stub{impl: impl.(mod), tracer: tracer, modMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/mod", Method: "Mod", Remote: false, Generated: true})}
+			return mod_local_stub{impl: impl.(mod), tracer: tracer, modMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/mod", Method: "Mod", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return mod_client_stub{stub: stub, modMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/mod", Method: "Mod", Remote: true, Generated: true})}
+			return mod_client_stub{stub: stub, modMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/mod", Method: "Mod", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return mod_server_stub{impl: impl.(mod), addLoad: addLoad}
@@ -103,17 +103,17 @@ func init() {
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return mod_reflect_stub{caller: caller}
 		},
-		RefData: "⟦5bf2dcf2:wEaVeReDgE:github.com/ServiceWeaver/weaver/sim/mod→github.com/ServiceWeaver/weaver/sim/identity⟧\n",
+		RefData: "⟦0f97c629:wEaVeReDgE:github.com/brunobls/weft/sim/mod→github.com/brunobls/weft/sim/identity⟧\n",
 	})
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/sim/panicker",
+		Name:  "github.com/brunobls/weft/sim/panicker",
 		Iface: reflect.TypeOf((*panicker)(nil)).Elem(),
 		Impl:  reflect.TypeOf(panickerImpl{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return panicker_local_stub{impl: impl.(panicker), tracer: tracer, panicMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/panicker", Method: "Panic", Remote: false, Generated: true})}
+			return panicker_local_stub{impl: impl.(panicker), tracer: tracer, panicMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/panicker", Method: "Panic", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return panicker_client_stub{stub: stub, panicMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/panicker", Method: "Panic", Remote: true, Generated: true})}
+			return panicker_client_stub{stub: stub, panicMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/panicker", Method: "Panic", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return panicker_server_stub{impl: impl.(panicker), addLoad: addLoad}
@@ -706,19 +706,19 @@ var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`
 
 ERROR: You generated this file with 'weaver generate' (devel) (codegen
 version v0.24.0). The generated code is incompatible with the version of the
-github.com/ServiceWeaver/weaver module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weaver module
 version can be found in your go.mod file or by running the following command.
 
-    go list -m github.com/ServiceWeaver/weaver
+    go list -m github.com/brunobls/weft
 
 We recommend updating the weaver module and the 'weaver generate' command by
 running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weaver@latest
 
 Then, re-run 'weaver generate' and re-build your code. If the problem persists,
-please file an issue at https://github.com/ServiceWeaver/weaver/issues.
+please file an issue at https://github.com/brunobls/weft/issues.
 
 `)
 

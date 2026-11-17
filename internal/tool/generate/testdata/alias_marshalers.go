@@ -25,8 +25,8 @@ package foo
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/runtime/codegen"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 

@@ -21,8 +21,8 @@ import (
 	"time"
 
 	"github.com/BurntSushi/toml"
-	"github.com/ServiceWeaver/weaver/internal/env"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/internal/env"
+	"github.com/brunobls/weft/runtime/protos"
 )
 
 // ParseConfig parses the specified configuration input, which should
@@ -97,7 +97,7 @@ func ParseConfigSection(key, shortKey string, sections map[string]string, dst an
 }
 
 func extractApp(file string, config *protos.AppConfig) error {
-	const appKey = "github.com/ServiceWeaver/weaver"
+	const appKey = "github.com/brunobls/weft"
 	const shortAppKey = "serviceweaver"
 
 	// appConfig holds the data from under appKey in the TOML config.

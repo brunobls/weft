@@ -23,7 +23,7 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"github.com/ServiceWeaver/weaver/internal/cond"
+	"github.com/brunobls/weft/internal/cond"
 )
 
 // TestCancelledWait tests that a Wait on a cancelled context returns promptly

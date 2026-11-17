@@ -24,14 +24,14 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/ServiceWeaver/weaver/internal/tool/config"
-	"github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/runtime/tool"
+	"github.com/brunobls/weft/internal/tool/config"
+	"github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/runtime/tool"
 )
 
 const (
-	ConfigKey      = "github.com/ServiceWeaver/weaver/single"
+	ConfigKey      = "github.com/brunobls/weft/single"
 	ShortConfigKey = "single"
 )
 

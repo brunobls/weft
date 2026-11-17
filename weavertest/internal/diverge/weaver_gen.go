@@ -7,8 +7,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/runtime/codegen"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 	"reflect"
@@ -16,14 +16,14 @@ import (
 
 func init() {
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/weavertest/internal/diverge/Errer",
+		Name:  "github.com/brunobls/weft/weavertest/internal/diverge/Errer",
 		Iface: reflect.TypeOf((*Errer)(nil)).Elem(),
 		Impl:  reflect.TypeOf(errer{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return errer_local_stub{impl: impl.(Errer), tracer: tracer, errMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/weavertest/internal/diverge/Errer", Method: "Err", Remote: false, Generated: true})}
+			return errer_local_stub{impl: impl.(Errer), tracer: tracer, errMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/weavertest/internal/diverge/Errer", Method: "Err", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return errer_client_stub{stub: stub, errMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/weavertest/internal/diverge/Errer", Method: "Err", Remote: true, Generated: true})}
+			return errer_client_stub{stub: stub, errMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/weavertest/internal/diverge/Errer", Method: "Err", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return errer_server_stub{impl: impl.(Errer), addLoad: addLoad}
@@ -34,14 +34,14 @@ func init() {
 		RefData: "",
 	})
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/weavertest/internal/diverge/Pointer",
+		Name:  "github.com/brunobls/weft/weavertest/internal/diverge/Pointer",
 		Iface: reflect.TypeOf((*Pointer)(nil)).Elem(),
 		Impl:  reflect.TypeOf(pointer{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return pointer_local_stub{impl: impl.(Pointer), tracer: tracer, getMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/weavertest/internal/diverge/Pointer", Method: "Get", Remote: false, Generated: true})}
+			return pointer_local_stub{impl: impl.(Pointer), tracer: tracer, getMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/weavertest/internal/diverge/Pointer", Method: "Get", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return pointer_client_stub{stub: stub, getMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/weavertest/internal/diverge/Pointer", Method: "Get", Remote: true, Generated: true})}
+			return pointer_client_stub{stub: stub, getMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/weavertest/internal/diverge/Pointer", Method: "Get", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return pointer_server_stub{impl: impl.(Pointer), addLoad: addLoad}
@@ -248,19 +248,19 @@ var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`
 
 ERROR: You generated this file with 'weaver generate' (devel) (codegen
 version v0.24.0). The generated code is incompatible with the version of the
-github.com/ServiceWeaver/weaver module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weaver module
 version can be found in your go.mod file or by running the following command.
 
-    go list -m github.com/ServiceWeaver/weaver
+    go list -m github.com/brunobls/weft
 
 We recommend updating the weaver module and the 'weaver generate' command by
 running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weaver@latest
 
 Then, re-run 'weaver generate' and re-build your code. If the problem persists,
-please file an issue at https://github.com/ServiceWeaver/weaver/issues.
+please file an issue at https://github.com/brunobls/weft/issues.
 
 `)
 

@@ -20,7 +20,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ServiceWeaver/weaver/runtime/profiling"
+	"github.com/brunobls/weft/runtime/profiling"
 	"github.com/google/pprof/profile"
 )
 

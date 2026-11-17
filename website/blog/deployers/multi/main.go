@@ -23,11 +23,11 @@ import (
 	"os"
 	"sync"
 
-	"github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/colors"
-	"github.com/ServiceWeaver/weaver/runtime/envelope"
-	"github.com/ServiceWeaver/weaver/runtime/logging"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/colors"
+	"github.com/brunobls/weft/runtime/envelope"
+	"github.com/brunobls/weft/runtime/logging"
+	"github.com/brunobls/weft/runtime/protos"
 	"github.com/google/uuid"
 )
 

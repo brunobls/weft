@@ -18,7 +18,7 @@ package foo
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 var _ weaver.NotRetriable = interface{ A(context.Context) error }.A

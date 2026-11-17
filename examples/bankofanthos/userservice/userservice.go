@@ -24,7 +24,7 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 	"github.com/golang-jwt/jwt"
 	"golang.org/x/crypto/bcrypt"
 )

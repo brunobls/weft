@@ -36,7 +36,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 type Bar struct {

@@ -22,7 +22,7 @@
 
 package foo
 
-import "github.com/ServiceWeaver/weaver"
+import "github.com/brunobls/weft"
 
 type Pair struct {
 	weaver.AutoMarshal

@@ -22,8 +22,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/runtime/colors"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/runtime/colors"
+	"github.com/brunobls/weft/runtime/protos"
 )
 
 var (

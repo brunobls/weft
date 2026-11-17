@@ -17,7 +17,7 @@ package diverge
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 type Pair struct {

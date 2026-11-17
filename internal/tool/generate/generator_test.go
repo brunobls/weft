@@ -49,8 +49,8 @@ func init() {
 
 go 1.26.0
 
-require github.com/ServiceWeaver/weaver v0.0.0
-replace github.com/ServiceWeaver/weaver => %s
+require github.com/brunobls/weft v0.0.0
+replace github.com/brunobls/weft => %s
 `, weaverSrcDir)
 }
 
@@ -524,7 +524,7 @@ func TestExampleVersion(t *testing.T) {
 	got := fmt.Sprintf("%x", h.Sum(nil))
 
 	// If weaver_gen.go has changed, the codegen version may need updating.
-	const want = "fdc14ac425413ea0f80ea42d3c8d1bc555d57c511135b5639720f233668f4fe7"
+	const want = "4ec4f7ba83c2584a999a7abcf6d34e4ece232e9a56b2e48e8ca591d42be14f45"
 	if got != want {
 		t.Fatalf(`Unexpected SHA-256 hash of examples/weaver_gen.go: got %s, want %s. If this change is meaningful, REMEMBER TO UPDATE THE CODEGEN VERSION in runtime/version/version.go.`, got, want)
 	}

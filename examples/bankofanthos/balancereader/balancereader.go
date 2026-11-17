@@ -17,9 +17,9 @@ package balancereader
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/examples/bankofanthos/common"
-	"github.com/ServiceWeaver/weaver/examples/bankofanthos/model"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/examples/bankofanthos/common"
+	"github.com/brunobls/weft/examples/bankofanthos/model"
 )
 
 // T is a component that reads user balances.

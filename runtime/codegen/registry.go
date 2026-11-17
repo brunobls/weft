@@ -22,9 +22,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/ServiceWeaver/weaver/internal/config"
-	"github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/internal/config"
+	"github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/protos"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -187,7 +187,7 @@ func CallGraph() []CallEdge {
 		for i, n := 0, impl.NumField(); i < n; i++ {
 			// Handle field with type weaver.Ref[T].
 			ref := impl.Field(i).Type
-			if ref.PkgPath() == "github.com/ServiceWeaver/weaver" &&
+			if ref.PkgPath() == "github.com/brunobls/weft" &&
 				strings.HasPrefix(ref.Name(), "Ref[") &&
 				ref.Kind() == reflect.Struct &&
 				ref.NumField() == 1 &&

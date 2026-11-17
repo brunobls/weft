@@ -48,7 +48,7 @@ func MakeListenersString(component string, listeners []string) string {
 // ComponentListeners represents a set of listeners for a given component.
 type ComponentListeners struct {
 	// Fully qualified component type name, e.g.,
-	//   github.com/ServiceWeaver/weaver/Main.
+	//   github.com/brunobls/weft/Main.
 	Component string
 
 	// The list of listener names associated with the component.

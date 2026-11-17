@@ -5,15 +5,15 @@ package main
 
 import (
 	"context"
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/runtime/codegen"
 	"go.opentelemetry.io/otel/trace"
 	"reflect"
 )
 
 func init() {
 	codegen.Register(codegen.Registration{
-		Name:      "github.com/ServiceWeaver/weaver/runtime/bin/testprogram/A",
+		Name:      "github.com/brunobls/weft/runtime/bin/testprogram/A",
 		Iface:     reflect.TypeOf((*A)(nil)).Elem(),
 		Impl:      reflect.TypeOf(a{}),
 		Listeners: []string{"aLis1", "aLis2", "aLis3"},
@@ -27,10 +27,10 @@ func init() {
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return a_reflect_stub{caller: caller}
 		},
-		RefData: "⟦193f6c94:wEaVeReDgE:github.com/ServiceWeaver/weaver/runtime/bin/testprogram/A→github.com/ServiceWeaver/weaver/runtime/bin/testprogram/B⟧\n⟦8cd483a3:wEaVeReDgE:github.com/ServiceWeaver/weaver/runtime/bin/testprogram/A→github.com/ServiceWeaver/weaver/runtime/bin/testprogram/C⟧\n⟦93cd9612:wEaVeRlIsTeNeRs:github.com/ServiceWeaver/weaver/runtime/bin/testprogram/A→aLis1,aLis2,aLis3⟧\n",
+		RefData: "⟦9c423084:wEaVeReDgE:github.com/brunobls/weft/runtime/bin/testprogram/A→github.com/brunobls/weft/runtime/bin/testprogram/B⟧\n⟦b7f24e39:wEaVeReDgE:github.com/brunobls/weft/runtime/bin/testprogram/A→github.com/brunobls/weft/runtime/bin/testprogram/C⟧\n⟦6bcb6e24:wEaVeRlIsTeNeRs:github.com/brunobls/weft/runtime/bin/testprogram/A→aLis1,aLis2,aLis3⟧\n",
 	})
 	codegen.Register(codegen.Registration{
-		Name:      "github.com/ServiceWeaver/weaver/runtime/bin/testprogram/B",
+		Name:      "github.com/brunobls/weft/runtime/bin/testprogram/B",
 		Iface:     reflect.TypeOf((*B)(nil)).Elem(),
 		Impl:      reflect.TypeOf(b{}),
 		Listeners: []string{"Listener"},
@@ -44,10 +44,10 @@ func init() {
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return b_reflect_stub{caller: caller}
 		},
-		RefData: "⟦7551e870:wEaVeRlIsTeNeRs:github.com/ServiceWeaver/weaver/runtime/bin/testprogram/B→Listener⟧\n",
+		RefData: "⟦a72f1ca6:wEaVeRlIsTeNeRs:github.com/brunobls/weft/runtime/bin/testprogram/B→Listener⟧\n",
 	})
 	codegen.Register(codegen.Registration{
-		Name:      "github.com/ServiceWeaver/weaver/runtime/bin/testprogram/C",
+		Name:      "github.com/brunobls/weft/runtime/bin/testprogram/C",
 		Iface:     reflect.TypeOf((*C)(nil)).Elem(),
 		Impl:      reflect.TypeOf(c{}),
 		Listeners: []string{"cLis"},
@@ -61,10 +61,10 @@ func init() {
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return c_reflect_stub{caller: caller}
 		},
-		RefData: "⟦105ddfd4:wEaVeRlIsTeNeRs:github.com/ServiceWeaver/weaver/runtime/bin/testprogram/C→cLis⟧\n",
+		RefData: "⟦a0338f16:wEaVeRlIsTeNeRs:github.com/brunobls/weft/runtime/bin/testprogram/C→cLis⟧\n",
 	})
 	codegen.Register(codegen.Registration{
-		Name:      "github.com/ServiceWeaver/weaver/Main",
+		Name:      "github.com/brunobls/weft/Main",
 		Iface:     reflect.TypeOf((*weaver.Main)(nil)).Elem(),
 		Impl:      reflect.TypeOf(app{}),
 		Listeners: []string{"appLis"},
@@ -78,7 +78,7 @@ func init() {
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return main_reflect_stub{caller: caller}
 		},
-		RefData: "⟦d90475cb:wEaVeReDgE:github.com/ServiceWeaver/weaver/Main→github.com/ServiceWeaver/weaver/runtime/bin/testprogram/A⟧\n⟦b7bc7e7d:wEaVeRlIsTeNeRs:github.com/ServiceWeaver/weaver/Main→appLis⟧\n",
+		RefData: "⟦06521d1b:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/runtime/bin/testprogram/A⟧\n⟦1eff069d:wEaVeRlIsTeNeRs:github.com/brunobls/weft/Main→appLis⟧\n",
 	})
 }
 
@@ -165,19 +165,19 @@ var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`
 
 ERROR: You generated this file with 'weaver generate' (devel) (codegen
 version v0.24.0). The generated code is incompatible with the version of the
-github.com/ServiceWeaver/weaver module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weaver module
 version can be found in your go.mod file or by running the following command.
 
-    go list -m github.com/ServiceWeaver/weaver
+    go list -m github.com/brunobls/weft
 
 We recommend updating the weaver module and the 'weaver generate' command by
 running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weaver@latest
 
 Then, re-run 'weaver generate' and re-build your code. If the problem persists,
-please file an issue at https://github.com/ServiceWeaver/weaver/issues.
+please file an issue at https://github.com/brunobls/weft/issues.
 
 `)
 

@@ -29,8 +29,8 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/runtime/protos"
-	"github.com/ServiceWeaver/weaver/runtime/retry"
+	"github.com/brunobls/weft/runtime/protos"
+	"github.com/brunobls/weft/runtime/retry"
 	"google.golang.org/protobuf/proto"
 	"modernc.org/sqlite"
 	sqlite3 "modernc.org/sqlite/lib"

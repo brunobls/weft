@@ -22,9 +22,9 @@ import (
 	"sort"
 	"testing"
 
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/runtime/graph"
-	"github.com/ServiceWeaver/weaver/runtime/version"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/runtime/graph"
+	"github.com/brunobls/weft/runtime/version"
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/exp/slices"
 )
@@ -52,8 +52,8 @@ func TestReadComponentGraph(t *testing.T) {
 			}
 
 			// Compare returned components.
-			pkg := "github.com/ServiceWeaver/weaver/runtime/bin/testprogram"
-			main := "github.com/ServiceWeaver/weaver/Main"
+			pkg := "github.com/brunobls/weft/runtime/bin/testprogram"
+			main := "github.com/brunobls/weft/Main"
 			wantComponents := []string{
 				main,
 				fmt.Sprintf("%s/A", pkg),
@@ -122,9 +122,9 @@ func TestReadListeners(t *testing.T) {
 
 			// Check that expected listeners are found.
 			pkg := func(c string) string {
-				return fmt.Sprintf("github.com/ServiceWeaver/weaver/runtime/bin/testprogram/%s", c)
+				return fmt.Sprintf("github.com/brunobls/weft/runtime/bin/testprogram/%s", c)
 			}
-			main := "github.com/ServiceWeaver/weaver/Main"
+			main := "github.com/brunobls/weft/Main"
 			want := []codegen.ComponentListeners{
 				{Component: main, Listeners: []string{"appLis"}},
 				{Component: pkg("A"), Listeners: []string{"aLis1", "aLis2", "aLis3"}},

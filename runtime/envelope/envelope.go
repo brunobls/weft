@@ -26,20 +26,20 @@ import (
 	"os"
 	"sync"
 
-	"github.com/ServiceWeaver/weaver/internal/control"
-	"github.com/ServiceWeaver/weaver/internal/net/call"
-	"github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/runtime/deployers"
-	"github.com/ServiceWeaver/weaver/runtime/metrics"
-	"github.com/ServiceWeaver/weaver/runtime/protomsg"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
-	"github.com/ServiceWeaver/weaver/runtime/version"
+	"github.com/brunobls/weft/internal/control"
+	"github.com/brunobls/weft/internal/net/call"
+	"github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/runtime/deployers"
+	"github.com/brunobls/weft/runtime/metrics"
+	"github.com/brunobls/weft/runtime/protomsg"
+	"github.com/brunobls/weft/runtime/protos"
+	"github.com/brunobls/weft/runtime/version"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
 
 	// We rely on the weaver.controller component registrattion entry.
-	_ "github.com/ServiceWeaver/weaver"
+	_ "github.com/brunobls/weft"
 )
 
 // EnvelopeHandler handles messages from the weavelet. Values passed to the

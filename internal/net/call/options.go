@@ -18,8 +18,8 @@ import (
 	"log/slog"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/internal/traceio"
-	"github.com/ServiceWeaver/weaver/runtime/logging"
+	"github.com/brunobls/weft/internal/traceio"
+	"github.com/brunobls/weft/runtime/logging"
 	"go.opentelemetry.io/otel/trace"
 )
 

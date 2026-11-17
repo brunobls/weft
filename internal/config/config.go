@@ -39,7 +39,7 @@ func Config(v reflect.Value) any {
 		// Check that f is an embedded field of type weaver.WithConfig[T].
 		f := t.Field(i)
 		if !f.Anonymous ||
-			f.Type.PkgPath() != "github.com/ServiceWeaver/weaver" ||
+			f.Type.PkgPath() != "github.com/brunobls/weft" ||
 			!strings.HasPrefix(f.Type.Name(), "WithConfig[") {
 			continue
 		}

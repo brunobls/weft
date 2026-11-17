@@ -28,8 +28,8 @@ import (
 	"flag"
 	"log"
 
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/examples/bankofanthos/frontend"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/examples/bankofanthos/frontend"
 )
 
 //go:generate ../../cmd/weaver/weaver generate

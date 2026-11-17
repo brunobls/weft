@@ -21,8 +21,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ServiceWeaver/weaver/internal/proto"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/internal/proto"
+	"github.com/brunobls/weft/runtime/protos"
 )
 
 const (

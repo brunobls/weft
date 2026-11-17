@@ -32,20 +32,20 @@ import (
 	"github.com/google/uuid"
 	"golang.org/x/exp/maps"
 
-	itool "github.com/ServiceWeaver/weaver/internal/tool"
-	"github.com/ServiceWeaver/weaver/internal/tool/config"
-	"github.com/ServiceWeaver/weaver/internal/tool/ssh/impl"
-	"github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/bin"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/runtime/colors"
-	"github.com/ServiceWeaver/weaver/runtime/logging"
-	"github.com/ServiceWeaver/weaver/runtime/tool"
-	"github.com/ServiceWeaver/weaver/runtime/version"
+	itool "github.com/brunobls/weft/internal/tool"
+	"github.com/brunobls/weft/internal/tool/config"
+	"github.com/brunobls/weft/internal/tool/ssh/impl"
+	"github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/bin"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/runtime/colors"
+	"github.com/brunobls/weft/runtime/logging"
+	"github.com/brunobls/weft/runtime/tool"
+	"github.com/brunobls/weft/runtime/version"
 )
 
 const (
-	configKey      = "github.com/ServiceWeaver/weaver/ssh"
+	configKey      = "github.com/brunobls/weft/ssh"
 	shortConfigKey = "ssh"
 )
 
@@ -112,18 +112,18 @@ func deploy(ctx context.Context, args []string) error {
 		}
 		return fmt.Errorf(`
 ERROR: The binary you're trying to deploy (%q) was built with
-github.com/ServiceWeaver/weaver module version %s. However, the 'weaver
+github.com/brunobls/weft module version %s. However, the 'weaver
 ssh' binary you're using was built with weaver module version %s.
 These versions are incompatible.
 
 We recommend updating both the weaver module your application is built with and
 updating the 'weaver ssh' command by running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weaver@latest
 
 Then, re-build your code and re-run 'weaver ssh deploy'. If the problem
-persists, please file an issue at https://github.com/ServiceWeaver/weaver/issues.`,
+persists, please file an issue at https://github.com/brunobls/weft/issues.`,
 			binary, versions.ModuleVersion, selfVersion)
 	}
 

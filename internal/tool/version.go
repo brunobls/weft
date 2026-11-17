@@ -21,7 +21,7 @@ import (
 	"runtime"
 	"runtime/debug"
 
-	"github.com/ServiceWeaver/weaver/runtime/tool"
+	"github.com/brunobls/weft/runtime/tool"
 )
 
 // VersionCmd returns a command to show a deployer's version.

@@ -15,8 +15,8 @@
 package transactionhistory
 
 import (
-	"github.com/ServiceWeaver/weaver/examples/bankofanthos/common"
-	"github.com/ServiceWeaver/weaver/examples/bankofanthos/model"
+	"github.com/brunobls/weft/examples/bankofanthos/common"
+	"github.com/brunobls/weft/examples/bankofanthos/model"
 )
 
 // transactionRepository is a repository for performing queries on the ledger database.

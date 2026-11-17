@@ -14,7 +14,7 @@
 
 syntax = "proto3";
 
-option go_package = "github.com/ServiceWeaver/weaver/internal/tool/ssh/impl";
+option go_package = "github.com/brunobls/weft/internal/tool/ssh/impl";
 
 package impl;
 import "runtime/protos/config.proto";

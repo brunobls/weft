@@ -20,7 +20,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 	"github.com/google/uuid"
 )
 

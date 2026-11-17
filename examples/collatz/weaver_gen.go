@@ -6,8 +6,8 @@ package main
 import (
 	"context"
 	"errors"
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/runtime/codegen"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 	"reflect"
@@ -15,14 +15,14 @@ import (
 
 func init() {
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/examples/collatz/Even",
+		Name:  "github.com/brunobls/weft/examples/collatz/Even",
 		Iface: reflect.TypeOf((*Even)(nil)).Elem(),
 		Impl:  reflect.TypeOf(even{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return even_local_stub{impl: impl.(Even), tracer: tracer, doMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/collatz/Even", Method: "Do", Remote: false, Generated: true})}
+			return even_local_stub{impl: impl.(Even), tracer: tracer, doMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/collatz/Even", Method: "Do", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return even_client_stub{stub: stub, doMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/collatz/Even", Method: "Do", Remote: true, Generated: true})}
+			return even_client_stub{stub: stub, doMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/collatz/Even", Method: "Do", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return even_server_stub{impl: impl.(Even), addLoad: addLoad}
@@ -33,7 +33,7 @@ func init() {
 		RefData: "",
 	})
 	codegen.Register(codegen.Registration{
-		Name:      "github.com/ServiceWeaver/weaver/Main",
+		Name:      "github.com/brunobls/weft/Main",
 		Iface:     reflect.TypeOf((*weaver.Main)(nil)).Elem(),
 		Impl:      reflect.TypeOf(server{}),
 		Listeners: []string{"collatz"},
@@ -47,17 +47,17 @@ func init() {
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return main_reflect_stub{caller: caller}
 		},
-		RefData: "⟦f95ad2dd:wEaVeReDgE:github.com/ServiceWeaver/weaver/Main→github.com/ServiceWeaver/weaver/examples/collatz/Odd⟧\n⟦987c175b:wEaVeReDgE:github.com/ServiceWeaver/weaver/Main→github.com/ServiceWeaver/weaver/examples/collatz/Even⟧\n⟦f3b62957:wEaVeRlIsTeNeRs:github.com/ServiceWeaver/weaver/Main→collatz⟧\n",
+		RefData: "⟦dfb745ad:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/collatz/Odd⟧\n⟦84bce72c:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/collatz/Even⟧\n⟦cfa7dd0b:wEaVeRlIsTeNeRs:github.com/brunobls/weft/Main→collatz⟧\n",
 	})
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/examples/collatz/Odd",
+		Name:  "github.com/brunobls/weft/examples/collatz/Odd",
 		Iface: reflect.TypeOf((*Odd)(nil)).Elem(),
 		Impl:  reflect.TypeOf(odd{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return odd_local_stub{impl: impl.(Odd), tracer: tracer, doMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/collatz/Odd", Method: "Do", Remote: false, Generated: true})}
+			return odd_local_stub{impl: impl.(Odd), tracer: tracer, doMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/collatz/Odd", Method: "Do", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return odd_client_stub{stub: stub, doMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/collatz/Odd", Method: "Do", Remote: true, Generated: true})}
+			return odd_client_stub{stub: stub, doMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/collatz/Odd", Method: "Do", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return odd_server_stub{impl: impl.(Odd), addLoad: addLoad}
@@ -291,19 +291,19 @@ var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`
 
 ERROR: You generated this file with 'weaver generate' (devel) (codegen
 version v0.24.0). The generated code is incompatible with the version of the
-github.com/ServiceWeaver/weaver module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weaver module
 version can be found in your go.mod file or by running the following command.
 
-    go list -m github.com/ServiceWeaver/weaver
+    go list -m github.com/brunobls/weft
 
 We recommend updating the weaver module and the 'weaver generate' command by
 running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weaver@latest
 
 Then, re-run 'weaver generate' and re-build your code. If the problem persists,
-please file an issue at https://github.com/ServiceWeaver/weaver/issues.
+please file an issue at https://github.com/brunobls/weft/issues.
 
 `)
 

@@ -21,10 +21,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/internal/reflection"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/weavertest"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/internal/reflection"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/weavertest"
 )
 
 // TODO(mwhittaker): Induce an error in the encoding, decoding, and RPC call.

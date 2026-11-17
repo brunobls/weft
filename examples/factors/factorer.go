@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 	lru "github.com/hashicorp/golang-lru/v2"
 )
 

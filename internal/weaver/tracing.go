@@ -17,7 +17,7 @@ package weaver
 import (
 	"os"
 
-	"github.com/ServiceWeaver/weaver/internal/traceio"
+	"github.com/brunobls/weft/internal/traceio"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/propagation"
 	"go.opentelemetry.io/otel/sdk/resource"

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 syntax = "proto3";
-option go_package = "github.com/ServiceWeaver/weaver/internal/tool/multi";
+option go_package = "github.com/brunobls/weft/internal/tool/multi";
 
 package multi;
 import "runtime/protos/config.proto";

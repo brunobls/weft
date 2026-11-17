@@ -31,7 +31,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 type server struct {

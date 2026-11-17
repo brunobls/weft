@@ -14,7 +14,7 @@
 
 package codegen
 
-import "github.com/ServiceWeaver/weaver/runtime/version"
+import "github.com/brunobls/weft/runtime/version"
 
 // The following types are used to check, at compile time, that every
 // weaver_gen.go file uses the codegen API version that is linked into the

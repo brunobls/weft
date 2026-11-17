@@ -18,7 +18,7 @@ package foo
 import (
 	"io"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 type foo struct{ weaver.Implements[io.Reader] }
