@@ -284,6 +284,7 @@ func (tset *typeSet) checkSerializable(t types.Type) []error {
 		stack.Set(t, struct{}{})
 		defer func() { stack.Delete(t) }()
 
+		t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 		switch x := t.(type) {
 		case *types.Named:
 			// No need to check if x is an unexported type from another package
@@ -410,6 +411,7 @@ func (tset *typeSet) sizeOfType(t types.Type) int {
 		return size.(int)
 	}
 
+	t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 	switch x := t.(type) {
 	case *types.Basic:
 		switch x.Kind() {
@@ -496,6 +498,7 @@ func (tset *typeSet) isMeasurable(t types.Type) bool {
 		return result.(bool)
 	}
 
+	t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 	switch x := t.(type) {
 	case *types.Basic:
 		switch x.Kind() {

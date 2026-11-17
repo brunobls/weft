@@ -1582,6 +1582,7 @@ func (g *generator) isWeaverEncoded(t types.Type) bool {
 		return false
 	}
 
+	t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 	switch x := t.(type) {
 	case *types.Basic:
 		switch x.Kind() {
@@ -1654,6 +1655,7 @@ func (g *generator) size(e string, t types.Type) string {
 
 	var f func(e string, t types.Type) string
 	f = func(e string, t types.Type) string {
+		t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 		switch x := t.(type) {
 		case *types.Basic:
 			switch x.Kind() {
@@ -1738,6 +1740,7 @@ func (g *generator) size(e string, t types.Type) string {
 func (g *generator) findSizeFuncNeededs(t types.Type) {
 	var f func(t types.Type)
 	f = func(t types.Type) {
+		t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 		switch x := t.(type) {
 		case *types.Pointer:
 			g.sizeFuncNeeded.Set(t, true)
@@ -1784,6 +1787,7 @@ func (g *generator) generateSizeFunction(p printFn, t types.Type) {
 	p("// serviceweaver_size_%s returns the size (in bytes) of the serialization", sanitize(t))
 	p("// of the provided type.")
 
+	t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 	switch x := t.(type) {
 	case *types.Pointer:
 		// For example:
@@ -2208,6 +2212,7 @@ func (g *generator) encode(stub, e string, t types.Type) string {
 	// enc(stub, e: type t u) = stub.EncodeBinaryMarshaler(&e) // t implements BinaryMarshaler
 	// enc(stub, e: type t u) = serviceweaver_enc_[t](&stub, &e)       // under(u) = struct{...}
 	// enc(stub, e: type t u) = enc(&stub, under(t)(e))        // otherwise
+	t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 	switch x := t.(type) {
 	case *types.Basic:
 		switch x.Kind() {
@@ -2281,6 +2286,7 @@ func (g *generator) decode(stub, v string, t types.Type) string {
 	// dec(stub, v: type t u) = stub.DecodeBinaryUnmarshaler(v) // t implements BinaryUnmarshaler
 	// dec(stub, v: type t u) = serviceweaver_dec_[t](stub, v)          // under(u) = struct{...}
 	// dec(stub, v: type t u) = dec(stub, (*under(t))(v))       // otherwise
+	t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 	switch x := t.(type) {
 	case *types.Basic:
 		switch x.Kind() {
@@ -2369,6 +2375,7 @@ func (g *generator) generateEncDecMethodsFor(p printFn, t types.Type) {
 	g.generated.Set(t, true)
 
 	ts := g.tset.genTypeString
+	t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 	switch x := t.(type) {
 	case *types.Basic:
 		// Basic types don't need encoding or decoding methods. Instead, we
@@ -2566,6 +2573,7 @@ func formatType(currentPackage *packages.Package, t types.Type) string {
 func sanitize(t types.Type) string {
 	var sanitize func(types.Type) string
 	sanitize = func(t types.Type) string {
+		t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 		switch x := t.(type) {
 		case *types.Pointer:
 			return fmt.Sprintf("ptr_%s", sanitize(x.Elem()))
@@ -2640,6 +2648,7 @@ func sanitize(t types.Type) string {
 // int bool`, then TypeString returns "int" for both the named type int and the
 // primitive type int.
 func uniqueName(t types.Type) string {
+	t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 	switch x := t.(type) {
 	case *types.Pointer:
 		return fmt.Sprintf("*%s", uniqueName(x.Elem()))

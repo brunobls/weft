@@ -47,7 +47,7 @@ func init() {
 	weaverSrcDir = filepath.Join(testDir, "../../../")
 	goModFile = fmt.Sprintf(`module "foo"
 
-go 1.21
+go 1.26.0
 
 require github.com/ServiceWeaver/weaver v0.0.0
 replace github.com/ServiceWeaver/weaver => %s
