@@ -106,15 +106,15 @@ type Options struct {
 	BuildTags string
 }
 
-// Generate generates Service Weaver code for the specified packages.
-// The list of supplied packages are treated similarly to the arguments
-// passed to "go build" (see "go help packages" for details).
 // Usage returns the help text of the generate subcommand of the command
 // invoked as name.
 func Usage(name string) string {
 	return strings.ReplaceAll(usageTemplate, "weaver generate", name+" generate")
 }
 
+// Generate generates Weft code for the specified packages.
+// The list of supplied packages are treated similarly to the arguments
+// passed to "go build" (see "go help packages" for details).
 func Generate(dir string, pkgs []string, opt Options) error {
 	if opt.Warn == nil {
 		opt.Warn = func(err error) { fmt.Fprintln(os.Stderr, err) }
