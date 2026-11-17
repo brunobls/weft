@@ -31,6 +31,10 @@ function cmd_generate() {
   (cd cmd/weaver && go build -buildvcs=false)
   go generate ./...
 
+  # No go:generate directive covers these packages, so generate them
+  # explicitly; otherwise their weaver_gen.go files go stale.
+  ./cmd/weaver/weaver generate ./examples/bankofanthos/... ./sim/internal/bank
+
   # Add license headers.
   if ! exists addlicense; then
     printf "addlicense not found; install via\ngo install github.com/google/addlicense@latest\n" >&2

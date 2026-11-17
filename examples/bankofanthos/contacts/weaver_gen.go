@@ -136,7 +136,7 @@ func (s t_client_stub) AddContact(ctx context.Context, a0 string, a1 Contact) (e
 	// Preallocate a buffer of the right size.
 	size := 0
 	size += (4 + len(a0))
-	size += serviceweaver_size_Contact_15811618(&a1)
+	size += serviceweaver_size_Contact_f25159af(&a1)
 	enc := codegen.NewEncoder()
 	enc.Reset(size)
 
@@ -212,7 +212,7 @@ func (s t_client_stub) GetContacts(ctx context.Context, a0 string) (r0 []Contact
 
 	// Decode the results.
 	dec := codegen.NewDecoder(results)
-	r0 = serviceweaver_dec_slice_Contact_d00a3378(dec)
+	r0 = serviceweaver_dec_slice_Contact_471dce5a(dec)
 	err = dec.Error()
 	return
 }
@@ -308,7 +308,7 @@ func (s t_server_stub) getContacts(ctx context.Context, args []byte) (res []byte
 
 	// Encode the results.
 	enc := codegen.NewEncoder()
-	serviceweaver_enc_slice_Contact_d00a3378(enc, r0)
+	serviceweaver_enc_slice_Contact_471dce5a(enc, r0)
 	enc.Error(appErr)
 	return enc.Data(), nil
 }
@@ -371,7 +371,7 @@ func (x *Contact) WeaverUnmarshal(dec *codegen.Decoder) {
 
 // Encoding/decoding implementations.
 
-func serviceweaver_enc_slice_Contact_d00a3378(enc *codegen.Encoder, arg []Contact) {
+func serviceweaver_enc_slice_Contact_471dce5a(enc *codegen.Encoder, arg []Contact) {
 	if arg == nil {
 		enc.Len(-1)
 		return
@@ -382,7 +382,7 @@ func serviceweaver_enc_slice_Contact_d00a3378(enc *codegen.Encoder, arg []Contac
 	}
 }
 
-func serviceweaver_dec_slice_Contact_d00a3378(dec *codegen.Decoder) []Contact {
+func serviceweaver_dec_slice_Contact_471dce5a(dec *codegen.Decoder) []Contact {
 	n := dec.Len()
 	if n == -1 {
 		return nil
@@ -396,9 +396,9 @@ func serviceweaver_dec_slice_Contact_d00a3378(dec *codegen.Decoder) []Contact {
 
 // Size implementations.
 
-// serviceweaver_size_Contact_15811618 returns the size (in bytes) of the serialization
+// serviceweaver_size_Contact_f25159af returns the size (in bytes) of the serialization
 // of the provided type.
-func serviceweaver_size_Contact_15811618(x *Contact) int {
+func serviceweaver_size_Contact_f25159af(x *Contact) int {
 	size := 0
 	size += 0
 	size += (4 + len(x.Username))

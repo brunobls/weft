@@ -30,7 +30,7 @@ func init() {
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return bank_reflect_stub{caller: caller}
 		},
-		RefData: "⟦dab0c530:wEaVeReDgE:github.com/brunobls/weft/sim/internal/bank/Bank→github.com/brunobls/weft/sim/internal/bank/Store⟧\n",
+		RefData: "⟦2b8449e3:wEaVeReDgE:github.com/brunobls/weft/sim/internal/bank/Bank→github.com/brunobls/weft/sim/internal/bank/Store⟧\n",
 	})
 	codegen.Register(codegen.Registration{
 		Name:  "github.com/brunobls/weft/sim/internal/bank/Store",

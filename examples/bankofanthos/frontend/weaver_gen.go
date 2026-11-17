@@ -27,7 +27,7 @@ func init() {
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return main_reflect_stub{caller: caller}
 		},
-		RefData: "⟦583f439b:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/bankofanthos/balancereader/T⟧\n⟦01efa328:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/bankofanthos/contacts/T⟧\n⟦285db949:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/bankofanthos/ledgerwriter/T⟧\n⟦c236fa3b:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/bankofanthos/transactionhistory/T⟧\n⟦0906345d:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/bankofanthos/userservice/T⟧\n⟦969790bc:wEaVeRlIsTeNeRs:github.com/brunobls/weft/Main→bank⟧\n",
+		RefData: "⟦abf70401:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/bankofanthos/balancereader/T⟧\n⟦e799ee35:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/bankofanthos/contacts/T⟧\n⟦b5b1366d:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/bankofanthos/ledgerwriter/T⟧\n⟦3e75d2d7:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/bankofanthos/transactionhistory/T⟧\n⟦edc16fcb:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/bankofanthos/userservice/T⟧\n⟦f424a993:wEaVeRlIsTeNeRs:github.com/brunobls/weft/Main→bank⟧\n",
 	})
 }
 

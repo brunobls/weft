@@ -31,7 +31,7 @@ func init() {
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return t_reflect_stub{caller: caller}
 		},
-		RefData: "⟦7237a6f4:wEaVeReDgE:github.com/brunobls/weft/examples/bankofanthos/ledgerwriter/T→github.com/brunobls/weft/examples/bankofanthos/balancereader/T⟧\n",
+		RefData: "⟦74183204:wEaVeReDgE:github.com/brunobls/weft/examples/bankofanthos/ledgerwriter/T→github.com/brunobls/weft/examples/bankofanthos/balancereader/T⟧\n",
 	})
 }
 

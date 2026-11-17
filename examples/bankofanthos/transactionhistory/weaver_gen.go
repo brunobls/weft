@@ -133,7 +133,7 @@ func (s t_client_stub) GetTransactions(ctx context.Context, a0 string) (r0 []mod
 
 	// Decode the results.
 	dec := codegen.NewDecoder(results)
-	r0 = serviceweaver_dec_slice_Transaction_d2a36fba(dec)
+	r0 = serviceweaver_dec_slice_Transaction_e95be96b(dec)
 	err = dec.Error()
 	return
 }
@@ -201,7 +201,7 @@ func (s t_server_stub) getTransactions(ctx context.Context, args []byte) (res []
 
 	// Encode the results.
 	enc := codegen.NewEncoder()
-	serviceweaver_enc_slice_Transaction_d2a36fba(enc, r0)
+	serviceweaver_enc_slice_Transaction_e95be96b(enc, r0)
 	enc.Error(appErr)
 	return enc.Data(), nil
 }
@@ -222,7 +222,7 @@ func (s t_reflect_stub) GetTransactions(ctx context.Context, a0 string) (r0 []mo
 
 // Encoding/decoding implementations.
 
-func serviceweaver_enc_slice_Transaction_d2a36fba(enc *codegen.Encoder, arg []model.Transaction) {
+func serviceweaver_enc_slice_Transaction_e95be96b(enc *codegen.Encoder, arg []model.Transaction) {
 	if arg == nil {
 		enc.Len(-1)
 		return
@@ -233,7 +233,7 @@ func serviceweaver_enc_slice_Transaction_d2a36fba(enc *codegen.Encoder, arg []mo
 	}
 }
 
-func serviceweaver_dec_slice_Transaction_d2a36fba(dec *codegen.Decoder) []model.Transaction {
+func serviceweaver_dec_slice_Transaction_e95be96b(dec *codegen.Decoder) []model.Transaction {
 	n := dec.Len()
 	if n == -1 {
 		return nil

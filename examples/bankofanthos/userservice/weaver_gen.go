@@ -135,7 +135,7 @@ func (s t_client_stub) CreateUser(ctx context.Context, a0 CreateUserRequest) (er
 
 	// Preallocate a buffer of the right size.
 	size := 0
-	size += serviceweaver_size_CreateUserRequest_4ef79cd1(&a0)
+	size += serviceweaver_size_CreateUserRequest_261f9f09(&a0)
 	enc := codegen.NewEncoder()
 	enc.Reset(size)
 
@@ -190,7 +190,7 @@ func (s t_client_stub) Login(ctx context.Context, a0 LoginRequest) (r0 string, e
 
 	// Preallocate a buffer of the right size.
 	size := 0
-	size += serviceweaver_size_LoginRequest_cbd66e76(&a0)
+	size += serviceweaver_size_LoginRequest_fc0fa35b(&a0)
 	enc := codegen.NewEncoder()
 	enc.Reset(size)
 
@@ -487,9 +487,9 @@ func serviceweaver_dec_slice_byte_87461245(dec *codegen.Decoder) []byte {
 
 // Size implementations.
 
-// serviceweaver_size_CreateUserRequest_4ef79cd1 returns the size (in bytes) of the serialization
+// serviceweaver_size_CreateUserRequest_261f9f09 returns the size (in bytes) of the serialization
 // of the provided type.
-func serviceweaver_size_CreateUserRequest_4ef79cd1(x *CreateUserRequest) int {
+func serviceweaver_size_CreateUserRequest_261f9f09(x *CreateUserRequest) int {
 	size := 0
 	size += 0
 	size += (4 + len(x.Username))
@@ -506,9 +506,9 @@ func serviceweaver_size_CreateUserRequest_4ef79cd1(x *CreateUserRequest) int {
 	return size
 }
 
-// serviceweaver_size_LoginRequest_cbd66e76 returns the size (in bytes) of the serialization
+// serviceweaver_size_LoginRequest_fc0fa35b returns the size (in bytes) of the serialization
 // of the provided type.
-func serviceweaver_size_LoginRequest_cbd66e76(x *LoginRequest) int {
+func serviceweaver_size_LoginRequest_fc0fa35b(x *LoginRequest) int {
 	size := 0
 	size += 0
 	size += (4 + len(x.Username))
