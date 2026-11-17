@@ -369,7 +369,7 @@ func findComponentMethod(pkg *packages.Package, components map[string]*component
 	if !ok {
 		return nil, "", false
 	}
-	ctype, ok := ctypeval.Type.(*types.Named)
+	ctype, ok := types.Unalias(ctypeval.Type).(*types.Named)
 	if !ok {
 		return nil, "", false
 	}
@@ -508,12 +508,12 @@ func extractComponent(opt Options, pkg *packages.Package, file *ast.File, tset *
 
 		if isWeaverRef(t) {
 			// The field f has type weaver.Ref[T].
-			arg := t.(*types.Named).TypeArgs().At(0)
+			arg := types.Unalias(t).(*types.Named).TypeArgs().At(0)
 			if isWeaverMain(arg) {
 				return nil, errorf(pkg.Fset, f.Pos(),
 					"components cannot contain a reference to weaver.Main")
 			}
-			named, ok := arg.(*types.Named)
+			named, ok := types.Unalias(arg).(*types.Named)
 			if !ok {
 				return nil, errorf(pkg.Fset, f.Pos(),
 					"weaver.Ref argument %s is not a named type.",
@@ -540,8 +540,8 @@ func extractComponent(opt Options, pkg *packages.Package, file *ast.File, tset *
 		// The field f is an embedded weaver.Implements[T].
 		case isWeaverImplements(t):
 			// Check that T is a named interface type inside the package.
-			arg := t.(*types.Named).TypeArgs().At(0)
-			named, ok := arg.(*types.Named)
+			arg := types.Unalias(t).(*types.Named).TypeArgs().At(0)
+			named, ok := types.Unalias(arg).(*types.Named)
 			if !ok {
 				return nil, errorf(pkg.Fset, f.Pos(),
 					"weaver.Implements argument %s is not a named type.",
@@ -563,8 +563,8 @@ func extractComponent(opt Options, pkg *packages.Package, file *ast.File, tset *
 		// The field f is an embedded weaver.WithRouter[T].
 		case isWeaverWithRouter(t):
 			// Check that T is a named type inside the package.
-			arg := t.(*types.Named).TypeArgs().At(0)
-			named, ok := arg.(*types.Named)
+			arg := types.Unalias(t).(*types.Named).TypeArgs().At(0)
+			named, ok := types.Unalias(arg).(*types.Named)
 			if !ok {
 				return nil, errorf(pkg.Fset, f.Pos(),
 					"weaver.WithRouter argument %s is not a named type.",
@@ -782,7 +782,7 @@ func validateMethods(pkg *packages.Package, tset *typeSet, intf *types.Named) er
 		}
 
 		// Last result must be error.
-		if t.Results().Len() < 1 || t.Results().At(t.Results().Len()-1).Type().String() != "error" {
+		if t.Results().Len() < 1 || !isError(t.Results().At(t.Results().Len()-1).Type()) {
 			// TODO(mwhittaker): If the function doesn't return anything, don't
 			// print t.Results.
 			errs = append(errs, bad("return", "The last return must have type error."))
@@ -823,7 +823,7 @@ func checkMistypedInitOrShutdown(pkg *packages.Package, tset *typeSet, impl *typ
 		}
 
 		// Check returns.
-		if sig.Results().Len() != 1 || sig.Results().At(0).Type().String() != "error" {
+		if sig.Results().Len() != 1 || !isError(sig.Results().At(0).Type()) {
 			return err
 		}
 		return nil
@@ -1513,7 +1513,7 @@ func (g *generator) generateClientStubs(p printFn) {
 			for i := 0; i < mt.Results().Len()-1; i++ { // Skip final error
 				rt := mt.Results().At(i).Type()
 				res := fmt.Sprintf("r%d", i)
-				if x, ok := rt.(*types.Pointer); ok && (g.tset.isProto(x) || g.tset.hasMarshalBinary(x)) {
+				if x, ok := types.Unalias(rt).(*types.Pointer); ok && (g.tset.isProto(x) || g.tset.hasMarshalBinary(x)) {
 					// To decode a pointer *t where t is a proto or
 					// BinaryUnmarshaler, we need to instantiate a zero value
 					// of type t before calling the appropriate decoding
@@ -1902,7 +1902,7 @@ func (g *generator) generateServerStubs(p printFn) {
 			for i := 1; i < mt.Params().Len(); i++ { // Skip initial context.Context
 				at := mt.Params().At(i).Type()
 				arg := fmt.Sprintf("a%d", i-1)
-				if x, ok := at.(*types.Pointer); ok && (g.tset.isProto(x) || g.tset.hasMarshalBinary(x)) {
+				if x, ok := types.Unalias(at).(*types.Pointer); ok && (g.tset.isProto(x) || g.tset.hasMarshalBinary(x)) {
 					// To decode a pointer *t where t is a proto or
 					// BinaryUnmarshaler, we need to instantiate a zero value
 					// of type t before calling the appropriate decoding

@@ -647,7 +647,7 @@ func (tset *typeSet) isProto(t types.Type) bool {
 }
 
 func isProtoMessage(t types.Type) bool {
-	n, ok := t.(*types.Named)
+	n, ok := types.Unalias(t).(*types.Named)
 	if !ok {
 		return false
 	}
@@ -706,11 +706,11 @@ func isWeaverMarshal(t types.Type, m *types.Func) bool {
 
 // isEncoderPtr returns whether t is *codegen.Encoder.
 func isEncoderPtr(t types.Type) bool {
-	p, ok := t.(*types.Pointer)
+	p, ok := types.Unalias(t).(*types.Pointer)
 	if !ok {
 		return false
 	}
-	n, ok := p.Elem().(*types.Named)
+	n, ok := types.Unalias(p.Elem()).(*types.Named)
 	if !ok {
 		return false
 	}
@@ -747,11 +747,11 @@ func isWeaverUnmarshal(t types.Type, m *types.Func) bool {
 
 // isDecoderPtr returns whether t is *codegen.Decoder.
 func isDecoderPtr(t types.Type) bool {
-	p, ok := t.(*types.Pointer)
+	p, ok := types.Unalias(t).(*types.Pointer)
 	if !ok {
 		return false
 	}
-	n, ok := p.Elem().(*types.Named)
+	n, ok := types.Unalias(p.Elem()).(*types.Named)
 	if !ok {
 		return false
 	}
@@ -784,11 +784,11 @@ func (tset *typeSet) hasMarshalBinary(t types.Type) bool {
 }
 
 func isByteSlice(t types.Type) bool {
-	s, ok := t.(*types.Slice)
+	s, ok := types.Unalias(t).(*types.Slice)
 	if !ok {
 		return false
 	}
-	e, ok := s.Elem().(*types.Basic)
+	e, ok := types.Unalias(s.Elem()).(*types.Basic)
 	if !ok {
 		return false
 	}
@@ -860,7 +860,7 @@ func isUnmarshalBinary(t types.Type, m *types.Func) bool {
 // isWeaverType returns true iff t is a named type from the weaver package with
 // the specified name and n type arguments.
 func isWeaverType(t types.Type, name string, n int) bool {
-	named, ok := t.(*types.Named)
+	named, ok := types.Unalias(t).(*types.Named)
 	return ok &&
 		named.Obj().Pkg() != nil &&
 		named.Obj().Pkg().Path() == weaverPackagePath &&
@@ -897,12 +897,12 @@ func isWeaverNotRetriable(t types.Type) bool {
 }
 
 func isString(t types.Type) bool {
-	b, ok := t.(*types.Basic)
+	b, ok := types.Unalias(t).(*types.Basic)
 	return ok && b.Kind() == types.String
 }
 
 func isContext(t types.Type) bool {
-	n, ok := t.(*types.Named)
+	n, ok := types.Unalias(t).(*types.Named)
 	if !ok {
 		return false
 	}
@@ -910,7 +910,7 @@ func isContext(t types.Type) bool {
 }
 
 func isError(t types.Type) bool {
-	n, ok := t.(*types.Named)
+	n, ok := types.Unalias(t).(*types.Named)
 	if !ok {
 		return false
 	}
@@ -920,7 +920,7 @@ func isError(t types.Type) bool {
 // isPrimitiveRouter returns whether the provided type is a valid primitive
 // router type (i.e. an integer, a float, or a string).
 func isPrimitiveRouter(t types.Type) bool {
-	b, ok := t.(*types.Basic)
+	b, ok := types.Unalias(t).(*types.Basic)
 	if !ok {
 		return false
 	}
