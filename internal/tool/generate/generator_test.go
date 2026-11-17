@@ -103,7 +103,13 @@ func runGenerator(t *testing.T, directory, filename, contents string, subdirs []
 
 	// Run "weaver generate".
 	opt := Options{
-		Warn:      func(err error) { t.Log(err) },
+		Warn: func(err error) {
+			t.Log(err)
+			if strings.HasPrefix(filename, "alias_") {
+				// A type alias must not make the generator warn.
+				t.Errorf("unexpected warning: %v", err)
+			}
+		},
 		BuildTags: "ignoreWeaverGen" + "," + strings.Join(buildTags, ","),
 	}
 	if err := Generate(tmp, []string{tmp}, opt); err != nil {
@@ -145,6 +151,22 @@ func runGenerator(t *testing.T, directory, filename, contents string, subdirs []
 			printOutput(t, output)
 		}
 		t.Fatalf("go build: %v", err)
+	}
+
+	// The build above excludes weaver_gen.go (ignoreWeaverGen). For the alias
+	// fixtures, also build the generated code itself: an alias must not make
+	// the generator emit code that does not compile.
+	if strings.HasPrefix(filename, "alias_") {
+		genbuild := exec.Command("go", "build", "-tags="+strings.Join(buildTags, ","))
+		genbuild.Dir = tmp
+		genbuild.Stdout = os.Stdout
+		genbuild.Stderr = os.Stderr
+		if err := genbuild.Run(); err != nil {
+			if testing.Verbose() {
+				printOutput(t, output)
+			}
+			t.Fatalf("go build of the generated code: %v", err)
+		}
 	}
 
 	return string(output), nil

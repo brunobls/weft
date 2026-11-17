@@ -2159,7 +2159,7 @@ func (g *generator) generateRouterMethodsFor(p printFn, comp *component, t types
 			if isWeaverAutoMarshal(f.Type()) {
 				continue
 			}
-			p(`	enc.Write%s(r.%s)`, exported(f.Type().String()), f.Name())
+			p(`	enc.Write%s(r.%s)`, exported(types.Unalias(f.Type()).String()), f.Name())
 		}
 	}
 	p(`	return enc.Encode()`)
