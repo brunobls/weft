@@ -1,0 +1,11 @@
+Weft
+Copyright 2026 The Weft Authors
+
+Weft is a derivative work of Service Weaver
+(https://github.com/ServiceWeaver/weaver), Copyright Google LLC, licensed under
+the Apache License, Version 2.0. Weft is maintained by brunobls since 2026.
+
+Modifications from Service Weaver: the Go module path was renamed from
+github.com/ServiceWeaver/weaver to github.com/brunobls/weft, and the command-line
+tool was renamed from `weaver` to `weft` (`weaver` is kept as an alias). The
+original "Copyright Google LLC" notices in source files are retained unchanged.
