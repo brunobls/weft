@@ -39,8 +39,8 @@ type Source interface {
 }
 
 type source struct {
-	weaver.Implements[Source]
-	dst weaver.Ref[Destination]
+	weft.Implements[Source]
+	dst weft.Ref[Destination]
 }
 
 func (s *source) Emit(ctx context.Context, file, msg string) error {
@@ -57,9 +57,9 @@ type Destination interface {
 }
 
 var (
-	_ weaver.NotRetriable = Source.Emit
-	_ weaver.NotRetriable = Destination.Record
-	_ weaver.NotRetriable = Destination.RoutedRecord
+	_ weft.NotRetriable = Source.Emit
+	_ weft.NotRetriable = Destination.Record
+	_ weft.NotRetriable = Destination.RoutedRecord
 )
 
 type destRouter struct{}
@@ -69,8 +69,8 @@ func (r destRouter) RoutedRecord(_ context.Context, file, msg string) string {
 }
 
 type destination struct {
-	weaver.Implements[Destination]
-	weaver.WithRouter[destRouter]
+	weft.Implements[Destination]
+	weft.WithRouter[destRouter]
 	mu       sync.Mutex
 	metadata map[string]string
 }
@@ -146,10 +146,10 @@ type Server interface {
 const ServerTestResponse = "hello world"
 
 type server struct {
-	weaver.Implements[Server]
+	weft.Implements[Server]
 	addr  string
 	proxy string
-	hello weaver.Listener
+	hello weft.Listener
 	srv   *http.Server
 }
 
@@ -159,7 +159,7 @@ func (s *server) Init(ctx context.Context) error {
 
 	// Run server on listener.
 	s.srv = &http.Server{
-		Handler: weaver.InstrumentHandlerFunc("test", func(w http.ResponseWriter, r *http.Request) {
+		Handler: weft.InstrumentHandlerFunc("test", func(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprint(w, ServerTestResponse)
 		}),
 	}

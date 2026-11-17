@@ -24,13 +24,13 @@ import (
 )
 
 type server struct {
-	weaver.Implements[weaver.Main]
-	factorer weaver.Ref[Factorer]
-	lis      weaver.Listener `weaver:"factors"`
+	weft.Implements[weft.Main]
+	factorer weft.Ref[Factorer]
+	lis      weft.Listener `weaver:"factors"`
 }
 
 func serve(ctx context.Context, s *server) error {
-	http.Handle("/", weaver.InstrumentHandlerFunc("/", s.handleFactors))
+	http.Handle("/", weft.InstrumentHandlerFunc("/", s.handleFactors))
 	s.Logger(ctx).Info("factors server running", "addr", s.lis)
 	return http.Serve(s.lis, nil)
 }

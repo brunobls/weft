@@ -27,7 +27,7 @@ type PingPonger interface {
 	Ping(context.Context, *Ping) (*Pong, error)
 }
 
-type impl struct{ weaver.Implements[PingPonger] }
+type impl struct{ weft.Implements[PingPonger] }
 
 func (*impl) Ping(_ context.Context, ping *Ping) (*Pong, error) {
 	return &Pong{Id: ping.Id}, nil

@@ -70,15 +70,15 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[A] = (*a)(nil)
-var _ weaver.InstanceOf[B] = (*b)(nil)
-var _ weaver.InstanceOf[C] = (*c)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[A] = (*a)(nil)
+var _ weft.InstanceOf[B] = (*b)(nil)
+var _ weft.InstanceOf[C] = (*c)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*a)(nil)
-var _ weaver.Unrouted = (*b)(nil)
-var _ weaver.Unrouted = (*c)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*a)(nil)
+var _ weft.Unrouted = (*b)(nil)
+var _ weft.Unrouted = (*c)(nil)
 
 // Local stub implementations.
 
@@ -196,7 +196,7 @@ func (s a_client_stub) Propagate(ctx context.Context, a0 int) (err error) {
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -224,7 +224,7 @@ func (s a_client_stub) Propagate(ctx context.Context, a0 int) (err error) {
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -259,7 +259,7 @@ func (s b_client_stub) Propagate(ctx context.Context, a0 int) (err error) {
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -287,7 +287,7 @@ func (s b_client_stub) Propagate(ctx context.Context, a0 int) (err error) {
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -322,7 +322,7 @@ func (s c_client_stub) Propagate(ctx context.Context, a0 int) (err error) {
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -350,7 +350,7 @@ func (s c_client_stub) Propagate(ctx context.Context, a0 int) (err error) {
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 

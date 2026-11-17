@@ -35,11 +35,11 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[T] = (*impl)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[T] = (*impl)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*impl)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*impl)(nil)
 
 // Local stub implementations.
 
@@ -121,7 +121,7 @@ func (s t_client_stub) AddContact(ctx context.Context, a0 string, a1 Contact) (e
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -151,7 +151,7 @@ func (s t_client_stub) AddContact(ctx context.Context, a0 string, a1 Contact) (e
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -178,7 +178,7 @@ func (s t_client_stub) GetContacts(ctx context.Context, a0 string) (r0 []Contact
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -206,7 +206,7 @@ func (s t_client_stub) GetContacts(ctx context.Context, a0 string) (r0 []Contact
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -337,7 +337,7 @@ func (s t_reflect_stub) GetContacts(ctx context.Context, a0 string) (r0 []Contac
 var _ codegen.AutoMarshal = (*Contact)(nil)
 
 type __is_Contact[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	Username   string "gorm:\"not null\""
 	Label      string "gorm:\"not null\""
 	AccountNum string "gorm:\"not null\""

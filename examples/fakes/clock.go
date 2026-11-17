@@ -31,7 +31,7 @@ type Clock interface {
 
 // Clock component implementation.
 type clock struct {
-	weaver.Implements[Clock]
+	weft.Implements[Clock]
 }
 
 // UnixMicro implements the Clock interface.

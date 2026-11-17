@@ -28,29 +28,29 @@ type B interface{}
 type C interface{}
 
 type app struct {
-	weaver.Implements[weaver.Main]
-	a      weaver.Ref[A]   //lint:ignore U1000 intentionally declared but not used
-	appLis weaver.Listener //lint:ignore U1000 intentionally declared but not used
+	weft.Implements[weft.Main]
+	a      weft.Ref[A]   //lint:ignore U1000 intentionally declared but not used
+	appLis weft.Listener //lint:ignore U1000 intentionally declared but not used
 }
 
 func (*app) Main(context.Context) error { return nil }
 
 type a struct {
-	weaver.Implements[A]
-	b            weaver.Ref[B]   //lint:ignore U1000 intentionally declared but not used
-	c            weaver.Ref[C]   //lint:ignore U1000 intentionally declared but not used
-	aLis1, aLis2 weaver.Listener //lint:ignore U1000 intentionally declared but not used
-	unused       weaver.Listener `weaver:"aLis3"` //lint:ignore U1000 intentionally declared but not used
+	weft.Implements[A]
+	b            weft.Ref[B]   //lint:ignore U1000 intentionally declared but not used
+	c            weft.Ref[C]   //lint:ignore U1000 intentionally declared but not used
+	aLis1, aLis2 weft.Listener //lint:ignore U1000 intentionally declared but not used
+	unused       weft.Listener `weaver:"aLis3"` //lint:ignore U1000 intentionally declared but not used
 }
 
 type b struct {
-	weaver.Listener
-	weaver.Implements[B]
+	weft.Listener
+	weft.Implements[B]
 }
 
 type c struct {
-	weaver.Listener `weaver:"cLis"`
-	weaver.Implements[C]
+	weft.Listener `weaver:"cLis"`
+	weft.Implements[C]
 }
 
 func main() {}

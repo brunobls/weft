@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package weaver
+package weft
 
 import (
 	"errors"
@@ -36,7 +36,7 @@ func validateRegistrations(regs []*codegen.Registration) error {
 		intfs[reg.Iface] = struct{}{}
 	}
 
-	// Check that for every weaver.Ref[T] field in a component implementation
+	// Check that for every weft.Ref[T] field in a component implementation
 	// struct, T is a registered interface.
 	var errs []error
 	for _, reg := range regs {
@@ -44,7 +44,7 @@ func validateRegistrations(regs []*codegen.Registration) error {
 			f := reg.Impl.Field(i)
 			switch {
 			case f.Type.Implements(reflection.Type[interface{ isRef() }]()):
-				// f is a weaver.Ref[T].
+				// f is a weft.Ref[T].
 				v := f.Type.Field(0) // a Ref[T]'s value field
 				if _, ok := intfs[v.Type]; !ok {
 					// T is not a registered component interface.
@@ -56,7 +56,7 @@ func validateRegistrations(regs []*codegen.Registration) error {
 				}
 
 			case f.Type == reflection.Type[Listener]():
-				// f is a weaver.Listener.
+				// f is a weft.Listener.
 				name := f.Name
 				if tag, ok := f.Tag.Lookup("weaver"); ok {
 					if !isValidListenerName(tag) {
@@ -77,7 +77,7 @@ func validateRegistrations(regs []*codegen.Registration) error {
 }
 
 // isValidListenerName returns whether the provided name is a valid
-// weaver.Listener name.
+// weft.Listener name.
 func isValidListenerName(name string) bool {
 	// We allow valid Go identifiers [1]. This code is taken from [2].
 	//

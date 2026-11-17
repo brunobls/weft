@@ -52,13 +52,13 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[Bank] = (*bank)(nil)
-var _ weaver.InstanceOf[Store] = (*store)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[Bank] = (*bank)(nil)
+var _ weft.InstanceOf[Store] = (*store)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*bank)(nil)
-var _ weaver.Unrouted = (*store)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*bank)(nil)
+var _ weft.Unrouted = (*store)(nil)
 
 // Local stub implementations.
 
@@ -190,7 +190,7 @@ func (s bank_client_stub) Deposit(ctx context.Context, a0 string, a1 int) (r0 in
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -220,7 +220,7 @@ func (s bank_client_stub) Deposit(ctx context.Context, a0 string, a1 int) (r0 in
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -248,7 +248,7 @@ func (s bank_client_stub) Withdraw(ctx context.Context, a0 string, a1 int) (r0 i
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -278,7 +278,7 @@ func (s bank_client_stub) Withdraw(ctx context.Context, a0 string, a1 int) (r0 i
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -315,7 +315,7 @@ func (s store_client_stub) Add(ctx context.Context, a0 string, a1 int) (r0 int, 
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -345,7 +345,7 @@ func (s store_client_stub) Add(ctx context.Context, a0 string, a1 int) (r0 int, 
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -373,7 +373,7 @@ func (s store_client_stub) Get(ctx context.Context, a0 string) (r0 int, err erro
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -401,7 +401,7 @@ func (s store_client_stub) Get(ctx context.Context, a0 string) (r0 int, err erro
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 

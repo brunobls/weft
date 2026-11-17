@@ -25,7 +25,7 @@ type foo interface {
 	M() error
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (l *impl) M() error {
 	return nil

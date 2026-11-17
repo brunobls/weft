@@ -27,19 +27,19 @@ type ExtraArgs interface{}
 type ExtraReturns interface{}
 
 type noContext struct {
-	weaver.Implements[NoContext]
+	weft.Implements[NoContext]
 }
 type noError struct {
-	weaver.Implements[NoError]
+	weft.Implements[NoError]
 }
 type noContextOrError struct {
-	weaver.Implements[NoContextOrError]
+	weft.Implements[NoContextOrError]
 }
 type extraArgs struct {
-	weaver.Implements[ExtraArgs]
+	weft.Implements[ExtraArgs]
 }
 type extraReturns struct {
-	weaver.Implements[ExtraReturns]
+	weft.Implements[ExtraReturns]
 }
 
 func (noContext) Init() error                          { return nil }

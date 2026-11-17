@@ -13,7 +13,7 @@
 // limitations under the License.
 
 // EXPECTED
-// var _ weaver.InstanceOf[foo] = (*impl)(nil)
+// var _ weft.InstanceOf[foo] = (*impl)(nil)
 // var _ foo = (*foo_local_stub)(nil)
 // var _ foo = (*foo_client_stub)(nil)
 // var _ codegen.Server = (*foo_server_stub)(nil)
@@ -25,5 +25,5 @@ import "github.com/brunobls/weft"
 type foo interface{}
 
 type impl struct {
-	weaver.Implements[foo]
+	weft.Implements[foo]
 }

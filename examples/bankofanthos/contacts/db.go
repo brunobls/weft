@@ -24,7 +24,7 @@ import (
 
 // Contact represents an account's contact details.
 type Contact struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	Username   string `gorm:"not null"`
 	Label      string `gorm:"not null"`
 	AccountNum string `gorm:"not null"`

@@ -197,29 +197,29 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[Ping1] = (*ping1)(nil)
-var _ weaver.InstanceOf[Ping10] = (*ping10)(nil)
-var _ weaver.InstanceOf[Ping2] = (*ping2)(nil)
-var _ weaver.InstanceOf[Ping3] = (*ping3)(nil)
-var _ weaver.InstanceOf[Ping4] = (*ping4)(nil)
-var _ weaver.InstanceOf[Ping5] = (*ping5)(nil)
-var _ weaver.InstanceOf[Ping6] = (*ping6)(nil)
-var _ weaver.InstanceOf[Ping7] = (*ping7)(nil)
-var _ weaver.InstanceOf[Ping8] = (*ping8)(nil)
-var _ weaver.InstanceOf[Ping9] = (*ping9)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[Ping1] = (*ping1)(nil)
+var _ weft.InstanceOf[Ping10] = (*ping10)(nil)
+var _ weft.InstanceOf[Ping2] = (*ping2)(nil)
+var _ weft.InstanceOf[Ping3] = (*ping3)(nil)
+var _ weft.InstanceOf[Ping4] = (*ping4)(nil)
+var _ weft.InstanceOf[Ping5] = (*ping5)(nil)
+var _ weft.InstanceOf[Ping6] = (*ping6)(nil)
+var _ weft.InstanceOf[Ping7] = (*ping7)(nil)
+var _ weft.InstanceOf[Ping8] = (*ping8)(nil)
+var _ weft.InstanceOf[Ping9] = (*ping9)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*ping1)(nil)
-var _ weaver.Unrouted = (*ping10)(nil)
-var _ weaver.Unrouted = (*ping2)(nil)
-var _ weaver.Unrouted = (*ping3)(nil)
-var _ weaver.Unrouted = (*ping4)(nil)
-var _ weaver.Unrouted = (*ping5)(nil)
-var _ weaver.Unrouted = (*ping6)(nil)
-var _ weaver.Unrouted = (*ping7)(nil)
-var _ weaver.Unrouted = (*ping8)(nil)
-var _ weaver.Unrouted = (*ping9)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*ping1)(nil)
+var _ weft.Unrouted = (*ping10)(nil)
+var _ weft.Unrouted = (*ping2)(nil)
+var _ weft.Unrouted = (*ping3)(nil)
+var _ weft.Unrouted = (*ping4)(nil)
+var _ weft.Unrouted = (*ping5)(nil)
+var _ weft.Unrouted = (*ping6)(nil)
+var _ weft.Unrouted = (*ping7)(nil)
+var _ weft.Unrouted = (*ping8)(nil)
+var _ weft.Unrouted = (*ping9)(nil)
 
 // Local stub implementations.
 
@@ -751,7 +751,7 @@ func (s ping1_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -781,7 +781,7 @@ func (s ping1_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -809,7 +809,7 @@ func (s ping1_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -833,7 +833,7 @@ func (s ping1_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -870,7 +870,7 @@ func (s ping10_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -900,7 +900,7 @@ func (s ping10_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -928,7 +928,7 @@ func (s ping10_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -952,7 +952,7 @@ func (s ping10_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -989,7 +989,7 @@ func (s ping2_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -1019,7 +1019,7 @@ func (s ping2_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -1047,7 +1047,7 @@ func (s ping2_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -1071,7 +1071,7 @@ func (s ping2_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -1108,7 +1108,7 @@ func (s ping3_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -1138,7 +1138,7 @@ func (s ping3_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -1166,7 +1166,7 @@ func (s ping3_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -1190,7 +1190,7 @@ func (s ping3_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -1227,7 +1227,7 @@ func (s ping4_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -1257,7 +1257,7 @@ func (s ping4_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -1285,7 +1285,7 @@ func (s ping4_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -1309,7 +1309,7 @@ func (s ping4_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -1346,7 +1346,7 @@ func (s ping5_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -1376,7 +1376,7 @@ func (s ping5_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -1404,7 +1404,7 @@ func (s ping5_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -1428,7 +1428,7 @@ func (s ping5_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -1465,7 +1465,7 @@ func (s ping6_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -1495,7 +1495,7 @@ func (s ping6_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -1523,7 +1523,7 @@ func (s ping6_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -1547,7 +1547,7 @@ func (s ping6_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -1584,7 +1584,7 @@ func (s ping7_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -1614,7 +1614,7 @@ func (s ping7_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -1642,7 +1642,7 @@ func (s ping7_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -1666,7 +1666,7 @@ func (s ping7_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -1703,7 +1703,7 @@ func (s ping8_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -1733,7 +1733,7 @@ func (s ping8_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -1761,7 +1761,7 @@ func (s ping8_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -1785,7 +1785,7 @@ func (s ping8_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -1822,7 +1822,7 @@ func (s ping9_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -1852,7 +1852,7 @@ func (s ping9_client_stub) PingC(ctx context.Context, a0 payloadC, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -1880,7 +1880,7 @@ func (s ping9_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -1904,7 +1904,7 @@ func (s ping9_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -2857,7 +2857,7 @@ func (s ping9_reflect_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 
 var _ codegen.AutoMarshal = (*X1)(nil)
 
 type __is_X1[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A X2
 	B []int64
 }] struct{}
@@ -2906,7 +2906,7 @@ func serviceweaver_dec_slice_int64_a8f7f092(dec *codegen.Decoder) []int64 {
 var _ codegen.AutoMarshal = (*X2)(nil)
 
 type __is_X2[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A X3
 }] struct{}
 
@@ -2929,7 +2929,7 @@ func (x *X2) WeaverUnmarshal(dec *codegen.Decoder) {
 var _ codegen.AutoMarshal = (*X3)(nil)
 
 type __is_X3[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A X4
 	B int64
 	C int64
@@ -2958,7 +2958,7 @@ func (x *X3) WeaverUnmarshal(dec *codegen.Decoder) {
 var _ codegen.AutoMarshal = (*X4)(nil)
 
 type __is_X4[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A int64
 	B X5
 	C int64
@@ -2987,7 +2987,7 @@ func (x *X4) WeaverUnmarshal(dec *codegen.Decoder) {
 var _ codegen.AutoMarshal = (*X5)(nil)
 
 type __is_X5[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A int64
 	B int64
 }] struct{}
@@ -3013,7 +3013,7 @@ func (x *X5) WeaverUnmarshal(dec *codegen.Decoder) {
 var _ codegen.AutoMarshal = (*X6)(nil)
 
 type __is_X6[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A []bool
 }] struct{}
 
@@ -3059,7 +3059,7 @@ func serviceweaver_dec_slice_bool_c791c3b0(dec *codegen.Decoder) []bool {
 var _ codegen.AutoMarshal = (*payloadC)(nil)
 
 type __is_payloadC[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A float64
 	B string
 	C int64
@@ -3112,7 +3112,7 @@ func (x *payloadC) WeaverUnmarshal(dec *codegen.Decoder) {
 var _ codegen.AutoMarshal = (*payloadS)(nil)
 
 type __is_payloadS[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	Values []string
 }] struct{}
 

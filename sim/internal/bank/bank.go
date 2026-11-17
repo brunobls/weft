@@ -55,8 +55,8 @@ type Bank interface {
 }
 
 type bank struct {
-	weaver.Implements[Bank]
-	store weaver.Ref[Store]
+	weft.Implements[Bank]
+	store weft.Ref[Store]
 }
 
 // Deposit implements the Bank interface.

@@ -36,7 +36,7 @@ import (
 
 func main() {
 	flag.Parse()
-	if err := weaver.Run(context.Background(), frontend.Serve); err != nil {
+	if err := weft.Run(context.Background(), frontend.Serve); err != nil {
 		log.Fatal(err)
 	}
 }

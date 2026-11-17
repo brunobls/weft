@@ -125,21 +125,21 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[blocker] = (*blockerImpl)(nil)
-var _ weaver.InstanceOf[div] = (*divImpl)(nil)
-var _ weaver.InstanceOf[divMod] = (*divModImpl)(nil)
-var _ weaver.InstanceOf[identity] = (*identityImpl)(nil)
-var _ weaver.InstanceOf[mod] = (*modImpl)(nil)
-var _ weaver.InstanceOf[panicker] = (*panickerImpl)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[blocker] = (*blockerImpl)(nil)
+var _ weft.InstanceOf[div] = (*divImpl)(nil)
+var _ weft.InstanceOf[divMod] = (*divModImpl)(nil)
+var _ weft.InstanceOf[identity] = (*identityImpl)(nil)
+var _ weft.InstanceOf[mod] = (*modImpl)(nil)
+var _ weft.InstanceOf[panicker] = (*panickerImpl)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*blockerImpl)(nil)
-var _ weaver.Unrouted = (*divImpl)(nil)
-var _ weaver.Unrouted = (*divModImpl)(nil)
-var _ weaver.Unrouted = (*identityImpl)(nil)
-var _ weaver.Unrouted = (*modImpl)(nil)
-var _ weaver.Unrouted = (*panickerImpl)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*blockerImpl)(nil)
+var _ weft.Unrouted = (*divImpl)(nil)
+var _ weft.Unrouted = (*divModImpl)(nil)
+var _ weft.Unrouted = (*identityImpl)(nil)
+var _ weft.Unrouted = (*modImpl)(nil)
+var _ weft.Unrouted = (*panickerImpl)(nil)
 
 // Local stub implementations.
 
@@ -344,7 +344,7 @@ func (s blocker_client_stub) Block(ctx context.Context) (err error) {
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -363,7 +363,7 @@ func (s blocker_client_stub) Block(ctx context.Context) (err error) {
 	results, err = s.stub.Run(ctx, 0, nil, shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -398,7 +398,7 @@ func (s div_client_stub) Div(ctx context.Context, a0 int, a1 int) (r0 int, err e
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -428,7 +428,7 @@ func (s div_client_stub) Div(ctx context.Context, a0 int, a1 int) (r0 int, err e
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -464,7 +464,7 @@ func (s divMod_client_stub) DivMod(ctx context.Context, a0 int, a1 int) (r0 int,
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -494,7 +494,7 @@ func (s divMod_client_stub) DivMod(ctx context.Context, a0 int, a1 int) (r0 int,
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -531,7 +531,7 @@ func (s identity_client_stub) Identity(ctx context.Context, a0 int) (r0 int, err
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -559,7 +559,7 @@ func (s identity_client_stub) Identity(ctx context.Context, a0 int) (r0 int, err
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -595,7 +595,7 @@ func (s mod_client_stub) Mod(ctx context.Context, a0 int, a1 int) (r0 int, err e
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -625,7 +625,7 @@ func (s mod_client_stub) Mod(ctx context.Context, a0 int, a1 int) (r0 int, err e
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -661,7 +661,7 @@ func (s panicker_client_stub) Panic(ctx context.Context, a0 bool) (err error) {
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -689,7 +689,7 @@ func (s panicker_client_stub) Panic(ctx context.Context, a0 bool) (err error) {
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -1060,7 +1060,7 @@ func (s panicker_reflect_stub) Panic(ctx context.Context, a0 bool) (err error) {
 
 var _ codegen.AutoMarshal = (*zeroError)(nil)
 
-type __is_zeroError[T ~struct{ weaver.AutoMarshal }] struct{}
+type __is_zeroError[T ~struct{ weft.AutoMarshal }] struct{}
 
 var _ __is_zeroError[zeroError]
 

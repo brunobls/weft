@@ -276,10 +276,10 @@ func TestIsValidRouterType(t *testing.T) {
 		{"array", "type target [42]byte", false},
 		{"empty struct", "type target struct{}", true},
 		{"simple struct", "type target struct{x int; y string}", true},
-		{"embedded weaver.AutoMarshal", `
+		{"embedded weft.AutoMarshal", `
 import "github.com/brunobls/weft"
 type target struct{
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	foo int
 	bar string
 }`, true},

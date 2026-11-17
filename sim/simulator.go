@@ -117,7 +117,7 @@
 //
 // In this trivial example, our workload did not use any Service Weaver
 // components, but most realistic workloads do. A workload can get a reference
-// to a component using weaver.Ref. See serviceweaver.dev/blog/testing.html for
+// to a component using weft.Ref. See serviceweaver.dev/blog/testing.html for
 // a complete example.
 //
 // # Graveyard

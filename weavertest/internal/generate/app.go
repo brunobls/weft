@@ -36,7 +36,7 @@ const (
 )
 
 type customErrorValue struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	key string
 }
 
@@ -49,7 +49,7 @@ type testApp interface {
 }
 
 type impl struct {
-	weaver.Implements[testApp]
+	weft.Implements[testApp]
 }
 
 // Get returns an error or a value based on the expected behavior.

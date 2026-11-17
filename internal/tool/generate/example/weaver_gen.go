@@ -57,13 +57,13 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[A] = (*a)(nil)
-var _ weaver.InstanceOf[B] = (*b)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[A] = (*a)(nil)
+var _ weft.InstanceOf[B] = (*b)(nil)
 
-// weaver.Router checks.
-var _ weaver.RoutedBy[router] = (*a)(nil)
-var _ weaver.RoutedBy[router] = (*b)(nil)
+// weft.Router checks.
+var _ weft.RoutedBy[router] = (*a)(nil)
+var _ weft.RoutedBy[router] = (*b)(nil)
 
 // Component "a", router "router" checks.
 var _ func(context.Context, int, string, bool, [10]int, []string, map[bool]int, message) routingKey = (&router{}).M1 // routed
@@ -202,7 +202,7 @@ func (s a_client_stub) M1(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -234,7 +234,7 @@ func (s a_client_stub) M1(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -262,7 +262,7 @@ func (s a_client_stub) M2(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -294,7 +294,7 @@ func (s a_client_stub) M2(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -331,7 +331,7 @@ func (s b_client_stub) M1(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -363,7 +363,7 @@ func (s b_client_stub) M1(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -391,7 +391,7 @@ func (s b_client_stub) M2(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -423,7 +423,7 @@ func (s b_client_stub) M2(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -696,7 +696,7 @@ func (s b_reflect_stub) M2(ctx context.Context, a0 int, a1 string, a2 bool, a3 [
 var _ codegen.AutoMarshal = (*message)(nil)
 
 type __is_message[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	a int
 	b string
 	c bool
@@ -797,7 +797,7 @@ func serviceweaver_dec_map_bool_int_acb668fa(dec *codegen.Decoder) map[bool]int 
 var _ codegen.AutoMarshal = (*pair)(nil)
 
 type __is_pair[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	a message
 	b message
 }] struct{}
@@ -823,7 +823,7 @@ func (x *pair) WeaverUnmarshal(dec *codegen.Decoder) {
 var _ codegen.AutoMarshal = (*routingKey)(nil)
 
 type __is_routingKey[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	a int
 	b string
 	c float32

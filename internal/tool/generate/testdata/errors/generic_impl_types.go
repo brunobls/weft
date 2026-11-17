@@ -27,4 +27,4 @@ type foo[V any] interface {
 	M(context.Context) error
 }
 
-type impl[V any] struct{ weaver.Implements[foo[V]] }
+type impl[V any] struct{ weft.Implements[foo[V]] }

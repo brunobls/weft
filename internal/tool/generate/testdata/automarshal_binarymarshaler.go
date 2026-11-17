@@ -34,7 +34,7 @@ func (chans) MarshalBinary() ([]byte, error) { return nil, nil }
 func (chans) UnmarshalBinary([]byte) error   { return nil }
 
 type t struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	c chans
 }
 
@@ -43,7 +43,7 @@ type foo interface {
 	ByPointer(context.Context, *t) (*t, error)
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (impl) ByValue(context.Context, t) (t, error)     { return t{}, nil }
 func (impl) ByPointer(context.Context, *t) (*t, error) { return &t{}, nil }

@@ -21,4 +21,4 @@ import (
 	"github.com/brunobls/weft"
 )
 
-type foo struct{ weaver.Implements[io.Reader] }
+type foo struct{ weft.Implements[io.Reader] }

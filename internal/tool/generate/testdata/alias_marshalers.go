@@ -68,7 +68,7 @@ type PMP = *pm
 
 // sm implements error with an alias result.
 type sm struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A int
 }
 
@@ -81,7 +81,7 @@ type foo interface {
 }
 
 type impl struct {
-	weaver.Implements[foo]
+	weft.Implements[foo]
 }
 
 func (impl) M(context.Context, BP, *bm) (BP, error)    { return nil, nil }

@@ -35,11 +35,11 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[testApp] = (*impl)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[testApp] = (*impl)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*impl)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*impl)(nil)
 
 // Local stub implementations.
 
@@ -143,7 +143,7 @@ func (s testApp_client_stub) DivMod(ctx context.Context, a0 int, a1 int) (r0 int
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -173,7 +173,7 @@ func (s testApp_client_stub) DivMod(ctx context.Context, a0 int, a1 int) (r0 int
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -202,7 +202,7 @@ func (s testApp_client_stub) Get(ctx context.Context, a0 string, a1 behaviorType
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -232,7 +232,7 @@ func (s testApp_client_stub) Get(ctx context.Context, a0 string, a1 behaviorType
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -260,7 +260,7 @@ func (s testApp_client_stub) IncPointer(ctx context.Context, a0 *int) (r0 *int, 
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -288,7 +288,7 @@ func (s testApp_client_stub) IncPointer(ctx context.Context, a0 *int) (r0 *int, 
 	results, err = s.stub.Run(ctx, 2, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -455,7 +455,7 @@ func (s testApp_reflect_stub) IncPointer(ctx context.Context, a0 *int) (r0 *int,
 var _ codegen.AutoMarshal = (*customErrorValue)(nil)
 
 type __is_customErrorValue[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	key string
 }] struct{}
 

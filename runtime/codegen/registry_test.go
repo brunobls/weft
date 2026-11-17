@@ -90,7 +90,7 @@ type componentWithoutConfigImpl struct{}
 
 type componentWithConfig interface{}
 type componentWithConfigImpl struct {
-	weaver.WithConfig[testconfig]
+	weft.WithConfig[testconfig]
 }
 
 type testconfig struct {
@@ -109,12 +109,12 @@ type A interface{}
 type B interface{}
 
 type aimpl struct {
-	weaver.Implements[A]
-	b weaver.Ref[B] //lint:ignore U1000 present just for call graph extraction
+	weft.Implements[A]
+	b weft.Ref[B] //lint:ignore U1000 present just for call graph extraction
 }
 
 type bimpl struct {
-	weaver.Implements[B]
+	weft.Implements[B]
 }
 
 func register[Intf, Impl any](name string) {

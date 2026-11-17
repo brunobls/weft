@@ -65,14 +65,14 @@ type config struct {
 
 // server is the application frontend.
 type server struct {
-	weaver.Implements[weaver.Main]
-	weaver.WithConfig[config]
-	lis                weaver.Listener `weaver:"bank"`
-	balanceReader      weaver.Ref[balancereader.T]
-	contacts           weaver.Ref[contacts.T]
-	ledgerWriter       weaver.Ref[ledgerwriter.T]
-	transactionHistory weaver.Ref[transactionhistory.T]
-	userService        weaver.Ref[userservice.T]
+	weft.Implements[weft.Main]
+	weft.WithConfig[config]
+	lis                weft.Listener `weaver:"bank"`
+	balanceReader      weft.Ref[balancereader.T]
+	contacts           weft.Ref[contacts.T]
+	ledgerWriter       weft.Ref[ledgerwriter.T]
+	transactionHistory weft.Ref[transactionhistory.T]
+	userService        weft.Ref[userservice.T]
 
 	hostname string
 	config   serverConfig
@@ -150,7 +150,7 @@ func Serve(ctx context.Context, s *server) error {
 			}
 			fn(w, r)
 		}
-		return weaver.InstrumentHandlerFunc(label, handler)
+		return weft.InstrumentHandlerFunc(label, handler)
 	}
 
 	const get = http.MethodGet
@@ -164,7 +164,7 @@ func Serve(ctx context.Context, s *server) error {
 	mux.Handle("/consent", instrument("consent", s.consentHandler, []string{get, post}))
 	mux.Handle("/signup", instrument("signup", s.signupHandler, []string{get, post}))
 	mux.Handle("/logout", instrument("logout", s.logoutHandler, []string{post}))
-	mux.Handle("/static/", weaver.InstrumentHandler("static", http.StripPrefix("/static", http.FileServer(http.FS(staticHTML)))))
+	mux.Handle("/static/", weft.InstrumentHandler("static", http.StripPrefix("/static", http.FileServer(http.FS(staticHTML)))))
 
 	// No instrumentation of /healthz
 	mux.HandleFunc("/healthz", func(w http.ResponseWriter, _ *http.Request) { fmt.Fprint(w, "ok") })

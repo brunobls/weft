@@ -32,20 +32,20 @@ type bar interface {
 }
 
 type barImpl struct {
-	weaver.Implements[bar]
+	weft.Implements[bar]
 }
 
 func (barImpl) M(context.Context) error { return nil }
 
 type B = bar
-type RefB = weaver.Ref[B]
+type RefB = weft.Ref[B]
 
 type foo interface {
 	M(context.Context) error
 }
 
 type F = foo
-type Impl = weaver.Implements[F]
+type Impl = weft.Implements[F]
 
 type impl struct {
 	Impl

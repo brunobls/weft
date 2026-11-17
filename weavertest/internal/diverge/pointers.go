@@ -21,7 +21,7 @@ import (
 )
 
 type Pair struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	X, Y *int
 }
 
@@ -29,7 +29,7 @@ type Pointer interface {
 	Get(context.Context) (Pair, error)
 }
 
-type pointer struct{ weaver.Implements[Pointer] }
+type pointer struct{ weft.Implements[Pointer] }
 
 func (p *pointer) Get(context.Context) (Pair, error) {
 	aliased := 1

@@ -28,7 +28,7 @@ type BadService interface {
 }
 
 type badServiceImpl struct {
-	weaver.Implements[BadService]
+	weft.Implements[BadService]
 }
 
 func (b *badServiceImpl) DoSomething(context.Context) error {

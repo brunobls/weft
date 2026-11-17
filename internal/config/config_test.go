@@ -25,7 +25,7 @@ import (
 func TestConfigOnTypeWithConfig(t *testing.T) {
 	type testconfig struct{}
 	type withConfig struct {
-		weaver.WithConfig[testconfig]
+		weft.WithConfig[testconfig]
 	}
 
 	got := config.Config(reflect.ValueOf(&withConfig{}))

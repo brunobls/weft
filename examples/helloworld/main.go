@@ -25,13 +25,13 @@ import (
 //go:generate ../../cmd/weaver/weaver generate ./...
 
 func main() {
-	if err := weaver.Run(context.Background(), run); err != nil {
+	if err := weft.Run(context.Background(), run); err != nil {
 		log.Fatal(err)
 	}
 }
 
 type app struct {
-	weaver.Implements[weaver.Main]
+	weft.Implements[weft.Main]
 }
 
 func run(_ context.Context, app *app) error {

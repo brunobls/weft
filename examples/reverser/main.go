@@ -33,23 +33,23 @@ var indexHtml string // index.html served on "/"
 func main() {
 	// Initialize the Service Weaver application.
 	flag.Parse()
-	if err := weaver.Run(context.Background(), serve); err != nil {
+	if err := weft.Run(context.Background(), serve); err != nil {
 		log.Fatal(err)
 	}
 }
 
 type server struct {
-	weaver.Implements[weaver.Main]
-	reverser weaver.Ref[Reverser]
-	lis      weaver.Listener `weaver:"reverser"`
+	weft.Implements[weft.Main]
+	reverser weft.Ref[Reverser]
+	lis      weft.Listener `weaver:"reverser"`
 }
 
 func serve(ctx context.Context, s *server) error {
 	// Setup the HTTP handler.
 	var mux http.ServeMux
-	mux.Handle("/", weaver.InstrumentHandlerFunc("root", s.handleRoot))
-	mux.Handle("/reverse", weaver.InstrumentHandlerFunc("reverse", s.handleReverse))
-	mux.HandleFunc(weaver.HealthzURL, weaver.HealthzHandler)
+	mux.Handle("/", weft.InstrumentHandlerFunc("root", s.handleRoot))
+	mux.Handle("/reverse", weft.InstrumentHandlerFunc("reverse", s.handleReverse))
+	mux.HandleFunc(weft.HealthzURL, weft.HealthzHandler)
 	s.Logger(ctx).Info("Reverser server running", "address", s.lis)
 	return http.Serve(s.lis, &mux)
 }

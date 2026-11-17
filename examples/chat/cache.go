@@ -44,7 +44,7 @@ type LocalCache interface {
 }
 
 type localCache struct {
-	weaver.Implements[LocalCache]
+	weft.Implements[LocalCache]
 	mu    sync.Mutex
 	cache *lru.Cache[string, string]
 	// TODO: Eviction policy.

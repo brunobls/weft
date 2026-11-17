@@ -38,11 +38,11 @@ type config struct {
 }
 
 type impl struct {
-	weaver.Implements[T]
-	weaver.WithConfig[config]
+	weft.Implements[T]
+	weft.WithConfig[config]
 	cache         *cache.Cache
 	txnRepo       *transactionRepository
-	balanceReader weaver.Ref[balancereader.T]
+	balanceReader weft.Ref[balancereader.T]
 }
 
 func (i *impl) Init(context.Context) error {

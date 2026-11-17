@@ -46,7 +46,7 @@ import (
 )
 
 type X struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	a int
 }
 
@@ -55,7 +55,7 @@ type foo interface {
 	B(context.Context, *string, *X) error
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (l *impl) A(context.Context, []X, []int, [][]X, []map[int]string) ([]string, error) {
 	return nil, nil

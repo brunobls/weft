@@ -28,13 +28,13 @@ import (
 )
 
 type pair struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A int
 	B string
 }
 
 type fixed struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A int32
 	B bool
 }
@@ -49,7 +49,7 @@ type Fixed = fixed
 type FixedArray = [2]Fixed
 
 type outer struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	F Fixed
 	A FixedArray
 	S []Fixed
@@ -62,7 +62,7 @@ type foo interface {
 }
 
 type impl struct {
-	weaver.Implements[foo]
+	weft.Implements[foo]
 }
 
 func (impl) M(context.Context, P, PP, S, M, *P, Bytes, ...P) (P, S, Bytes, error) {

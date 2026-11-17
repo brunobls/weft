@@ -164,7 +164,7 @@ func (d *deployer) start(opts weaver.RemoteWeaveletOptions) (*weaver.RemoteWeave
 
 	// NOTE: NewEnvelope initiates a blocking handshake with the weavelet
 	// and therefore we run the rest of the initialization in a goroutine which
-	// will wait for weaver.Run to create a weavelet.
+	// will wait for weft.Run to create a weavelet.
 	go func() {
 		e, err := envelope.NewEnvelope(d.ctx, wlet, d.config, envelope.Options{
 			TmpDir: d.tmpDir,

@@ -24,7 +24,7 @@ import (
 type foo interface{}
 
 type impl struct {
-	weaver.Implements[foo]
-	bar weaver.Listener
-	_   weaver.Listener `weaver:"bar"`
+	weft.Implements[foo]
+	bar weft.Listener
+	_   weft.Listener `weaver:"bar"`
 }

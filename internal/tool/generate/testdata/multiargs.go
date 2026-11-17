@@ -40,15 +40,15 @@ import (
 )
 
 type Bar struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 }
 
 type Other struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	T time.Time
 }
 
-type impl struct{ weaver.Implements[Foo] }
+type impl struct{ weft.Implements[Foo] }
 
 type Foo interface {
 	A(context.Context, string, int, Bar, Other) error

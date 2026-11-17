@@ -38,6 +38,6 @@ type foo interface {
 	M(context.Context, byValue, byPointer, mixed1, mixed2) error
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (impl) M(context.Context, byValue, byPointer, mixed1, mixed2) error { return nil }

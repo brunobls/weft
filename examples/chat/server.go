@@ -35,12 +35,12 @@ import (
 )
 
 type server struct {
-	weaver.Implements[weaver.Main]
+	weft.Implements[weft.Main]
 	httpServer http.Server
-	store      weaver.Ref[SQLStore]
-	scaler     weaver.Ref[ImageScaler]
-	cache      weaver.Ref[LocalCache]
-	chat       weaver.Listener
+	store      weft.Ref[SQLStore]
+	scaler     weft.Ref[ImageScaler]
+	cache      weft.Ref[LocalCache]
+	chat       weft.Listener
 }
 
 func serve(ctx context.Context, s *server) error {
@@ -49,11 +49,11 @@ func serve(ctx context.Context, s *server) error {
 	return s.httpServer.Serve(s.chat)
 }
 
-// instrument instruments the provided handler with weaver.InstrumentHandler.
+// instrument instruments the provided handler with weft.InstrumentHandler.
 // The label for each request is determined by the provided labeler.
 func instrument(labeler func(r *http.Request) string, handler http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		weaver.InstrumentHandler(labeler(r), handler).ServeHTTP(w, r)
+		weft.InstrumentHandler(labeler(r), handler).ServeHTTP(w, r)
 	})
 }
 
@@ -63,7 +63,7 @@ func (s *server) label(r *http.Request) string {
 	}
 
 	switch r.URL.Path {
-	case "/", "/thumbnail", "/newthread", "/newpost", weaver.HealthzURL:
+	case "/", "/thumbnail", "/newthread", "/newpost", weft.HealthzURL:
 		return r.URL.Path
 	default:
 		return "unknown"
@@ -87,7 +87,7 @@ func (s *server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		s.newThread(w, r, user)
 	case "/newpost":
 		s.newPost(w, r, user)
-	case weaver.HealthzURL:
+	case weft.HealthzURL:
 		// Returns OK status.
 	default:
 		http.Error(w, "not found", http.StatusNotFound)

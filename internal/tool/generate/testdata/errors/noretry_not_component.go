@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ERROR: weaver.NonRetriable
+// ERROR: weft.NotRetriable
 package foo
 
 import (
@@ -25,4 +25,4 @@ type Bar interface {
 	A(context.Context) error
 }
 
-var _ weaver.NotRetriable = Bar.A
+var _ weft.NotRetriable = Bar.A

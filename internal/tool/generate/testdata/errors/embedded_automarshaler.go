@@ -22,7 +22,7 @@ import (
 )
 
 type a struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 }
 
 type WeIgnoreEmbeddedAutoMarshalers struct{ a }
@@ -31,6 +31,6 @@ type Foo interface {
 	M(context.Context, WeIgnoreEmbeddedAutoMarshalers) error
 }
 
-type foo struct{ weaver.Implements[Foo] }
+type foo struct{ weft.Implements[Foo] }
 
 func (foo) M(context.Context, WeIgnoreEmbeddedAutoMarshalers) error { return nil }

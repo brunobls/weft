@@ -12,13 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ERROR: cannot embed weaver.AutoMarshal
+// ERROR: cannot embed weft.AutoMarshal
 package foo
 
 import "github.com/brunobls/weft"
 
 type option[T any] struct {
 	x int
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	y bool
 }

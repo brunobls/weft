@@ -30,7 +30,7 @@ import (
 
 // See TestPassingExecution.
 type passingWorkload struct {
-	divmod weaver.Ref[divMod]
+	divmod weft.Ref[divMod]
 }
 
 func (p *passingWorkload) Init(r Registrar) error {
@@ -73,7 +73,7 @@ func TestPassingExecution(t *testing.T) {
 
 // See TestFailingExecution.
 type failingWorkload struct {
-	divmod weaver.Ref[divMod]
+	divmod weft.Ref[divMod]
 }
 
 func (f *failingWorkload) Init(r Registrar) error {
@@ -126,7 +126,7 @@ func TestExecuteGraveyardEntries(t *testing.T) {
 
 // See TestPanickingExecution.
 type panickingMethodWorkload struct {
-	p weaver.Ref[panicker]
+	p weft.Ref[panicker]
 }
 
 func (p *panickingMethodWorkload) Init(r Registrar) error {
@@ -182,7 +182,7 @@ func TestPanickingExecution(t *testing.T) {
 
 // See TestCancelledExecution.
 type cancellableWorkload struct {
-	b weaver.Ref[blocker]
+	b weft.Ref[blocker]
 }
 
 func (c *cancellableWorkload) Init(r Registrar) error {
@@ -230,7 +230,7 @@ func TestCancelledExecution(t *testing.T) {
 
 // See TestFailureRateZero.
 type noFailureWorkload struct {
-	divmod weaver.Ref[divMod]
+	divmod weft.Ref[divMod]
 }
 
 func (n *noFailureWorkload) Init(r Registrar) error {
@@ -263,7 +263,7 @@ func TestFailureRateZero(t *testing.T) {
 
 // See TestFailureRateOne.
 type totalFailureWorkload struct {
-	divmod weaver.Ref[divMod]
+	divmod weft.Ref[divMod]
 }
 
 func (t *totalFailureWorkload) Init(r Registrar) error {
@@ -299,7 +299,7 @@ func TestFailureRateOne(t *testing.T) {
 
 // See TestInjectedErrors.
 type injectedErrorWorkload struct {
-	divmod weaver.Ref[divMod]
+	divmod weft.Ref[divMod]
 
 	mu       sync.Mutex
 	nextId   int
@@ -322,7 +322,7 @@ func (i *injectedErrorWorkload) DivMod(ctx context.Context) error {
 	i.mu.Unlock()
 
 	_, _, err := i.divmod.Get().DivMod(ctx, id, id)
-	if errors.Is(err, weaver.RemoteCallError) {
+	if errors.Is(err, weft.RemoteCallError) {
 		i.mu.Lock()
 		i.errored[id] = struct{}{}
 		i.mu.Unlock()
@@ -388,7 +388,7 @@ func (fakeDivMod) DivMod(context.Context, int, int) (int, int, error) {
 }
 
 type fakeWorkload struct {
-	divmod weaver.Ref[divMod]
+	divmod weft.Ref[divMod]
 }
 
 func (f *fakeWorkload) Init(r Registrar) error {
@@ -449,7 +449,7 @@ func TestExtractIDsOnInvalidContext(t *testing.T) {
 
 // See TestBadContextPropagation.
 type badContextPropagationWorkload struct {
-	id weaver.Ref[identity]
+	id weft.Ref[identity]
 }
 
 func (b *badContextPropagationWorkload) Init(r Registrar) error {
@@ -505,7 +505,7 @@ func (*noCallsWorkload) Foo(context.Context, int) error {
 
 // A workload with one method call per op.
 type oneCallWorkload struct {
-	id weaver.Ref[identity]
+	id weft.Ref[identity]
 }
 
 func (*oneCallWorkload) Init(r Registrar) error {

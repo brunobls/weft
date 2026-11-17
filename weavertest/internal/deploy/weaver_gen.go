@@ -52,13 +52,13 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[Started] = (*started)(nil)
-var _ weaver.InstanceOf[Widget] = (*widget)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[Started] = (*started)(nil)
+var _ weft.InstanceOf[Widget] = (*widget)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*started)(nil)
-var _ weaver.Unrouted = (*widget)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*started)(nil)
+var _ weft.Unrouted = (*widget)(nil)
 
 // Local stub implementations.
 
@@ -147,7 +147,7 @@ func (s started_client_stub) MarkStarted(ctx context.Context, a0 string) (err er
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -175,7 +175,7 @@ func (s started_client_stub) MarkStarted(ctx context.Context, a0 string) (err er
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -210,7 +210,7 @@ func (s widget_client_stub) Use(ctx context.Context, a0 string) (err error) {
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -238,7 +238,7 @@ func (s widget_client_stub) Use(ctx context.Context, a0 string) (err error) {
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 

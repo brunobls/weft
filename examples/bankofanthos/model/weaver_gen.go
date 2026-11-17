@@ -10,9 +10,9 @@ import (
 	"time"
 )
 
-// weaver.InstanceOf checks.
+// weft.InstanceOf checks.
 
-// weaver.Router checks.
+// weft.Router checks.
 
 // Local stub implementations.
 
@@ -50,7 +50,7 @@ please file an issue at https://github.com/brunobls/weft/issues.
 var _ codegen.AutoMarshal = (*Transaction)(nil)
 
 type __is_Transaction[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	FromAccountNum string    "gorm:\"column:from_acct;not null\""
 	FromRoutingNum string    "gorm:\"column:from_route;not null\""
 	ToAccountNum   string    "gorm:\"column:to_acct;not null\""
@@ -88,7 +88,7 @@ func (x *Transaction) WeaverUnmarshal(dec *codegen.Decoder) {
 var _ codegen.AutoMarshal = (*TransactionWithID)(nil)
 
 type __is_TransactionWithID[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	Transaction
 	TransactionID int64 "gorm:\"column:transaction_id;primaryKey;autoIncrement:true\""
 }] struct{}

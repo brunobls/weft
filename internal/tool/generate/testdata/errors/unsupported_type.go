@@ -29,7 +29,7 @@ type foo interface {
 }
 
 type impl struct {
-	weaver.Implements[foo]
+	weft.Implements[foo]
 }
 
 func (impl) A(context.Context, func()) error   { return nil }

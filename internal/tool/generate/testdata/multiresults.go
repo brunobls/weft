@@ -41,10 +41,10 @@ type Foo interface {
 }
 
 type Bar struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 }
 
-type impl struct{ weaver.Implements[Foo] }
+type impl struct{ weft.Implements[Foo] }
 
 func (l *impl) A(context.Context) (string, int, Bar, error) {
 	return "", 0, Bar{}, nil

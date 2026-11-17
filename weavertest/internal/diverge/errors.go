@@ -38,7 +38,7 @@ type Errer interface {
 	Err(context.Context, int) error
 }
 
-type errer struct{ weaver.Implements[Errer] }
+type errer struct{ weft.Implements[Errer] }
 
 func (e *errer) Err(_ context.Context, x int) error {
 	return IntError{x}

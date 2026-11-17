@@ -31,7 +31,7 @@ type ImageScaler interface {
 
 // scaler scales an image.
 type scaler struct {
-	weaver.Implements[ImageScaler]
+	weft.Implements[ImageScaler]
 }
 
 // Scale resizes img so it has at most the specified maximum width and height

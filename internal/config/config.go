@@ -36,7 +36,7 @@ func Config(v reflect.Value) any {
 	s := v.Elem()
 	t := s.Type()
 	for i := 0; i < t.NumField(); i++ {
-		// Check that f is an embedded field of type weaver.WithConfig[T].
+		// Check that f is an embedded field of type weft.WithConfig[T].
 		f := t.Field(i)
 		if !f.Anonymous ||
 			f.Type.PkgPath() != "github.com/brunobls/weft" ||

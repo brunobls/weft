@@ -36,7 +36,7 @@ type Reverser interface {
 
 // Implementation of the Reverser component.
 type reverser struct {
-	weaver.Implements[Reverser]
+	weft.Implements[Reverser]
 }
 
 func (r reverser) Reverse(ctx context.Context, s string) (string, error) {

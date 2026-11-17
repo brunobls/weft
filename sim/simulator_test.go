@@ -30,9 +30,9 @@ import (
 var positive = Filter(NonNegativeInt(), func(x int) bool { return x != 0 })
 
 type divModWorkload struct {
-	divmod weaver.Ref[divMod]
-	div    weaver.Ref[div]
-	mod    weaver.Ref[mod]
+	divmod weft.Ref[divMod]
+	div    weft.Ref[div]
+	mod    weft.Ref[mod]
 }
 
 func (d *divModWorkload) Init(r Registrar) error {
@@ -134,7 +134,7 @@ func TestInitByValueSimulation(t *testing.T) {
 }
 
 type divideByZeroWorkload struct {
-	divmod weaver.Ref[divMod]
+	divmod weft.Ref[divMod]
 }
 
 func (d *divideByZeroWorkload) Init(r Registrar) error {
@@ -144,7 +144,7 @@ func (d *divideByZeroWorkload) Init(r Registrar) error {
 
 func (d *divideByZeroWorkload) DivMod(ctx context.Context, x, y int) error {
 	_, _, err := d.divmod.Get().DivMod(ctx, x, y)
-	if errors.Is(err, weaver.RemoteCallError) {
+	if errors.Is(err, weft.RemoteCallError) {
 		// Swallow remote call errors.
 		return nil
 	}

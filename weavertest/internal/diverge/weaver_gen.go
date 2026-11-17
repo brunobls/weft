@@ -53,13 +53,13 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[Errer] = (*errer)(nil)
-var _ weaver.InstanceOf[Pointer] = (*pointer)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[Errer] = (*errer)(nil)
+var _ weft.InstanceOf[Pointer] = (*pointer)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*errer)(nil)
-var _ weaver.Unrouted = (*pointer)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*errer)(nil)
+var _ weft.Unrouted = (*pointer)(nil)
 
 // Local stub implementations.
 
@@ -148,7 +148,7 @@ func (s errer_client_stub) Err(ctx context.Context, a0 int) (err error) {
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -176,7 +176,7 @@ func (s errer_client_stub) Err(ctx context.Context, a0 int) (err error) {
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -211,7 +211,7 @@ func (s pointer_client_stub) Get(ctx context.Context) (r0 Pair, err error) {
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -230,7 +230,7 @@ func (s pointer_client_stub) Get(ctx context.Context) (r0 Pair, err error) {
 	results, err = s.stub.Run(ctx, 0, nil, shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -377,7 +377,7 @@ func (s pointer_reflect_stub) Get(ctx context.Context) (r0 Pair, err error) {
 var _ codegen.AutoMarshal = (*Pair)(nil)
 
 type __is_Pair[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	X *int
 	Y *int
 }] struct{}

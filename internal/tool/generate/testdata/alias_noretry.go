@@ -30,11 +30,11 @@ type foo interface {
 	B(context.Context) error
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (l *impl) A(context.Context) error { return nil }
 func (l *impl) B(context.Context) error { return nil }
 
 type F = foo
 
-var _ weaver.NotRetriable = F.B
+var _ weft.NotRetriable = F.B

@@ -26,7 +26,7 @@ type Adder interface {
 }
 
 type first struct {
-	weaver.Implements[Adder]
+	weft.Implements[Adder]
 }
 
 func (f *first) Add(_ context.Context, x, y int) (int, error) {
@@ -34,7 +34,7 @@ func (f *first) Add(_ context.Context, x, y int) (int, error) {
 }
 
 type second struct {
-	weaver.Implements[Adder]
+	weft.Implements[Adder]
 }
 
 func (s *second) Add(_ context.Context, x, y int) (int, error) {

@@ -28,8 +28,8 @@ type foo interface {
 }
 
 type impl struct {
-	weaver.Implements[foo]
-	weaver.WithRouter[fooRouter]
+	weft.Implements[foo]
+	weft.WithRouter[fooRouter]
 }
 
 func (impl) Foo(context.Context) error {

@@ -74,15 +74,15 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[Destination] = (*destination)(nil)
-var _ weaver.InstanceOf[Server] = (*server)(nil)
-var _ weaver.InstanceOf[Source] = (*source)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[Destination] = (*destination)(nil)
+var _ weft.InstanceOf[Server] = (*server)(nil)
+var _ weft.InstanceOf[Source] = (*source)(nil)
 
-// weaver.Router checks.
-var _ weaver.RoutedBy[destRouter] = (*destination)(nil)
-var _ weaver.Unrouted = (*server)(nil)
-var _ weaver.Unrouted = (*source)(nil)
+// weft.Router checks.
+var _ weft.RoutedBy[destRouter] = (*destination)(nil)
+var _ weft.Unrouted = (*server)(nil)
+var _ weft.Unrouted = (*source)(nil)
 
 // Component "destination", router "destRouter" checks.
 type __destination_destRouter_if_youre_seeing_this_you_probably_forgot_to_run_weaver_generate struct {
@@ -373,7 +373,7 @@ func (s destination_client_stub) GetAll(ctx context.Context, a0 string) (r0 []st
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -401,7 +401,7 @@ func (s destination_client_stub) GetAll(ctx context.Context, a0 string) (r0 []st
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -429,7 +429,7 @@ func (s destination_client_stub) GetMetadata(ctx context.Context) (r0 map[string
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -448,7 +448,7 @@ func (s destination_client_stub) GetMetadata(ctx context.Context) (r0 map[string
 	results, err = s.stub.Run(ctx, 1, nil, shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -476,7 +476,7 @@ func (s destination_client_stub) Getpid(ctx context.Context) (r0 int, err error)
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -495,7 +495,7 @@ func (s destination_client_stub) Getpid(ctx context.Context) (r0 int, err error)
 	results, err = s.stub.Run(ctx, 2, nil, shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -523,7 +523,7 @@ func (s destination_client_stub) Record(ctx context.Context, a0 string, a1 strin
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -553,7 +553,7 @@ func (s destination_client_stub) Record(ctx context.Context, a0 string, a1 strin
 	results, err = s.stub.Run(ctx, 3, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -580,7 +580,7 @@ func (s destination_client_stub) RoutedRecord(ctx context.Context, a0 string, a1
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -613,7 +613,7 @@ func (s destination_client_stub) RoutedRecord(ctx context.Context, a0 string, a1
 	results, err = s.stub.Run(ctx, 4, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -640,7 +640,7 @@ func (s destination_client_stub) UpdateMetadata(ctx context.Context) (err error)
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -659,7 +659,7 @@ func (s destination_client_stub) UpdateMetadata(ctx context.Context) (err error)
 	results, err = s.stub.Run(ctx, 5, nil, shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -696,7 +696,7 @@ func (s server_client_stub) Address(ctx context.Context) (r0 string, err error) 
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -715,7 +715,7 @@ func (s server_client_stub) Address(ctx context.Context) (r0 string, err error) 
 	results, err = s.stub.Run(ctx, 0, nil, shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -743,7 +743,7 @@ func (s server_client_stub) ProxyAddress(ctx context.Context) (r0 string, err er
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -762,7 +762,7 @@ func (s server_client_stub) ProxyAddress(ctx context.Context) (r0 string, err er
 	results, err = s.stub.Run(ctx, 1, nil, shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -790,7 +790,7 @@ func (s server_client_stub) Shutdown(ctx context.Context) (err error) {
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -809,7 +809,7 @@ func (s server_client_stub) Shutdown(ctx context.Context) (err error) {
 	results, err = s.stub.Run(ctx, 2, nil, shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -844,7 +844,7 @@ func (s source_client_stub) Emit(ctx context.Context, a0 string, a1 string) (err
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -874,7 +874,7 @@ func (s source_client_stub) Emit(ctx context.Context, a0 string, a1 string) (err
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 

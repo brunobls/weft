@@ -16,15 +16,15 @@ import (
 func init() {
 	codegen.Register(codegen.Registration{
 		Name:      "github.com/brunobls/weft/Main",
-		Iface:     reflect.TypeOf((*weaver.Main)(nil)).Elem(),
+		Iface:     reflect.TypeOf((*weft.Main)(nil)).Elem(),
 		Impl:      reflect.TypeOf(app{}),
 		Listeners: []string{"hello"},
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return main_local_stub{impl: impl.(weaver.Main), tracer: tracer}
+			return main_local_stub{impl: impl.(weft.Main), tracer: tracer}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any { return main_client_stub{stub: stub} },
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
-			return main_server_stub{impl: impl.(weaver.Main), addLoad: addLoad}
+			return main_server_stub{impl: impl.(weft.Main), addLoad: addLoad}
 		},
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return main_reflect_stub{caller: caller}
@@ -51,23 +51,23 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[weaver.Main] = (*app)(nil)
-var _ weaver.InstanceOf[Reverser] = (*reverser)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[weft.Main] = (*app)(nil)
+var _ weft.InstanceOf[Reverser] = (*reverser)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*app)(nil)
-var _ weaver.Unrouted = (*reverser)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*app)(nil)
+var _ weft.Unrouted = (*reverser)(nil)
 
 // Local stub implementations.
 
 type main_local_stub struct {
-	impl   weaver.Main
+	impl   weft.Main
 	tracer trace.Tracer
 }
 
-// Check that main_local_stub implements the weaver.Main interface.
-var _ weaver.Main = (*main_local_stub)(nil)
+// Check that main_local_stub implements the weft.Main interface.
+var _ weft.Main = (*main_local_stub)(nil)
 
 type reverser_local_stub struct {
 	impl           Reverser
@@ -104,8 +104,8 @@ type main_client_stub struct {
 	stub codegen.Stub
 }
 
-// Check that main_client_stub implements the weaver.Main interface.
-var _ weaver.Main = (*main_client_stub)(nil)
+// Check that main_client_stub implements the weft.Main interface.
+var _ weft.Main = (*main_client_stub)(nil)
 
 type reverser_client_stub struct {
 	stub           codegen.Stub
@@ -132,7 +132,7 @@ func (s reverser_client_stub) Reverse(ctx context.Context, a0 string) (r0 string
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -160,7 +160,7 @@ func (s reverser_client_stub) Reverse(ctx context.Context, a0 string) (r0 string
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -197,7 +197,7 @@ please file an issue at https://github.com/brunobls/weft/issues.
 // Server stub implementations.
 
 type main_server_stub struct {
-	impl    weaver.Main
+	impl    weft.Main
 	addLoad func(key uint64, load float64)
 }
 
@@ -261,8 +261,8 @@ type main_reflect_stub struct {
 	caller func(string, context.Context, []any, []any) error
 }
 
-// Check that main_reflect_stub implements the weaver.Main interface.
-var _ weaver.Main = (*main_reflect_stub)(nil)
+// Check that main_reflect_stub implements the weft.Main interface.
+var _ weft.Main = (*main_reflect_stub)(nil)
 
 type reverser_reflect_stub struct {
 	caller func(string, context.Context, []any, []any) error

@@ -31,15 +31,15 @@ type foo interface {
 	D(context.Context) error
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (l *impl) A(context.Context) error { return nil }
 func (l *impl) B(context.Context) error { return nil }
 func (l *impl) C(context.Context) error { return nil }
 func (l *impl) D(context.Context) error { return nil }
 
-var _ weaver.NotRetriable = foo.B
-var _ weaver.NotRetriable = foo.D
+var _ weft.NotRetriable = foo.B
+var _ weft.NotRetriable = foo.D
 
 // Following should be ignored.
 var _ any = foo.A

@@ -45,22 +45,22 @@ type d interface {
 }
 
 type aimpl struct {
-	weaver.Implements[a]
-	lis weaver.Listener //lint:ignore U1000 used in remoteweavelet_test.go
-	b   weaver.Ref[b]
+	weft.Implements[a]
+	lis weft.Listener //lint:ignore U1000 used in remoteweavelet_test.go
+	b   weft.Ref[b]
 }
 
 type bimpl struct {
-	weaver.Implements[b]
-	c weaver.Ref[c]
+	weft.Implements[b]
+	c weft.Ref[c]
 }
 
 type cimpl struct {
-	weaver.Implements[c]
+	weft.Implements[c]
 }
 
 type dimpl struct {
-	weaver.Implements[d]
+	weft.Implements[d]
 }
 
 func (a *aimpl) A(ctx context.Context, x int) (int, error) {

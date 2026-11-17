@@ -26,7 +26,7 @@ import (
 
 // User contains data pertaining to a user.
 type User struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	AccountID string `gorm:"column:accountid;primary_key"`
 	Username  string `gorm:"unique;not null"`
 	Passhash  []byte `gorm:"not null"`

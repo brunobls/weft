@@ -36,8 +36,8 @@ type config struct {
 }
 
 type impl struct {
-	weaver.Implements[T]
-	weaver.WithConfig[config]
+	weft.Implements[T]
+	weft.WithConfig[config]
 
 	txnRepo      *transactionRepository
 	txnCache     *transactionCache

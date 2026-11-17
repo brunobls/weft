@@ -54,15 +54,15 @@ func init() {
 	})
 	codegen.Register(codegen.Registration{
 		Name:      "github.com/brunobls/weft/Main",
-		Iface:     reflect.TypeOf((*weaver.Main)(nil)).Elem(),
+		Iface:     reflect.TypeOf((*weft.Main)(nil)).Elem(),
 		Impl:      reflect.TypeOf(server{}),
 		Listeners: []string{"chat"},
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return main_local_stub{impl: impl.(weaver.Main), tracer: tracer}
+			return main_local_stub{impl: impl.(weft.Main), tracer: tracer}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any { return main_client_stub{stub: stub} },
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
-			return main_server_stub{impl: impl.(weaver.Main), addLoad: addLoad}
+			return main_server_stub{impl: impl.(weft.Main), addLoad: addLoad}
 		},
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return main_reflect_stub{caller: caller}
@@ -90,17 +90,17 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[ImageScaler] = (*scaler)(nil)
-var _ weaver.InstanceOf[LocalCache] = (*localCache)(nil)
-var _ weaver.InstanceOf[weaver.Main] = (*server)(nil)
-var _ weaver.InstanceOf[SQLStore] = (*sqlStore)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[ImageScaler] = (*scaler)(nil)
+var _ weft.InstanceOf[LocalCache] = (*localCache)(nil)
+var _ weft.InstanceOf[weft.Main] = (*server)(nil)
+var _ weft.InstanceOf[SQLStore] = (*sqlStore)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*scaler)(nil)
-var _ weaver.Unrouted = (*localCache)(nil)
-var _ weaver.Unrouted = (*server)(nil)
-var _ weaver.Unrouted = (*sqlStore)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*scaler)(nil)
+var _ weft.Unrouted = (*localCache)(nil)
+var _ weft.Unrouted = (*server)(nil)
+var _ weft.Unrouted = (*sqlStore)(nil)
 
 // Local stub implementations.
 
@@ -184,12 +184,12 @@ func (s localCache_local_stub) Put(ctx context.Context, a0 string, a1 string) (e
 }
 
 type main_local_stub struct {
-	impl   weaver.Main
+	impl   weft.Main
 	tracer trace.Tracer
 }
 
-// Check that main_local_stub implements the weaver.Main interface.
-var _ weaver.Main = (*main_local_stub)(nil)
+// Check that main_local_stub implements the weft.Main interface.
+var _ weft.Main = (*main_local_stub)(nil)
 
 type sQLStore_local_stub struct {
 	impl                SQLStore
@@ -310,7 +310,7 @@ func (s imageScaler_client_stub) Scale(ctx context.Context, a0 []byte, a1 int, a
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -342,7 +342,7 @@ func (s imageScaler_client_stub) Scale(ctx context.Context, a0 []byte, a1 int, a
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -379,7 +379,7 @@ func (s localCache_client_stub) Get(ctx context.Context, a0 string) (r0 string, 
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -407,7 +407,7 @@ func (s localCache_client_stub) Get(ctx context.Context, a0 string) (r0 string, 
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -435,7 +435,7 @@ func (s localCache_client_stub) Put(ctx context.Context, a0 string, a1 string) (
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -465,7 +465,7 @@ func (s localCache_client_stub) Put(ctx context.Context, a0 string, a1 string) (
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -479,8 +479,8 @@ type main_client_stub struct {
 	stub codegen.Stub
 }
 
-// Check that main_client_stub implements the weaver.Main interface.
-var _ weaver.Main = (*main_client_stub)(nil)
+// Check that main_client_stub implements the weft.Main interface.
+var _ weft.Main = (*main_client_stub)(nil)
 
 type sQLStore_client_stub struct {
 	stub                codegen.Stub
@@ -510,7 +510,7 @@ func (s sQLStore_client_stub) CreatePost(ctx context.Context, a0 string, a1 time
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -536,7 +536,7 @@ func (s sQLStore_client_stub) CreatePost(ctx context.Context, a0 string, a1 time
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -563,7 +563,7 @@ func (s sQLStore_client_stub) CreateThread(ctx context.Context, a0 string, a1 ti
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -590,7 +590,7 @@ func (s sQLStore_client_stub) CreateThread(ctx context.Context, a0 string, a1 ti
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -618,7 +618,7 @@ func (s sQLStore_client_stub) GetFeed(ctx context.Context, a0 string) (r0 []Thre
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -646,7 +646,7 @@ func (s sQLStore_client_stub) GetFeed(ctx context.Context, a0 string) (r0 []Thre
 	results, err = s.stub.Run(ctx, 2, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -674,7 +674,7 @@ func (s sQLStore_client_stub) GetImage(ctx context.Context, a0 string, a1 ImageI
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -704,7 +704,7 @@ func (s sQLStore_client_stub) GetImage(ctx context.Context, a0 string, a1 ImageI
 	results, err = s.stub.Run(ctx, 3, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -859,7 +859,7 @@ func (s localCache_server_stub) put(ctx context.Context, args []byte) (res []byt
 }
 
 type main_server_stub struct {
-	impl    weaver.Main
+	impl    weft.Main
 	addLoad func(key uint64, load float64)
 }
 
@@ -1048,8 +1048,8 @@ type main_reflect_stub struct {
 	caller func(string, context.Context, []any, []any) error
 }
 
-// Check that main_reflect_stub implements the weaver.Main interface.
-var _ weaver.Main = (*main_reflect_stub)(nil)
+// Check that main_reflect_stub implements the weft.Main interface.
+var _ weft.Main = (*main_reflect_stub)(nil)
 
 type sQLStore_reflect_stub struct {
 	caller func(string, context.Context, []any, []any) error
@@ -1083,7 +1083,7 @@ func (s sQLStore_reflect_stub) GetImage(ctx context.Context, a0 string, a1 Image
 var _ codegen.AutoMarshal = (*Post)(nil)
 
 type __is_Post[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	ID      PostID
 	Creator string
 	When    time.Time
@@ -1118,7 +1118,7 @@ func (x *Post) WeaverUnmarshal(dec *codegen.Decoder) {
 var _ codegen.AutoMarshal = (*Thread)(nil)
 
 type __is_Thread[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	ID    ThreadID
 	Posts []Post
 }] struct{}

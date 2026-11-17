@@ -24,5 +24,5 @@ import (
 )
 
 type foo struct {
-	weaver.Implements[interface{ M(context.Context) error }]
+	weft.Implements[interface{ M(context.Context) error }]
 }

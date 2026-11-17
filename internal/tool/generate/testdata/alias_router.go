@@ -17,7 +17,7 @@
 // Routed
 
 // A router key may have fields whose types are aliases, and the router
-// itself may be embedded through an alias of weaver.WithRouter.
+// itself may be embedded through an alias of weft.WithRouter.
 package foo
 
 import (
@@ -37,10 +37,10 @@ type Routed interface {
 }
 
 type RT = router
-type WR = weaver.WithRouter[RT]
+type WR = weft.WithRouter[RT]
 
 type routed struct {
-	weaver.Implements[Routed]
+	weft.Implements[Routed]
 	WR
 }
 

@@ -61,31 +61,31 @@ type panicker interface {
 // Component implementation structs.
 
 type divModImpl struct {
-	weaver.Implements[divMod]
-	div weaver.Ref[div]
-	mod weaver.Ref[mod]
+	weft.Implements[divMod]
+	div weft.Ref[div]
+	mod weft.Ref[mod]
 }
 
 type divImpl struct {
-	weaver.Implements[div]
-	identity weaver.Ref[identity]
+	weft.Implements[div]
+	identity weft.Ref[identity]
 }
 
 type modImpl struct {
-	weaver.Implements[mod]
-	identity weaver.Ref[identity]
+	weft.Implements[mod]
+	identity weft.Ref[identity]
 }
 
 type identityImpl struct {
-	weaver.Implements[identity]
+	weft.Implements[identity]
 }
 
 type blockerImpl struct {
-	weaver.Implements[blocker]
+	weft.Implements[blocker]
 }
 
 type panickerImpl struct {
-	weaver.Implements[panicker]
+	weft.Implements[panicker]
 }
 
 // Component implementations.
@@ -151,7 +151,7 @@ func (*panickerImpl) Panic(_ context.Context, b bool) error {
 // Errors.
 
 type zeroError struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 }
 
 func (zeroError) Error() string {

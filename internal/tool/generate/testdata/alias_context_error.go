@@ -32,7 +32,7 @@ type foo interface {
 }
 
 type impl struct {
-	weaver.Implements[foo]
+	weft.Implements[foo]
 }
 
 func (impl) M(Ctx) E { return nil }

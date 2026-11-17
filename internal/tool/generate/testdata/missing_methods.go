@@ -19,4 +19,4 @@ import "github.com/brunobls/weft"
 
 type foo interface{}
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }

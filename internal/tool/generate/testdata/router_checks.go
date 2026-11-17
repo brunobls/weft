@@ -13,8 +13,8 @@
 // limitations under the License.
 
 // EXPECTED
-// var _ weaver.Unrouted = (*unrouted)(nil)
-// var _ weaver.RoutedBy[router] = (*routed)(nil)
+// var _ weft.Unrouted = (*unrouted)(nil)
+// var _ weft.RoutedBy[router] = (*routed)(nil)
 // var _ func(context.Context) int = (&router{}).A
 // var _ = (&__routed_router_if_youre_seeing_this_you_probably_forgot_to_run_weaver_generate{}).B
 package foo
@@ -28,7 +28,7 @@ import (
 type Unrouted interface{}
 
 type unrouted struct {
-	weaver.Implements[Unrouted]
+	weft.Implements[Unrouted]
 }
 
 type Routed interface {
@@ -37,8 +37,8 @@ type Routed interface {
 }
 
 type routed struct {
-	weaver.Implements[Routed]
-	weaver.WithRouter[router]
+	weft.Implements[Routed]
+	weft.WithRouter[router]
 }
 
 func (routed) A(context.Context) error { return nil }

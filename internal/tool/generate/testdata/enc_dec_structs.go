@@ -59,31 +59,31 @@ type foo interface {
 	M(ctx context.Context, x X, y Y, z Z, w W) error
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (l *impl) M(ctx context.Context, x X, y Y, z Z, w W) error {
 	return nil
 }
 
 type X struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A1 XY
 }
 
 type XY struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A1 XYZ
 	B1 string
 }
 
 type XYZ struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A1 int64
 	A2 string
 }
 
 type Y struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	ID    int64
 	Label string
 	When  time.Time
@@ -91,11 +91,11 @@ type Y struct {
 }
 
 type Z struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	id string
 }
 
 type W struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	id time.Time
 }

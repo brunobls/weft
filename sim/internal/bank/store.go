@@ -34,7 +34,7 @@ type Store interface {
 }
 
 type store struct {
-	weaver.Implements[Store]
+	weft.Implements[Store]
 }
 
 // NOTE: For this demonstration of simulation testing, the Store component is

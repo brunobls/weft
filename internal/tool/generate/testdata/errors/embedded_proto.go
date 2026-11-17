@@ -33,7 +33,7 @@ type Foo interface {
 }
 
 type foo struct {
-	weaver.Implements[Foo]
+	weft.Implements[Foo]
 }
 
 func (foo) M(context.Context, WeIgnoreEmbeddedProtos) error {

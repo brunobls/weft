@@ -30,17 +30,17 @@ import (
 )
 
 type A struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	B
 }
 
 type B struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	C
 }
 
 type C struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	x int
 }
 
@@ -49,7 +49,7 @@ type foo interface {
 	MethodTwo(context.Context, B) error
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (l *impl) MethodOne(context.Context, A) error {
 	return nil

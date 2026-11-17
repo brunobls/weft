@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ERROR: weaver.NonRetriable
+// ERROR: weft.NotRetriable
 package foo
 
 import (
@@ -21,4 +21,4 @@ import (
 	"github.com/brunobls/weft"
 )
 
-var _ weaver.NotRetriable = interface{ A(context.Context) error }.A
+var _ weft.NotRetriable = interface{ A(context.Context) error }.A

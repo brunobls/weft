@@ -32,7 +32,7 @@ type Started interface {
 
 // started is a Service Weaver component that can mark itself as started.
 type started struct {
-	weaver.Implements[Started]
+	weft.Implements[Started]
 	id uuid.UUID
 }
 
@@ -55,8 +55,8 @@ type Widget interface {
 
 // widget is a Service Weaver component that deploys started Service Weaver components.
 type widget struct {
-	weaver.Implements[Widget]
-	started weaver.Ref[Started]
+	weft.Implements[Widget]
+	started weft.Ref[Started]
 }
 
 // Use calls MarkStarted on every replica.

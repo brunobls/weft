@@ -19,11 +19,11 @@ package foo
 import "github.com/brunobls/weft"
 
 type A struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	*B
 }
 
 type B struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	*A
 }

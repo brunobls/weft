@@ -22,7 +22,7 @@
 // to decompose the program execution across many processes and machines.
 //
 // [single-image distributed programs]: https://serviceweaver.dev
-package weaver
+package weft
 
 import (
 	"context"
@@ -56,7 +56,7 @@ import (
 //
 //	// Call the foo.Foo method.
 //	err := foo.Foo(ctx)
-//	if errors.Is(err, weaver.RemoteCallError) {
+//	if errors.Is(err, weft.RemoteCallError) {
 //	    // foo.Foo did not execute properly.
 //	} else if err != nil {
 //	    // foo.Foo executed properly, but returned an error.
@@ -83,14 +83,14 @@ var HealthzHandler = func(w http.ResponseWriter, _ *http.Request) {
 // e.g.:
 //
 //	mux := http.NewServeMux()
-//	mux.HandleFunc(weaver.HealthzURL, func(http.ResponseWriter, *http.Request) {
+//	mux.HandleFunc(weft.HealthzURL, func(http.ResponseWriter, *http.Request) {
 //	    // ...
 //	})
 //
 // As a convenience, Service Weaver registers HealthzHandler under
 // this URL path in the default ServerMux, i.e.:
 //
-//	http.HandleFunc(weaver.HealthzURL, weaver.HealthzHandler)
+//	http.HandleFunc(weft.HealthzURL, weft.HealthzHandler)
 const HealthzURL = "/debug/weaver/healthz"
 
 var healthzInit sync.Once
@@ -99,7 +99,7 @@ var healthzInit sync.Once
 type Main interface{}
 
 // PointerToMain is a type constraint that asserts *T is an instance of Main
-// (i.e. T is a struct that embeds weaver.Implements[weaver.Main]).
+// (i.e. T is a struct that embeds weft.Implements[weft.Main]).
 type PointerToMain[T any] interface {
 	*T
 	InstanceOf[Main]
@@ -107,26 +107,26 @@ type PointerToMain[T any] interface {
 
 // Run runs app as a Service Weaver application.
 //
-// The application is composed of a set of components that include weaver.Main
-// as well as any components transitively needed by weaver.Main. An instance
-// that implement weaver.Main is automatically created by weaver.Run and passed
-// to app. Note: other replicas in which weaver.Run is called may also create
-// instances of weaver.Main.
+// The application is composed of a set of components that include weft.Main
+// as well as any components transitively needed by weft.Main. An instance
+// that implement weft.Main is automatically created by weft.Run and passed
+// to app. Note: other replicas in which weft.Run is called may also create
+// instances of weft.Main.
 //
 // The type T must be a struct type that contains an embedded
-// `weaver.Implements[weaver.Main]` field. A value of type T is created,
+// `weft.Implements[weft.Main]` field. A value of type T is created,
 // initialized (by calling its Init method if any), and a pointer to the value
 // is passed to app. app contains the main body of the application; it will
 // typically run HTTP servers, etc.
 //
-// If this process is hosting the `weaver.Main` component, Run will call app
+// If this process is hosting the `weft.Main` component, Run will call app
 // and will return when app returns. If this process is hosting other
 // components, Run will start those components and never return. Most callers
 // of Run will not do anything (other than possibly logging any returned error)
 // after Run returns.
 //
 //	func main() {
-//	    if err := weaver.Run(context.Background(), app); err != nil {
+//	    if err := weft.Run(context.Background(), app); err != nil {
 //	        log.Fatal(err)
 //	    }
 //	}
@@ -238,7 +238,7 @@ type WeaverInfo struct {
 // A concrete type that implements the Cache component is written as follows:
 //
 //	type lruCache struct {
-//	    weaver.Implements[Cache]
+//	    weft.Implements[Cache]
 //	    ...
 //	}
 //
@@ -303,7 +303,7 @@ func (i *Implements[T]) setWeaverInfo(info *weaver.WeaverInfo) {
 func (Implements[T]) implements(T) {}
 
 // InstanceOf[T] is the interface implemented by a struct that embeds
-// weaver.Implements[T].
+// weft.Implements[T].
 type InstanceOf[T any] interface {
 	implements(T)
 }
@@ -333,9 +333,9 @@ func (r *Ref[T]) setRef(value any) {
 // traffic. For example:
 //
 //	type myComponentImpl struct {
-//	    weaver.Implements[MyComponent]
-//	    myListener      weaver.Listener
-//	    myOtherListener weaver.Listener
+//	    weft.Implements[MyComponent]
+//	    myListener      weft.Listener
+//	    myOtherListener weft.Listener
 //	}
 //
 // By default, all listeners listen on address ":0". This behavior can be
@@ -353,9 +353,9 @@ func (r *Ref[T]) setRef(value any) {
 // adding a `weaver:"name"` struct tag to their listener fields, e.g.:
 //
 //	type myComponentImpl struct {
-//	    weaver.Implements[MyComponent]
-//	    myListener      weaver.Listener
-//	    myOtherListener weaver.Listener `weaver:"mylistener2"`
+//	    weft.Implements[MyComponent]
+//	    myListener      weft.Listener
+//	    myOtherListener weft.Listener `weaver:"mylistener2"`
 //	}
 //
 // Listener names must be valid Go identifier names. Listener names must be
@@ -404,8 +404,8 @@ func (l *Listener) ProxyAddr() string {
 //	}
 //
 //	type cache struct {
-//	    weaver.Implements[Cache]
-//	    weaver.WithConfig[cacheConfig]
+//	    weft.Implements[Cache]
+//	    weft.WithConfig[cacheConfig]
 //	    // ...
 //	}
 //
@@ -439,7 +439,7 @@ type WithConfig[T any] struct {
 }
 
 // Config returns the configuration information for the component that embeds
-// this [weaver.WithConfig].
+// this [weft.WithConfig].
 //
 // Any fields in T that were not present in the application config file will
 // have their default values.
@@ -474,12 +474,12 @@ func (wc *WithConfig[T]) getConfig() any {
 //	func (cacheRouter) Get(_ context.Context, key string) string { return key }
 //	func (cacheRouter) Put(_ context.Context, key, value string) string { return key }
 //
-// To associate a router with its component, embed [weaver.WithRouter] in the
+// To associate a router with its component, embed [weft.WithRouter] in the
 // component implementation.
 //
 //	type lruCache struct {
-//		weaver.Implements[Cache]
-//		weaver.WithRouter[cacheRouter]
+//		weft.Implements[Cache]
+//		weft.WithRouter[cacheRouter]
 //	}
 //
 // For every component method that needs to be routed (e.g., Get and Put), the
@@ -504,7 +504,7 @@ func (wc *WithConfig[T]) getConfig() any {
 //	struct{}
 //	struct{x int}
 //	struct{x int; y string}
-//	struct{weaver.AutoMarshal; x int; y string}
+//	struct{weft.AutoMarshal; x int; y string}
 //
 // Every router method must return the same routing key type. The following,
 // for example, is invalid:
@@ -527,7 +527,7 @@ type WithRouter[T any] struct{}
 func (WithRouter[T]) routedBy(T) {}
 
 // RoutedBy[T] is the interface implemented by a struct that embeds
-// weaver.RoutedBy[T].
+// weft.RoutedBy[T].
 type RoutedBy[T any] interface {
 	routedBy(T)
 }
@@ -542,7 +542,7 @@ type if_youre_seeing_this_you_probably_forgot_to_run_weaver_generate struct{}
 func (implementsImpl) routedBy(if_youre_seeing_this_you_probably_forgot_to_run_weaver_generate) {}
 
 // Unrouted is the interface implemented by instances that don't embed
-// weaver.WithRouter[T].
+// weft.WithRouter[T].
 type Unrouted interface {
 	routedBy(if_youre_seeing_this_you_probably_forgot_to_run_weaver_generate)
 }
@@ -556,7 +556,7 @@ var _ Unrouted = (*implementsImpl)(nil)
 // trivially be made serializable by embedding AutoMarshal. For example:
 //
 //	type Pair struct {
-//	    weaver.AutoMarshal
+//	    weft.AutoMarshal
 //	    x, y int
 //	}
 //
@@ -569,7 +569,7 @@ var _ Unrouted = (*implementsImpl)(nil)
 //
 //	// ERROR: NotSerializable cannot be made serializable.
 //	type NotSerializable struct {
-//	    weaver.AutoMarshal
+//	    weft.AutoMarshal
 //	    f func()   // functions are not serializable
 //	    c chan int // chans are not serializable
 //	}

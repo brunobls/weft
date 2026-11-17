@@ -35,11 +35,11 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[T] = (*impl)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[T] = (*impl)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*impl)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*impl)(nil)
 
 // Local stub implementations.
 
@@ -121,7 +121,7 @@ func (s t_client_stub) CreateUser(ctx context.Context, a0 CreateUserRequest) (er
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -149,7 +149,7 @@ func (s t_client_stub) CreateUser(ctx context.Context, a0 CreateUserRequest) (er
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -176,7 +176,7 @@ func (s t_client_stub) Login(ctx context.Context, a0 LoginRequest) (r0 string, e
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -204,7 +204,7 @@ func (s t_client_stub) Login(ctx context.Context, a0 LoginRequest) (r0 string, e
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -333,7 +333,7 @@ func (s t_reflect_stub) Login(ctx context.Context, a0 LoginRequest) (r0 string, 
 var _ codegen.AutoMarshal = (*CreateUserRequest)(nil)
 
 type __is_CreateUserRequest[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	Username       string
 	Password       string
 	PasswordRepeat string
@@ -386,7 +386,7 @@ func (x *CreateUserRequest) WeaverUnmarshal(dec *codegen.Decoder) {
 var _ codegen.AutoMarshal = (*LoginRequest)(nil)
 
 type __is_LoginRequest[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	Username string
 	Password string
 }] struct{}
@@ -412,7 +412,7 @@ func (x *LoginRequest) WeaverUnmarshal(dec *codegen.Decoder) {
 var _ codegen.AutoMarshal = (*User)(nil)
 
 type __is_User[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	AccountID string "gorm:\"column:accountid;primary_key\""
 	Username  string "gorm:\"unique;not null\""
 	Passhash  []byte "gorm:\"not null\""

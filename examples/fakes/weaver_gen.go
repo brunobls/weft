@@ -34,11 +34,11 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[Clock] = (*clock)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[Clock] = (*clock)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*clock)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*clock)(nil)
 
 // Local stub implementations.
 
@@ -98,7 +98,7 @@ func (s clock_client_stub) UnixMicro(ctx context.Context) (r0 int64, err error) 
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -117,7 +117,7 @@ func (s clock_client_stub) UnixMicro(ctx context.Context) (r0 int64, err error) 
 	results, err = s.stub.Run(ctx, 0, nil, shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 

@@ -12,11 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ERROR: weaver.NonRetriable
+// ERROR: weft.NotRetriable
 package foo
 
 import (
 	"github.com/brunobls/weft"
 )
 
-var _ weaver.NotRetriable = 100
+var _ weft.NotRetriable = 100

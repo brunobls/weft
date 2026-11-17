@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// ERROR: reference to weaver.Main
+// ERROR: reference to weft.Main
 
 package foo
 
@@ -24,6 +24,6 @@ type foo interface {
 }
 
 type impl struct {
-	weaver.Implements[foo]
-	main weaver.Ref[weaver.Main]
+	weft.Implements[foo]
+	main weft.Ref[weft.Main]
 }

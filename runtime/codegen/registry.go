@@ -161,7 +161,7 @@ func ComponentConfigValidator(path, cfg string) error {
 	if componentConfig == nil {
 		return fmt.Errorf("unexpected configuration for component %v "+
 			"that does not support configuration (add a "+
-			"weaver.WithConfig[configType] embedded field to %v)",
+			"weft.WithConfig[configType] embedded field to %v)",
 			info.Name, info.Iface)
 	}
 	config := &protos.AppConfig{Sections: map[string]string{path: cfg}}
@@ -185,7 +185,7 @@ func CallGraph() []CallEdge {
 	for _, reg := range Registered() {
 		impl := reg.Impl
 		for i, n := 0, impl.NumField(); i < n; i++ {
-			// Handle field with type weaver.Ref[T].
+			// Handle field with type weft.Ref[T].
 			ref := impl.Field(i).Type
 			if ref.PkgPath() == "github.com/brunobls/weft" &&
 				strings.HasPrefix(ref.Name(), "Ref[") &&

@@ -29,7 +29,7 @@ type Odd interface {
 }
 
 type odd struct {
-	weaver.Implements[Odd]
+	weft.Implements[Odd]
 }
 
 func (o *odd) Do(ctx context.Context, x int) (int, error) {

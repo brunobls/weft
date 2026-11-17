@@ -42,7 +42,7 @@ var (
 	FillRefs func(impl any, get func(reflect.Type) (any, error)) error
 
 	// HasListeners returns whether the provided component implementation has
-	// weaver.Listener fields.
+	// weft.Listener fields.
 	HasListeners func(impl any) bool
 
 	// FillListeners initializes Listener fields in a component implementation

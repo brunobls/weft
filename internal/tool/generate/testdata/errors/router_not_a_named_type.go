@@ -14,7 +14,7 @@
 
 // ERROR: int is not a named type
 
-// weaver.WithRouter[int] is invalid because int is not a named type.
+// weft.WithRouter[int] is invalid because int is not a named type.
 package foo
 
 import (
@@ -28,8 +28,8 @@ type foo interface {
 }
 
 type impl struct {
-	weaver.Implements[foo]
-	weaver.WithRouter[int]
+	weft.Implements[foo]
+	weft.WithRouter[int]
 }
 
 func (impl) M(context.Context) error { return nil }

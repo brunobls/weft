@@ -36,16 +36,16 @@ import (
 )
 
 type A struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	B
 }
 
 type B struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 }
 
 type customError struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 }
 
 func (c customError) Error() string { return "custom" }
@@ -54,6 +54,6 @@ type foo interface {
 	M(context.Context, A, B) error
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (impl) M(context.Context, A, B) error { return nil }

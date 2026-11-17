@@ -35,15 +35,15 @@ func init() {
 	})
 	codegen.Register(codegen.Registration{
 		Name:      "github.com/brunobls/weft/Main",
-		Iface:     reflect.TypeOf((*weaver.Main)(nil)).Elem(),
+		Iface:     reflect.TypeOf((*weft.Main)(nil)).Elem(),
 		Impl:      reflect.TypeOf(server{}),
 		Listeners: []string{"factors"},
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return main_local_stub{impl: impl.(weaver.Main), tracer: tracer}
+			return main_local_stub{impl: impl.(weft.Main), tracer: tracer}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any { return main_client_stub{stub: stub} },
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
-			return main_server_stub{impl: impl.(weaver.Main), addLoad: addLoad}
+			return main_server_stub{impl: impl.(weft.Main), addLoad: addLoad}
 		},
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return main_reflect_stub{caller: caller}
@@ -52,13 +52,13 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[Factorer] = (*factorer)(nil)
-var _ weaver.InstanceOf[weaver.Main] = (*server)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[Factorer] = (*factorer)(nil)
+var _ weft.InstanceOf[weft.Main] = (*server)(nil)
 
-// weaver.Router checks.
-var _ weaver.RoutedBy[router] = (*factorer)(nil)
-var _ weaver.Unrouted = (*server)(nil)
+// weft.Router checks.
+var _ weft.RoutedBy[router] = (*factorer)(nil)
+var _ weft.Unrouted = (*server)(nil)
 
 // Component "factorer", router "router" checks.
 var _ func(_ context.Context, x int) int = (&router{}).Factors // routed
@@ -95,12 +95,12 @@ func (s factorer_local_stub) Factors(ctx context.Context, a0 int) (r0 []int, err
 }
 
 type main_local_stub struct {
-	impl   weaver.Main
+	impl   weft.Main
 	tracer trace.Tracer
 }
 
-// Check that main_local_stub implements the weaver.Main interface.
-var _ weaver.Main = (*main_local_stub)(nil)
+// Check that main_local_stub implements the weft.Main interface.
+var _ weft.Main = (*main_local_stub)(nil)
 
 // Client stub implementations.
 
@@ -129,7 +129,7 @@ func (s factorer_client_stub) Factors(ctx context.Context, a0 int) (r0 []int, er
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -160,7 +160,7 @@ func (s factorer_client_stub) Factors(ctx context.Context, a0 int) (r0 []int, er
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -175,8 +175,8 @@ type main_client_stub struct {
 	stub codegen.Stub
 }
 
-// Check that main_client_stub implements the weaver.Main interface.
-var _ weaver.Main = (*main_client_stub)(nil)
+// Check that main_client_stub implements the weft.Main interface.
+var _ weft.Main = (*main_client_stub)(nil)
 
 // Note that "weaver generate" will always generate the error message below.
 // Everything is okay. The error message is only relevant if you see it when
@@ -249,7 +249,7 @@ func (s factorer_server_stub) factors(ctx context.Context, args []byte) (res []b
 }
 
 type main_server_stub struct {
-	impl    weaver.Main
+	impl    weft.Main
 	addLoad func(key uint64, load float64)
 }
 
@@ -282,8 +282,8 @@ type main_reflect_stub struct {
 	caller func(string, context.Context, []any, []any) error
 }
 
-// Check that main_reflect_stub implements the weaver.Main interface.
-var _ weaver.Main = (*main_reflect_stub)(nil)
+// Check that main_reflect_stub implements the weft.Main interface.
+var _ weft.Main = (*main_reflect_stub)(nil)
 
 // Router methods.
 

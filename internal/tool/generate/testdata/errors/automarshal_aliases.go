@@ -21,13 +21,13 @@ import (
 	"github.com/brunobls/weft"
 )
 
-type A struct{ weaver.AutoMarshal }
+type A struct{ weft.AutoMarshal }
 type B A
 
 type Foo interface {
 	M(context.Context, B) error
 }
 
-type foo struct{ weaver.Implements[Foo] }
+type foo struct{ weft.Implements[Foo] }
 
 func (foo) M(context.Context, B) error { return nil }
