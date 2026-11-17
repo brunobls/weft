@@ -34,6 +34,7 @@ type Proxy struct {
 // NewProxy returns a new proxy.
 func NewProxy(logger *slog.Logger) *Proxy {
 	p := &Proxy{logger: logger}
+	//lint:ignore SA1019 Director deprecated em Go 1.26; migrar para Rewrite em brunobls/weft#16
 	p.reverse = httputil.ReverseProxy{Director: p.director}
 	return p
 }
