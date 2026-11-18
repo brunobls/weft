@@ -18,7 +18,7 @@ package foo
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 type b struct{}
@@ -32,6 +32,6 @@ type Foo interface {
 	M(context.Context, WeIgnoreEmbeddedBinaryMarshalers) error
 }
 
-type foo struct{ weaver.Implements[Foo] }
+type foo struct{ weft.Implements[Foo] }
 
 func (foo) M(context.Context, WeIgnoreEmbeddedBinaryMarshalers) error { return nil }

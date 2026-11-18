@@ -18,7 +18,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 // A Store is a persistent map from strings to integers, like a map[string]int.
@@ -34,7 +34,7 @@ type Store interface {
 }
 
 type store struct {
-	weaver.Implements[Store]
+	weft.Implements[Store]
 }
 
 // NOTE: For this demonstration of simulation testing, the Store component is

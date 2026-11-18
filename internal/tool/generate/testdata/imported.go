@@ -26,14 +26,14 @@ import (
 	"context"
 	"time"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 type foo interface {
 	A(context.Context, time.Duration) error
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (l *impl) A(context.Context, time.Duration) error {
 	return nil

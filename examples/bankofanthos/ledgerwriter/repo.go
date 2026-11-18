@@ -15,7 +15,7 @@
 package ledgerwriter
 
 import (
-	"github.com/ServiceWeaver/weaver/examples/bankofanthos/model"
+	"github.com/brunobls/weft/examples/bankofanthos/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )

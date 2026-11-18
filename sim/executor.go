@@ -25,11 +25,11 @@ import (
 	"sync"
 	"testing"
 
-	core "github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/internal/weaver"
-	"github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	core "github.com/brunobls/weft"
+	"github.com/brunobls/weft/internal/weaver"
+	"github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/runtime/protos"
 	"github.com/google/uuid"
 	"golang.org/x/sync/errgroup"
 )
@@ -54,9 +54,9 @@ import (
 
 // componentInfo includes information about components.
 type componentInfo struct {
-	hasRefs      map[reflect.Type]bool // does a component have weaver.Refs?
-	hasListeners map[reflect.Type]bool // does a component have weaver.Listeners?
-	hasConfig    map[reflect.Type]bool // does a component have a weaver.Config?
+	hasRefs      map[reflect.Type]bool // does a component have weft.Refs?
+	hasListeners map[reflect.Type]bool // does a component have weft.Listeners?
+	hasConfig    map[reflect.Type]bool // does a component have a weft.Config?
 }
 
 // hyperparameters configure an execution.

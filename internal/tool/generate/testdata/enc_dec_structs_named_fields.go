@@ -39,14 +39,14 @@ package foo
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 type foo interface {
 	M(context.Context, X, Y) error
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (l *impl) M(ctx context.Context, x X, y Y) error {
 	return nil
@@ -56,7 +56,7 @@ type ItemID int
 type ConfigID string
 
 type X struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A1 int
 	A2 string
 	A3 ItemID

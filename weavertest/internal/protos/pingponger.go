@@ -17,17 +17,17 @@ package protos
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 //go:generate ../../../dev/protoc.sh ping.proto
-//go:generate ../../../cmd/weaver/weaver generate ./...
+//go:generate ../../../cmd/weft/weft generate ./...
 
 type PingPonger interface {
 	Ping(context.Context, *Ping) (*Pong, error)
 }
 
-type impl struct{ weaver.Implements[PingPonger] }
+type impl struct{ weft.Implements[PingPonger] }
 
 func (*impl) Ping(_ context.Context, ping *Ping) (*Pong, error) {
 	return &Pong{Id: ping.Id}, nil

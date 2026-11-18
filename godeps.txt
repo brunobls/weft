@@ -1,18 +1,18 @@
 // Automatically generated; DO NOT EDIT
-github.com/ServiceWeaver/weaver
+github.com/brunobls/weft
     context
     errors
     fmt
-    github.com/ServiceWeaver/weaver/internal/control
-    github.com/ServiceWeaver/weaver/internal/metrics
-    github.com/ServiceWeaver/weaver/internal/reflection
-    github.com/ServiceWeaver/weaver/internal/weaver
-    github.com/ServiceWeaver/weaver/metrics
-    github.com/ServiceWeaver/weaver/runtime
-    github.com/ServiceWeaver/weaver/runtime/codegen
-    github.com/ServiceWeaver/weaver/runtime/colors
-    github.com/ServiceWeaver/weaver/runtime/logging
-    github.com/ServiceWeaver/weaver/runtime/protos
+    github.com/brunobls/weft/internal/control
+    github.com/brunobls/weft/internal/metrics
+    github.com/brunobls/weft/internal/reflection
+    github.com/brunobls/weft/internal/weaver
+    github.com/brunobls/weft/metrics
+    github.com/brunobls/weft/runtime
+    github.com/brunobls/weft/runtime/codegen
+    github.com/brunobls/weft/runtime/colors
+    github.com/brunobls/weft/runtime/logging
+    github.com/brunobls/weft/runtime/protos
     go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
@@ -27,22 +27,11 @@ github.com/ServiceWeaver/weaver
     sync/atomic
     time
     unicode
-github.com/ServiceWeaver/weaver/cmd/weaver
-    context
-    errors
-    flag
-    fmt
-    github.com/ServiceWeaver/weaver/internal/tool
-    github.com/ServiceWeaver/weaver/internal/tool/callgraph
-    github.com/ServiceWeaver/weaver/internal/tool/generate
-    github.com/ServiceWeaver/weaver/internal/tool/multi
-    github.com/ServiceWeaver/weaver/internal/tool/single
-    github.com/ServiceWeaver/weaver/internal/tool/ssh
-    github.com/ServiceWeaver/weaver/runtime/tool
-    os
-    os/exec
-    strings
-github.com/ServiceWeaver/weaver/dev/docgen
+github.com/brunobls/weft/cmd/weaver
+    github.com/brunobls/weft/internal/tool/cli
+github.com/brunobls/weft/cmd/weft
+    github.com/brunobls/weft/internal/tool/cli
+github.com/brunobls/weft/dev/docgen
     bytes
     flag
     fmt
@@ -59,38 +48,38 @@ github.com/ServiceWeaver/weaver/dev/docgen
     path/filepath
     regexp
     strings
-github.com/ServiceWeaver/weaver/examples
-github.com/ServiceWeaver/weaver/examples/bankofanthos
+github.com/brunobls/weft/examples
+github.com/brunobls/weft/examples/bankofanthos
     context
     flag
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/frontend
+    github.com/brunobls/weft
+    github.com/brunobls/weft/examples/bankofanthos/frontend
     log
-github.com/ServiceWeaver/weaver/examples/bankofanthos/balancereader
+github.com/brunobls/weft/examples/bankofanthos/balancereader
     context
     errors
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/common
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/model
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/examples/bankofanthos/common
+    github.com/brunobls/weft/examples/bankofanthos/model
+    github.com/brunobls/weft/runtime/codegen
     github.com/goburrow/cache
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     reflect
-github.com/ServiceWeaver/weaver/examples/bankofanthos/common
+github.com/brunobls/weft/examples/bankofanthos/common
     fmt
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/model
+    github.com/brunobls/weft/examples/bankofanthos/model
     gorm.io/driver/postgres
     gorm.io/gorm
     log/slog
     sync/atomic
     time
-github.com/ServiceWeaver/weaver/examples/bankofanthos/contacts
+github.com/brunobls/weft/examples/bankofanthos/contacts
     context
     errors
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     gorm.io/driver/postgres
@@ -98,21 +87,21 @@ github.com/ServiceWeaver/weaver/examples/bankofanthos/contacts
     os
     reflect
     regexp
-github.com/ServiceWeaver/weaver/examples/bankofanthos/frontend
+github.com/brunobls/weft/examples/bankofanthos/frontend
     context
     crypto/rsa
     embed
     encoding/json
     errors
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/balancereader
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/contacts
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/ledgerwriter
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/model
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/transactionhistory
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/userservice
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/examples/bankofanthos/balancereader
+    github.com/brunobls/weft/examples/bankofanthos/contacts
+    github.com/brunobls/weft/examples/bankofanthos/ledgerwriter
+    github.com/brunobls/weft/examples/bankofanthos/model
+    github.com/brunobls/weft/examples/bankofanthos/transactionhistory
+    github.com/brunobls/weft/examples/bankofanthos/userservice
+    github.com/brunobls/weft/runtime/codegen
     github.com/golang-jwt/jwt
     github.com/google/uuid
     go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp
@@ -128,14 +117,14 @@ github.com/ServiceWeaver/weaver/examples/bankofanthos/frontend
     strconv
     strings
     time
-github.com/ServiceWeaver/weaver/examples/bankofanthos/ledgerwriter
+github.com/brunobls/weft/examples/bankofanthos/ledgerwriter
     context
     errors
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/balancereader
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/model
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/examples/bankofanthos/balancereader
+    github.com/brunobls/weft/examples/bankofanthos/model
+    github.com/brunobls/weft/runtime/codegen
     github.com/patrickmn/go-cache
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
@@ -144,30 +133,30 @@ github.com/ServiceWeaver/weaver/examples/bankofanthos/ledgerwriter
     reflect
     regexp
     time
-github.com/ServiceWeaver/weaver/examples/bankofanthos/model
+github.com/brunobls/weft/examples/bankofanthos/model
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     time
-github.com/ServiceWeaver/weaver/examples/bankofanthos/transactionhistory
+github.com/brunobls/weft/examples/bankofanthos/transactionhistory
     context
     errors
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/common
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/model
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/examples/bankofanthos/common
+    github.com/brunobls/weft/examples/bankofanthos/model
+    github.com/brunobls/weft/runtime/codegen
     github.com/goburrow/cache
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     reflect
     time
-github.com/ServiceWeaver/weaver/examples/bankofanthos/userservice
+github.com/brunobls/weft/examples/bankofanthos/userservice
     context
     crypto/rsa
     errors
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     github.com/golang-jwt/jwt
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
@@ -179,7 +168,7 @@ github.com/ServiceWeaver/weaver/examples/bankofanthos/userservice
     reflect
     regexp
     time
-github.com/ServiceWeaver/weaver/examples/chat
+github.com/brunobls/weft/examples/chat
     bytes
     context
     database/sql
@@ -187,9 +176,9 @@ github.com/ServiceWeaver/weaver/examples/chat
     errors
     flag
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/metrics
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/metrics
+    github.com/brunobls/weft/runtime/codegen
     github.com/go-sql-driver/mysql
     github.com/hashicorp/golang-lru/v2
     go.opentelemetry.io/otel/codes
@@ -211,13 +200,13 @@ github.com/ServiceWeaver/weaver/examples/chat
     strings
     sync
     time
-github.com/ServiceWeaver/weaver/examples/collatz
+github.com/brunobls/weft/examples/collatz
     context
     errors
     flag
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     log
@@ -225,13 +214,13 @@ github.com/ServiceWeaver/weaver/examples/collatz
     reflect
     strconv
     strings
-github.com/ServiceWeaver/weaver/examples/factors
+github.com/brunobls/weft/examples/factors
     context
     errors
     flag
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     github.com/hashicorp/golang-lru/v2
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
@@ -240,90 +229,90 @@ github.com/ServiceWeaver/weaver/examples/factors
     os
     reflect
     strconv
-github.com/ServiceWeaver/weaver/examples/fakes
+github.com/brunobls/weft/examples/fakes
     context
     errors
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     reflect
     time
-github.com/ServiceWeaver/weaver/examples/hello
+github.com/brunobls/weft/examples/hello
     context
     errors
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     log
     net/http
     reflect
-github.com/ServiceWeaver/weaver/examples/helloworld
+github.com/brunobls/weft/examples/helloworld
     context
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     go.opentelemetry.io/otel/trace
     log
     reflect
-github.com/ServiceWeaver/weaver/examples/reverser
+github.com/brunobls/weft/examples/reverser
     context
     embed
     errors
     flag
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/metrics
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/metrics
+    github.com/brunobls/weft/runtime/codegen
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     html
     log
     net/http
     reflect
-github.com/ServiceWeaver/weaver/internal/benchmarks
+github.com/brunobls/weft/internal/benchmarks
     context
     errors
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     google.golang.org/protobuf/reflect/protoreflect
     google.golang.org/protobuf/runtime/protoimpl
     reflect
     sync
-github.com/ServiceWeaver/weaver/internal/cond
+github.com/brunobls/weft/internal/cond
     context
     sync
-github.com/ServiceWeaver/weaver/internal/config
+github.com/brunobls/weft/internal/config
     fmt
     reflect
     strings
-github.com/ServiceWeaver/weaver/internal/control
+github.com/brunobls/weft/internal/control
     context
-    github.com/ServiceWeaver/weaver/runtime/protos
-github.com/ServiceWeaver/weaver/internal/env
+    github.com/brunobls/weft/runtime/protos
+github.com/brunobls/weft/internal/env
     fmt
     strings
-github.com/ServiceWeaver/weaver/internal/files
+github.com/brunobls/weft/internal/files
     fmt
     os
     path/filepath
-github.com/ServiceWeaver/weaver/internal/heap
+github.com/brunobls/weft/internal/heap
     container/heap
-github.com/ServiceWeaver/weaver/internal/metrics
+github.com/brunobls/weft/internal/metrics
     context
     fmt
-    github.com/ServiceWeaver/weaver/runtime/metrics
+    github.com/brunobls/weft/runtime/metrics
     strings
     sync
     time
-github.com/ServiceWeaver/weaver/internal/must
-github.com/ServiceWeaver/weaver/internal/net/benchmarks
-github.com/ServiceWeaver/weaver/internal/net/call
+github.com/brunobls/weft/internal/must
+github.com/brunobls/weft/internal/net/benchmarks
+github.com/brunobls/weft/internal/net/call
     bufio
     context
     crypto/sha256
@@ -331,11 +320,11 @@ github.com/ServiceWeaver/weaver/internal/net/call
     encoding/binary
     errors
     fmt
-    github.com/ServiceWeaver/weaver/internal/traceio
-    github.com/ServiceWeaver/weaver/metadata
-    github.com/ServiceWeaver/weaver/runtime/codegen
-    github.com/ServiceWeaver/weaver/runtime/logging
-    github.com/ServiceWeaver/weaver/runtime/retry
+    github.com/brunobls/weft/internal/traceio
+    github.com/brunobls/weft/metadata
+    github.com/brunobls/weft/runtime/codegen
+    github.com/brunobls/weft/runtime/logging
+    github.com/brunobls/weft/runtime/retry
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     io
@@ -345,40 +334,40 @@ github.com/ServiceWeaver/weaver/internal/net/call
     sync
     sync/atomic
     time
-github.com/ServiceWeaver/weaver/internal/pipe
+github.com/brunobls/weft/internal/pipe
     context
     fmt
     io
     os
     os/exec
-github.com/ServiceWeaver/weaver/internal/proto
+github.com/brunobls/weft/internal/proto
     encoding/base64
     google.golang.org/protobuf/proto
-github.com/ServiceWeaver/weaver/internal/proxy
+github.com/brunobls/weft/internal/proxy
     errors
     log/slog
     math/rand
     net/http
     net/http/httputil
     sync
-github.com/ServiceWeaver/weaver/internal/queue
+github.com/brunobls/weft/internal/queue
     context
-    github.com/ServiceWeaver/weaver/internal/cond
+    github.com/brunobls/weft/internal/cond
     sync
-github.com/ServiceWeaver/weaver/internal/reflection
+github.com/brunobls/weft/internal/reflection
     fmt
     reflect
-github.com/ServiceWeaver/weaver/internal/register
+github.com/brunobls/weft/internal/register
     fmt
     sync
-github.com/ServiceWeaver/weaver/internal/routing
+github.com/brunobls/weft/internal/routing
     fmt
-    github.com/ServiceWeaver/weaver/runtime/protos
+    github.com/brunobls/weft/runtime/protos
     math
     slices
     sort
     strings
-github.com/ServiceWeaver/weaver/internal/status
+github.com/brunobls/weft/internal/status
     bytes
     context
     embed
@@ -386,19 +375,19 @@ github.com/ServiceWeaver/weaver/internal/status
     errors
     flag
     fmt
-    github.com/ServiceWeaver/weaver/internal/control
-    github.com/ServiceWeaver/weaver/internal/files
-    github.com/ServiceWeaver/weaver/internal/metrics
-    github.com/ServiceWeaver/weaver/internal/traceio
-    github.com/ServiceWeaver/weaver/runtime/colors
-    github.com/ServiceWeaver/weaver/runtime/logging
-    github.com/ServiceWeaver/weaver/runtime/metrics
-    github.com/ServiceWeaver/weaver/runtime/perfetto
-    github.com/ServiceWeaver/weaver/runtime/prometheus
-    github.com/ServiceWeaver/weaver/runtime/protomsg
-    github.com/ServiceWeaver/weaver/runtime/protos
-    github.com/ServiceWeaver/weaver/runtime/tool
-    github.com/ServiceWeaver/weaver/runtime/traces
+    github.com/brunobls/weft/internal/control
+    github.com/brunobls/weft/internal/files
+    github.com/brunobls/weft/internal/metrics
+    github.com/brunobls/weft/internal/traceio
+    github.com/brunobls/weft/runtime/colors
+    github.com/brunobls/weft/runtime/logging
+    github.com/brunobls/weft/runtime/metrics
+    github.com/brunobls/weft/runtime/perfetto
+    github.com/brunobls/weft/runtime/prometheus
+    github.com/brunobls/weft/runtime/protomsg
+    github.com/brunobls/weft/runtime/protos
+    github.com/brunobls/weft/runtime/tool
+    github.com/brunobls/weft/runtime/traces
     github.com/google/pprof/profile
     github.com/pkg/browser
     golang.org/x/exp/maps
@@ -421,29 +410,29 @@ github.com/ServiceWeaver/weaver/internal/status
     syscall
     text/template
     time
-github.com/ServiceWeaver/weaver/internal/testdeployer
+github.com/brunobls/weft/internal/testdeployer
     context
     errors
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/metrics
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/metrics
+    github.com/brunobls/weft/runtime/codegen
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     reflect
-github.com/ServiceWeaver/weaver/internal/tool
+github.com/brunobls/weft/internal/tool
     context
     flag
     fmt
-    github.com/ServiceWeaver/weaver/runtime/tool
+    github.com/brunobls/weft/runtime/tool
     runtime
     runtime/debug
-github.com/ServiceWeaver/weaver/internal/tool/callgraph
+github.com/brunobls/weft/internal/tool/callgraph
     fmt
-    github.com/ServiceWeaver/weaver/runtime/bin
-    github.com/ServiceWeaver/weaver/runtime/graph
-    github.com/ServiceWeaver/weaver/runtime/logging
+    github.com/brunobls/weft/runtime/bin
+    github.com/brunobls/weft/runtime/graph
+    github.com/brunobls/weft/runtime/logging
     strings
-github.com/ServiceWeaver/weaver/internal/tool/certs
+github.com/brunobls/weft/internal/tool/certs
     bytes
     crypto
     crypto/rand
@@ -455,22 +444,37 @@ github.com/ServiceWeaver/weaver/internal/tool/certs
     fmt
     math/big
     time
-github.com/ServiceWeaver/weaver/internal/tool/config
+github.com/brunobls/weft/internal/tool/cli
+    context
+    errors
+    flag
     fmt
-    github.com/ServiceWeaver/weaver/runtime
-    github.com/ServiceWeaver/weaver/runtime/bin
-    github.com/ServiceWeaver/weaver/runtime/protos
+    github.com/brunobls/weft/internal/tool
+    github.com/brunobls/weft/internal/tool/callgraph
+    github.com/brunobls/weft/internal/tool/generate
+    github.com/brunobls/weft/internal/tool/multi
+    github.com/brunobls/weft/internal/tool/single
+    github.com/brunobls/weft/internal/tool/ssh
+    github.com/brunobls/weft/runtime/tool
+    os
+    os/exec
+    strings
+github.com/brunobls/weft/internal/tool/config
+    fmt
+    github.com/brunobls/weft/runtime
+    github.com/brunobls/weft/runtime/bin
+    github.com/brunobls/weft/runtime/protos
     google.golang.org/protobuf/proto
-github.com/ServiceWeaver/weaver/internal/tool/generate
+github.com/brunobls/weft/internal/tool/generate
     bytes
     crypto/sha256
     errors
     fmt
-    github.com/ServiceWeaver/weaver/internal/files
-    github.com/ServiceWeaver/weaver/internal/tool
-    github.com/ServiceWeaver/weaver/runtime/codegen
-    github.com/ServiceWeaver/weaver/runtime/colors
-    github.com/ServiceWeaver/weaver/runtime/version
+    github.com/brunobls/weft/internal/files
+    github.com/brunobls/weft/internal/tool
+    github.com/brunobls/weft/runtime/codegen
+    github.com/brunobls/weft/runtime/colors
+    github.com/brunobls/weft/runtime/version
     go/ast
     go/format
     go/parser
@@ -488,44 +492,44 @@ github.com/ServiceWeaver/weaver/internal/tool/generate
     strconv
     strings
     unicode
-github.com/ServiceWeaver/weaver/internal/tool/generate/example
+github.com/brunobls/weft/internal/tool/generate/example
     context
     errors
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     reflect
-github.com/ServiceWeaver/weaver/internal/tool/multi
+github.com/brunobls/weft/internal/tool/multi
     context
     crypto
     crypto/x509
     errors
     flag
     fmt
-    github.com/ServiceWeaver/weaver/internal/metrics
-    github.com/ServiceWeaver/weaver/internal/must
-    github.com/ServiceWeaver/weaver/internal/proxy
-    github.com/ServiceWeaver/weaver/internal/routing
-    github.com/ServiceWeaver/weaver/internal/status
-    github.com/ServiceWeaver/weaver/internal/tool
-    github.com/ServiceWeaver/weaver/internal/tool/certs
-    github.com/ServiceWeaver/weaver/internal/tool/config
-    github.com/ServiceWeaver/weaver/runtime
-    github.com/ServiceWeaver/weaver/runtime/bin
-    github.com/ServiceWeaver/weaver/runtime/codegen
-    github.com/ServiceWeaver/weaver/runtime/colors
-    github.com/ServiceWeaver/weaver/runtime/envelope
-    github.com/ServiceWeaver/weaver/runtime/graph
-    github.com/ServiceWeaver/weaver/runtime/logging
-    github.com/ServiceWeaver/weaver/runtime/metrics
-    github.com/ServiceWeaver/weaver/runtime/profiling
-    github.com/ServiceWeaver/weaver/runtime/protos
-    github.com/ServiceWeaver/weaver/runtime/retry
-    github.com/ServiceWeaver/weaver/runtime/tool
-    github.com/ServiceWeaver/weaver/runtime/traces
-    github.com/ServiceWeaver/weaver/runtime/version
+    github.com/brunobls/weft/internal/metrics
+    github.com/brunobls/weft/internal/must
+    github.com/brunobls/weft/internal/proxy
+    github.com/brunobls/weft/internal/routing
+    github.com/brunobls/weft/internal/status
+    github.com/brunobls/weft/internal/tool
+    github.com/brunobls/weft/internal/tool/certs
+    github.com/brunobls/weft/internal/tool/config
+    github.com/brunobls/weft/runtime
+    github.com/brunobls/weft/runtime/bin
+    github.com/brunobls/weft/runtime/codegen
+    github.com/brunobls/weft/runtime/colors
+    github.com/brunobls/weft/runtime/envelope
+    github.com/brunobls/weft/runtime/graph
+    github.com/brunobls/weft/runtime/logging
+    github.com/brunobls/weft/runtime/metrics
+    github.com/brunobls/weft/runtime/profiling
+    github.com/brunobls/weft/runtime/protos
+    github.com/brunobls/weft/runtime/retry
+    github.com/brunobls/weft/runtime/tool
+    github.com/brunobls/weft/runtime/traces
+    github.com/brunobls/weft/runtime/version
     github.com/google/uuid
     golang.org/x/exp/maps
     golang.org/x/sync/errgroup
@@ -542,19 +546,19 @@ github.com/ServiceWeaver/weaver/internal/tool/multi
     sync
     syscall
     time
-github.com/ServiceWeaver/weaver/internal/tool/single
+github.com/brunobls/weft/internal/tool/single
     context
     errors
     flag
     fmt
-    github.com/ServiceWeaver/weaver/internal/must
-    github.com/ServiceWeaver/weaver/internal/status
-    github.com/ServiceWeaver/weaver/internal/tool
-    github.com/ServiceWeaver/weaver/internal/tool/config
-    github.com/ServiceWeaver/weaver/runtime
-    github.com/ServiceWeaver/weaver/runtime/codegen
-    github.com/ServiceWeaver/weaver/runtime/protos
-    github.com/ServiceWeaver/weaver/runtime/tool
+    github.com/brunobls/weft/internal/must
+    github.com/brunobls/weft/internal/status
+    github.com/brunobls/weft/internal/tool
+    github.com/brunobls/weft/internal/tool/config
+    github.com/brunobls/weft/runtime
+    github.com/brunobls/weft/runtime/codegen
+    github.com/brunobls/weft/runtime/protos
+    github.com/brunobls/weft/runtime/tool
     google.golang.org/protobuf/reflect/protoreflect
     google.golang.org/protobuf/runtime/protoimpl
     os
@@ -564,23 +568,23 @@ github.com/ServiceWeaver/weaver/internal/tool/single
     reflect
     sync
     syscall
-github.com/ServiceWeaver/weaver/internal/tool/ssh
+github.com/brunobls/weft/internal/tool/ssh
     bufio
     context
     errors
     flag
     fmt
-    github.com/ServiceWeaver/weaver/internal/status
-    github.com/ServiceWeaver/weaver/internal/tool
-    github.com/ServiceWeaver/weaver/internal/tool/config
-    github.com/ServiceWeaver/weaver/internal/tool/ssh/impl
-    github.com/ServiceWeaver/weaver/runtime
-    github.com/ServiceWeaver/weaver/runtime/bin
-    github.com/ServiceWeaver/weaver/runtime/codegen
-    github.com/ServiceWeaver/weaver/runtime/colors
-    github.com/ServiceWeaver/weaver/runtime/logging
-    github.com/ServiceWeaver/weaver/runtime/tool
-    github.com/ServiceWeaver/weaver/runtime/version
+    github.com/brunobls/weft/internal/status
+    github.com/brunobls/weft/internal/tool
+    github.com/brunobls/weft/internal/tool/config
+    github.com/brunobls/weft/internal/tool/ssh/impl
+    github.com/brunobls/weft/runtime
+    github.com/brunobls/weft/runtime/bin
+    github.com/brunobls/weft/runtime/codegen
+    github.com/brunobls/weft/runtime/colors
+    github.com/brunobls/weft/runtime/logging
+    github.com/brunobls/weft/runtime/tool
+    github.com/brunobls/weft/runtime/version
     github.com/google/uuid
     golang.org/x/exp/maps
     io
@@ -591,25 +595,25 @@ github.com/ServiceWeaver/weaver/internal/tool/ssh
     path/filepath
     strings
     syscall
-github.com/ServiceWeaver/weaver/internal/tool/ssh/impl
+github.com/brunobls/weft/internal/tool/ssh/impl
     context
     errors
     fmt
-    github.com/ServiceWeaver/weaver/internal/metrics
-    github.com/ServiceWeaver/weaver/internal/must
-    github.com/ServiceWeaver/weaver/internal/proto
-    github.com/ServiceWeaver/weaver/internal/proxy
-    github.com/ServiceWeaver/weaver/internal/routing
-    github.com/ServiceWeaver/weaver/internal/status
-    github.com/ServiceWeaver/weaver/internal/versioned
-    github.com/ServiceWeaver/weaver/runtime
-    github.com/ServiceWeaver/weaver/runtime/envelope
-    github.com/ServiceWeaver/weaver/runtime/logging
-    github.com/ServiceWeaver/weaver/runtime/metrics
-    github.com/ServiceWeaver/weaver/runtime/protomsg
-    github.com/ServiceWeaver/weaver/runtime/protos
-    github.com/ServiceWeaver/weaver/runtime/retry
-    github.com/ServiceWeaver/weaver/runtime/traces
+    github.com/brunobls/weft/internal/metrics
+    github.com/brunobls/weft/internal/must
+    github.com/brunobls/weft/internal/proto
+    github.com/brunobls/weft/internal/proxy
+    github.com/brunobls/weft/internal/routing
+    github.com/brunobls/weft/internal/status
+    github.com/brunobls/weft/internal/versioned
+    github.com/brunobls/weft/runtime
+    github.com/brunobls/weft/runtime/envelope
+    github.com/brunobls/weft/runtime/logging
+    github.com/brunobls/weft/runtime/metrics
+    github.com/brunobls/weft/runtime/protomsg
+    github.com/brunobls/weft/runtime/protos
+    github.com/brunobls/weft/runtime/retry
+    github.com/brunobls/weft/runtime/traces
     github.com/google/uuid
     golang.org/x/exp/maps
     google.golang.org/protobuf/reflect/protoreflect
@@ -622,12 +626,13 @@ github.com/ServiceWeaver/weaver/internal/tool/ssh/impl
     os/exec
     path/filepath
     reflect
+    strings
     sync
     syscall
     time
-github.com/ServiceWeaver/weaver/internal/traceio
+github.com/brunobls/weft/internal/traceio
     context
-    github.com/ServiceWeaver/weaver/runtime/protos
+    github.com/brunobls/weft/runtime/protos
     go.opentelemetry.io/otel/attribute
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/exporters/stdout/stdouttrace
@@ -638,10 +643,10 @@ github.com/ServiceWeaver/weaver/internal/traceio
     math
     sync
     time
-github.com/ServiceWeaver/weaver/internal/versioned
+github.com/brunobls/weft/internal/versioned
     github.com/google/uuid
     sync
-github.com/ServiceWeaver/weaver/internal/weaver
+github.com/brunobls/weft/internal/weaver
     bytes
     context
     crypto/tls
@@ -649,26 +654,26 @@ github.com/ServiceWeaver/weaver/internal/weaver
     errors
     fmt
     github.com/DataDog/hyperloglog
-    github.com/ServiceWeaver/weaver/internal/cond
-    github.com/ServiceWeaver/weaver/internal/config
-    github.com/ServiceWeaver/weaver/internal/control
-    github.com/ServiceWeaver/weaver/internal/env
-    github.com/ServiceWeaver/weaver/internal/metrics
-    github.com/ServiceWeaver/weaver/internal/net/call
-    github.com/ServiceWeaver/weaver/internal/register
-    github.com/ServiceWeaver/weaver/internal/status
-    github.com/ServiceWeaver/weaver/internal/tool/single
-    github.com/ServiceWeaver/weaver/internal/traceio
-    github.com/ServiceWeaver/weaver/runtime
-    github.com/ServiceWeaver/weaver/runtime/codegen
-    github.com/ServiceWeaver/weaver/runtime/colors
-    github.com/ServiceWeaver/weaver/runtime/deployers
-    github.com/ServiceWeaver/weaver/runtime/logging
-    github.com/ServiceWeaver/weaver/runtime/metrics
-    github.com/ServiceWeaver/weaver/runtime/protos
-    github.com/ServiceWeaver/weaver/runtime/retry
-    github.com/ServiceWeaver/weaver/runtime/traces
-    github.com/ServiceWeaver/weaver/runtime/version
+    github.com/brunobls/weft/internal/cond
+    github.com/brunobls/weft/internal/config
+    github.com/brunobls/weft/internal/control
+    github.com/brunobls/weft/internal/env
+    github.com/brunobls/weft/internal/metrics
+    github.com/brunobls/weft/internal/net/call
+    github.com/brunobls/weft/internal/register
+    github.com/brunobls/weft/internal/status
+    github.com/brunobls/weft/internal/tool/single
+    github.com/brunobls/weft/internal/traceio
+    github.com/brunobls/weft/runtime
+    github.com/brunobls/weft/runtime/codegen
+    github.com/brunobls/weft/runtime/colors
+    github.com/brunobls/weft/runtime/deployers
+    github.com/brunobls/weft/runtime/logging
+    github.com/brunobls/weft/runtime/metrics
+    github.com/brunobls/weft/runtime/protos
+    github.com/brunobls/weft/runtime/retry
+    github.com/brunobls/weft/runtime/traces
+    github.com/brunobls/weft/runtime/version
     github.com/google/uuid
     github.com/lightstep/varopt
     go.opentelemetry.io/otel
@@ -697,48 +702,50 @@ github.com/ServiceWeaver/weaver/internal/weaver
     sync/atomic
     syscall
     time
-github.com/ServiceWeaver/weaver/metadata
+github.com/brunobls/weft/metadata
     context
     maps
-github.com/ServiceWeaver/weaver/metrics
-    github.com/ServiceWeaver/weaver/runtime/metrics
-    github.com/ServiceWeaver/weaver/runtime/protos
-github.com/ServiceWeaver/weaver/runtime
+github.com/brunobls/weft/metrics
+    github.com/brunobls/weft/runtime/metrics
+    github.com/brunobls/weft/runtime/protos
+github.com/brunobls/weft/runtime
     context
     fmt
     github.com/BurntSushi/toml
-    github.com/ServiceWeaver/weaver/internal/env
-    github.com/ServiceWeaver/weaver/internal/proto
-    github.com/ServiceWeaver/weaver/runtime/protos
+    github.com/brunobls/weft/internal/env
+    github.com/brunobls/weft/internal/proto
+    github.com/brunobls/weft/runtime/protos
     os
     os/signal
     path/filepath
+    sort
     strings
     sync
     syscall
     time
-github.com/ServiceWeaver/weaver/runtime/bin
+github.com/brunobls/weft/runtime/bin
     bytes
     debug/buildinfo
     debug/elf
     debug/macho
     debug/pe
     fmt
-    github.com/ServiceWeaver/weaver/runtime/codegen
-    github.com/ServiceWeaver/weaver/runtime/graph
-    github.com/ServiceWeaver/weaver/runtime/version
+    github.com/brunobls/weft/runtime/codegen
+    github.com/brunobls/weft/runtime/graph
+    github.com/brunobls/weft/runtime/version
     golang.org/x/exp/maps
     golang.org/x/exp/slices
     os
     regexp
+    runtime/debug
     strconv
-github.com/ServiceWeaver/weaver/runtime/bin/testprogram
+github.com/brunobls/weft/runtime/bin/testprogram
     context
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     go.opentelemetry.io/otel/trace
     reflect
-github.com/ServiceWeaver/weaver/runtime/codegen
+github.com/brunobls/weft/runtime/codegen
     bytes
     context
     crypto/sha256
@@ -746,12 +753,12 @@ github.com/ServiceWeaver/weaver/runtime/codegen
     encoding/binary
     errors
     fmt
-    github.com/ServiceWeaver/weaver/internal/config
-    github.com/ServiceWeaver/weaver/internal/metrics
-    github.com/ServiceWeaver/weaver/metrics
-    github.com/ServiceWeaver/weaver/runtime
-    github.com/ServiceWeaver/weaver/runtime/protos
-    github.com/ServiceWeaver/weaver/runtime/version
+    github.com/brunobls/weft/internal/config
+    github.com/brunobls/weft/internal/metrics
+    github.com/brunobls/weft/metrics
+    github.com/brunobls/weft/runtime
+    github.com/brunobls/weft/runtime/protos
+    github.com/brunobls/weft/runtime/version
     go.opentelemetry.io/otel/trace
     google.golang.org/protobuf/proto
     math
@@ -761,36 +768,36 @@ github.com/ServiceWeaver/weaver/runtime/codegen
     strings
     sync
     time
-github.com/ServiceWeaver/weaver/runtime/colors
+github.com/brunobls/weft/runtime/colors
     fmt
     golang.org/x/term
     io
     os
     strings
-github.com/ServiceWeaver/weaver/runtime/deployers
+github.com/brunobls/weft/runtime/deployers
     context
     fmt
-    github.com/ServiceWeaver/weaver/internal/net/call
+    github.com/brunobls/weft/internal/net/call
     log/slog
     net
     path/filepath
     sync
-github.com/ServiceWeaver/weaver/runtime/envelope
+github.com/brunobls/weft/runtime/envelope
     bufio
     context
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/internal/control
-    github.com/ServiceWeaver/weaver/internal/net/call
-    github.com/ServiceWeaver/weaver/internal/pipe
-    github.com/ServiceWeaver/weaver/internal/proto
-    github.com/ServiceWeaver/weaver/runtime
-    github.com/ServiceWeaver/weaver/runtime/codegen
-    github.com/ServiceWeaver/weaver/runtime/deployers
-    github.com/ServiceWeaver/weaver/runtime/metrics
-    github.com/ServiceWeaver/weaver/runtime/protomsg
-    github.com/ServiceWeaver/weaver/runtime/protos
-    github.com/ServiceWeaver/weaver/runtime/version
+    github.com/brunobls/weft
+    github.com/brunobls/weft/internal/control
+    github.com/brunobls/weft/internal/net/call
+    github.com/brunobls/weft/internal/pipe
+    github.com/brunobls/weft/internal/proto
+    github.com/brunobls/weft/runtime
+    github.com/brunobls/weft/runtime/codegen
+    github.com/brunobls/weft/runtime/deployers
+    github.com/brunobls/weft/runtime/metrics
+    github.com/brunobls/weft/runtime/protomsg
+    github.com/brunobls/weft/runtime/protos
+    github.com/brunobls/weft/runtime/version
     go.opentelemetry.io/otel/trace
     golang.org/x/sync/errgroup
     io
@@ -798,21 +805,21 @@ github.com/ServiceWeaver/weaver/runtime/envelope
     net
     os
     sync
-github.com/ServiceWeaver/weaver/runtime/graph
+github.com/brunobls/weft/runtime/graph
     fmt
     golang.org/x/exp/slices
     slices
     strings
-github.com/ServiceWeaver/weaver/runtime/logging
+github.com/brunobls/weft/runtime/logging
     bufio
     context
     errors
     fmt
-    github.com/ServiceWeaver/weaver/internal/cond
-    github.com/ServiceWeaver/weaver/internal/heap
-    github.com/ServiceWeaver/weaver/runtime/colors
-    github.com/ServiceWeaver/weaver/runtime/protomsg
-    github.com/ServiceWeaver/weaver/runtime/protos
+    github.com/brunobls/weft/internal/cond
+    github.com/brunobls/weft/internal/heap
+    github.com/brunobls/weft/runtime/colors
+    github.com/brunobls/weft/runtime/protomsg
+    github.com/brunobls/weft/runtime/protos
     github.com/fsnotify/fsnotify
     github.com/google/cel-go/cel
     github.com/google/cel-go/checker/decls
@@ -832,10 +839,10 @@ github.com/ServiceWeaver/weaver/runtime/logging
     strings
     sync
     time
-github.com/ServiceWeaver/weaver/runtime/metrics
+github.com/brunobls/weft/runtime/metrics
     encoding/binary
     fmt
-    github.com/ServiceWeaver/weaver/runtime/protos
+    github.com/brunobls/weft/runtime/protos
     github.com/google/uuid
     golang.org/x/exp/maps
     math
@@ -846,44 +853,44 @@ github.com/ServiceWeaver/weaver/runtime/metrics
     sync/atomic
     unicode
     unicode/utf8
-github.com/ServiceWeaver/weaver/runtime/perfetto
+github.com/brunobls/weft/runtime/perfetto
     crypto/sha256
     encoding/binary
     encoding/json
-    github.com/ServiceWeaver/weaver/internal/traceio
-    github.com/ServiceWeaver/weaver/runtime/protos
-    github.com/ServiceWeaver/weaver/runtime/traces
+    github.com/brunobls/weft/internal/traceio
+    github.com/brunobls/weft/runtime/protos
+    github.com/brunobls/weft/runtime/traces
     go.opentelemetry.io/otel/sdk/trace
     go.opentelemetry.io/otel/semconv/v1.4.0
     go.opentelemetry.io/otel/trace
     strconv
     strings
-github.com/ServiceWeaver/weaver/runtime/profiling
+github.com/brunobls/weft/runtime/profiling
     bytes
     errors
     fmt
     github.com/google/pprof/profile
     sync
-github.com/ServiceWeaver/weaver/runtime/prometheus
+github.com/brunobls/weft/runtime/prometheus
     bytes
     fmt
-    github.com/ServiceWeaver/weaver/runtime/logging
-    github.com/ServiceWeaver/weaver/runtime/metrics
-    github.com/ServiceWeaver/weaver/runtime/protos
+    github.com/brunobls/weft/runtime/logging
+    github.com/brunobls/weft/runtime/metrics
+    github.com/brunobls/weft/runtime/protos
     golang.org/x/exp/maps
     math
     sort
     strconv
     strings
-github.com/ServiceWeaver/weaver/runtime/protomsg
+github.com/brunobls/weft/runtime/protomsg
     bytes
     context
     encoding/binary
     errors
     fmt
-    github.com/ServiceWeaver/weaver/internal/metrics
-    github.com/ServiceWeaver/weaver/metrics
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft/internal/metrics
+    github.com/brunobls/weft/metrics
+    github.com/brunobls/weft/runtime/codegen
     google.golang.org/protobuf/proto
     io
     log/slog
@@ -891,26 +898,26 @@ github.com/ServiceWeaver/weaver/runtime/protomsg
     net/http
     runtime/debug
     time
-github.com/ServiceWeaver/weaver/runtime/protos
+github.com/brunobls/weft/runtime/protos
     google.golang.org/protobuf/reflect/protoreflect
     google.golang.org/protobuf/runtime/protoimpl
     reflect
     sync
-github.com/ServiceWeaver/weaver/runtime/retry
+github.com/brunobls/weft/runtime/retry
     context
     math
     math/rand
     sync
     time
-github.com/ServiceWeaver/weaver/runtime/tool
+github.com/brunobls/weft/runtime/tool
     bufio
     context
     encoding/json
     errors
     flag
     fmt
-    github.com/ServiceWeaver/weaver/runtime/colors
-    github.com/ServiceWeaver/weaver/runtime/logging
+    github.com/brunobls/weft/runtime/colors
+    github.com/brunobls/weft/runtime/logging
     io
     os
     os/exec
@@ -918,15 +925,15 @@ github.com/ServiceWeaver/weaver/runtime/tool
     strings
     text/template
     time
-github.com/ServiceWeaver/weaver/runtime/traces
+github.com/brunobls/weft/runtime/traces
     bytes
     context
     database/sql
     encoding/hex
     errors
     fmt
-    github.com/ServiceWeaver/weaver/runtime/protos
-    github.com/ServiceWeaver/weaver/runtime/retry
+    github.com/brunobls/weft/runtime/protos
+    github.com/brunobls/weft/runtime/retry
     go.opentelemetry.io/otel/attribute
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/sdk/instrumentation
@@ -941,21 +948,21 @@ github.com/ServiceWeaver/weaver/runtime/traces
     os
     path/filepath
     time
-github.com/ServiceWeaver/weaver/runtime/version
+github.com/brunobls/weft/runtime/version
     fmt
-github.com/ServiceWeaver/weaver/sim
+github.com/brunobls/weft/sim
     context
     crypto/sha256
     encoding/json
     errors
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/internal/reflection
-    github.com/ServiceWeaver/weaver/internal/weaver
-    github.com/ServiceWeaver/weaver/runtime
-    github.com/ServiceWeaver/weaver/runtime/codegen
-    github.com/ServiceWeaver/weaver/runtime/logging
-    github.com/ServiceWeaver/weaver/runtime/protos
+    github.com/brunobls/weft
+    github.com/brunobls/weft/internal/reflection
+    github.com/brunobls/weft/internal/weaver
+    github.com/brunobls/weft/runtime
+    github.com/brunobls/weft/runtime/codegen
+    github.com/brunobls/weft/runtime/logging
+    github.com/brunobls/weft/runtime/protos
     github.com/google/uuid
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
@@ -979,27 +986,27 @@ github.com/ServiceWeaver/weaver/sim
     sync/atomic
     testing
     time
-github.com/ServiceWeaver/weaver/sim/internal/bank
+github.com/brunobls/weft/sim/internal/bank
     context
     errors
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     reflect
-github.com/ServiceWeaver/weaver/weavertest
+github.com/brunobls/weft/weavertest
     context
     errors
     fmt
-    github.com/ServiceWeaver/weaver/internal/control
-    github.com/ServiceWeaver/weaver/internal/reflection
-    github.com/ServiceWeaver/weaver/internal/weaver
-    github.com/ServiceWeaver/weaver/runtime
-    github.com/ServiceWeaver/weaver/runtime/codegen
-    github.com/ServiceWeaver/weaver/runtime/envelope
-    github.com/ServiceWeaver/weaver/runtime/logging
-    github.com/ServiceWeaver/weaver/runtime/protos
+    github.com/brunobls/weft/internal/control
+    github.com/brunobls/weft/internal/reflection
+    github.com/brunobls/weft/internal/weaver
+    github.com/brunobls/weft/runtime
+    github.com/brunobls/weft/runtime/codegen
+    github.com/brunobls/weft/runtime/envelope
+    github.com/brunobls/weft/runtime/logging
+    github.com/brunobls/weft/runtime/protos
     github.com/google/uuid
     golang.org/x/exp/maps
     golang.org/x/sync/errgroup
@@ -1013,63 +1020,63 @@ github.com/ServiceWeaver/weaver/weavertest
     sync
     testing
     time
-github.com/ServiceWeaver/weaver/weavertest/internal/chain
+github.com/brunobls/weft/weavertest/internal/chain
     context
     errors
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     reflect
     sync
-github.com/ServiceWeaver/weaver/weavertest/internal/deploy
+github.com/brunobls/weft/weavertest/internal/deploy
     context
     errors
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     github.com/google/uuid
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     os
     path/filepath
     reflect
-github.com/ServiceWeaver/weaver/weavertest/internal/diverge
+github.com/brunobls/weft/weavertest/internal/diverge
     context
     errors
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     reflect
-github.com/ServiceWeaver/weaver/weavertest/internal/generate
+github.com/brunobls/weft/weavertest/internal/generate
     context
     errors
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     reflect
-github.com/ServiceWeaver/weaver/weavertest/internal/protos
+github.com/brunobls/weft/weavertest/internal/protos
     context
     errors
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/runtime/codegen
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     google.golang.org/protobuf/reflect/protoreflect
     google.golang.org/protobuf/runtime/protoimpl
     reflect
     sync
-github.com/ServiceWeaver/weaver/weavertest/internal/simple
+github.com/brunobls/weft/weavertest/internal/simple
     context
     errors
     fmt
-    github.com/ServiceWeaver/weaver
-    github.com/ServiceWeaver/weaver/metadata
-    github.com/ServiceWeaver/weaver/runtime/codegen
+    github.com/brunobls/weft
+    github.com/brunobls/weft/metadata
+    github.com/brunobls/weft/runtime/codegen
     go.opentelemetry.io/otel/codes
     go.opentelemetry.io/otel/trace
     maps
@@ -1078,26 +1085,26 @@ github.com/ServiceWeaver/weaver/weavertest/internal/simple
     reflect
     strings
     sync
-github.com/ServiceWeaver/weaver/website/blog/deployers
-github.com/ServiceWeaver/weaver/website/blog/deployers/multi
+github.com/brunobls/weft/website/blog/deployers
+github.com/brunobls/weft/website/blog/deployers/multi
     context
     flag
     fmt
-    github.com/ServiceWeaver/weaver/runtime
-    github.com/ServiceWeaver/weaver/runtime/colors
-    github.com/ServiceWeaver/weaver/runtime/envelope
-    github.com/ServiceWeaver/weaver/runtime/logging
-    github.com/ServiceWeaver/weaver/runtime/protos
+    github.com/brunobls/weft/runtime
+    github.com/brunobls/weft/runtime/colors
+    github.com/brunobls/weft/runtime/envelope
+    github.com/brunobls/weft/runtime/logging
+    github.com/brunobls/weft/runtime/protos
     github.com/google/uuid
     os
     sync
-github.com/ServiceWeaver/weaver/website/blog/deployers/single
+github.com/brunobls/weft/website/blog/deployers/single
     context
     flag
     fmt
-    github.com/ServiceWeaver/weaver/runtime/colors
-    github.com/ServiceWeaver/weaver/runtime/envelope
-    github.com/ServiceWeaver/weaver/runtime/logging
-    github.com/ServiceWeaver/weaver/runtime/protos
+    github.com/brunobls/weft/runtime/colors
+    github.com/brunobls/weft/runtime/envelope
+    github.com/brunobls/weft/runtime/logging
+    github.com/brunobls/weft/runtime/protos
     github.com/google/uuid
     log

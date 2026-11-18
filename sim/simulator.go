@@ -117,7 +117,7 @@
 //
 // In this trivial example, our workload did not use any Service Weaver
 // components, but most realistic workloads do. A workload can get a reference
-// to a component using weaver.Ref. See serviceweaver.dev/blog/testing.html for
+// to a component using weft.Ref. See serviceweaver.dev/blog/testing.html for
 // a complete example.
 //
 // # Graveyard
@@ -170,12 +170,12 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/internal/reflection"
-	"github.com/ServiceWeaver/weaver/internal/weaver"
-	swruntime "github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/runtime/logging"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/internal/reflection"
+	"github.com/brunobls/weft/internal/weaver"
+	swruntime "github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/runtime/logging"
+	"github.com/brunobls/weft/runtime/protos"
 	"golang.org/x/exp/maps"
 	"golang.org/x/text/language"
 	"golang.org/x/text/message"

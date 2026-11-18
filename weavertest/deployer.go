@@ -22,13 +22,13 @@ import (
 	"reflect"
 	"sync"
 
-	"github.com/ServiceWeaver/weaver/internal/control"
-	"github.com/ServiceWeaver/weaver/internal/weaver"
-	"github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/runtime/envelope"
-	"github.com/ServiceWeaver/weaver/runtime/logging"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/internal/control"
+	"github.com/brunobls/weft/internal/weaver"
+	"github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/runtime/envelope"
+	"github.com/brunobls/weft/runtime/logging"
+	"github.com/brunobls/weft/runtime/protos"
 	"github.com/google/uuid"
 	"golang.org/x/exp/maps"
 	"golang.org/x/sync/errgroup"
@@ -164,7 +164,7 @@ func (d *deployer) start(opts weaver.RemoteWeaveletOptions) (*weaver.RemoteWeave
 
 	// NOTE: NewEnvelope initiates a blocking handshake with the weavelet
 	// and therefore we run the rest of the initialization in a goroutine which
-	// will wait for weaver.Run to create a weavelet.
+	// will wait for weft.Run to create a weavelet.
 	go func() {
 		e, err := envelope.NewEnvelope(d.ctx, wlet, d.config, envelope.Options{
 			TmpDir: d.tmpDir,

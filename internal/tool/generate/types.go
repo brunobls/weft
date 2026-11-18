@@ -25,7 +25,7 @@ import (
 	"golang.org/x/tools/go/types/typeutil"
 )
 
-const weaverPackagePath = "github.com/ServiceWeaver/weaver"
+const weaverPackagePath = "github.com/brunobls/weft"
 
 // typeSet holds type information needed by the code generator.
 type typeSet struct {
@@ -52,8 +52,8 @@ type typeSet struct {
 
 // importPkg is a package imported by the generated code.
 type importPkg struct {
-	path  string // e.g., "github.com/ServiceWeaver/weaver"
-	pkg   string // e.g., "weaver", "context", "time"
+	path  string // e.g., "github.com/brunobls/weft"
+	pkg   string // e.g., "weft", "context", "time"
 	alias string // e.g., foo in `import foo "context"`
 	local bool   // are we in this package?
 }
@@ -284,6 +284,7 @@ func (tset *typeSet) checkSerializable(t types.Type) []error {
 		stack.Set(t, struct{}{})
 		defer func() { stack.Delete(t) }()
 
+		t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 		switch x := t.(type) {
 		case *types.Named:
 			// No need to check if x is an unexported type from another package
@@ -308,8 +309,8 @@ func (tset *typeSet) checkSerializable(t types.Type) []error {
 			// serializable.
 			if tset.automarshalCandidates.At(t) == nil {
 				// TODO(mwhittaker): Print out a link to documentation on
-				// weaver.AutoMarshal.
-				addError(fmt.Errorf("named structs are not serializable by default. Consider using weaver.AutoMarshal."))
+				// weft.AutoMarshal.
+				addError(fmt.Errorf("named structs are not serializable by default. Consider using weft.AutoMarshal."))
 				tset.checked.Set(t, false)
 				break
 			}
@@ -410,6 +411,7 @@ func (tset *typeSet) sizeOfType(t types.Type) int {
 		return size.(int)
 	}
 
+	t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 	switch x := t.(type) {
 	case *types.Basic:
 		switch x.Kind() {
@@ -477,7 +479,7 @@ func (tset *typeSet) sizeOfType(t types.Type) int {
 //   - For simplicity, we only consider a type measurable if the type and all
 //     its nested types are package local. For example, a struct { x
 //     otherpackage.T } is not measurable, even if otherpackage.T is
-//     measurable. We make an exception for weaver.AutoMarshal.
+//     measurable. We make an exception for weft.AutoMarshal.
 func (tset *typeSet) isMeasurable(t types.Type) bool {
 	rootPkg := tset.pkg.Types
 
@@ -489,13 +491,14 @@ func (tset *typeSet) isMeasurable(t types.Type) bool {
 	//     m([]t) = true if t is fixed size.
 	//     m(map[k]v) = true if k and v are fixed size.
 	//     m(struct{..., fi:ti, ...}) = true, if every ti is measurable.
-	//     m(weaver.AutoMarshal) = true
+	//     m(weft.AutoMarshal) = true
 	//     m(type t u) = m(u), if t is package local
 	//     m(_) = false
 	if result := tset.measurable.At(t); result != nil {
 		return result.(bool)
 	}
 
+	t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 	switch x := t.(type) {
 	case *types.Basic:
 		switch x.Kind() {
@@ -644,7 +647,7 @@ func (tset *typeSet) isProto(t types.Type) bool {
 }
 
 func isProtoMessage(t types.Type) bool {
-	n, ok := t.(*types.Named)
+	n, ok := types.Unalias(t).(*types.Named)
 	if !ok {
 		return false
 	}
@@ -653,7 +656,7 @@ func isProtoMessage(t types.Type) bool {
 }
 
 // implementsAutoMarshal returns whether the provided type is a concrete
-// type that implements the weaver.AutoMarshal interface.
+// type that implements the weft.AutoMarshal interface.
 func (tset *typeSet) implementsAutoMarshal(t types.Type) bool {
 	if _, ok := t.Underlying().(*types.Interface); ok {
 		// A superinterface of AutoMarshal does "implement" the interface,
@@ -703,11 +706,11 @@ func isWeaverMarshal(t types.Type, m *types.Func) bool {
 
 // isEncoderPtr returns whether t is *codegen.Encoder.
 func isEncoderPtr(t types.Type) bool {
-	p, ok := t.(*types.Pointer)
+	p, ok := types.Unalias(t).(*types.Pointer)
 	if !ok {
 		return false
 	}
-	n, ok := p.Elem().(*types.Named)
+	n, ok := types.Unalias(p.Elem()).(*types.Named)
 	if !ok {
 		return false
 	}
@@ -744,11 +747,11 @@ func isWeaverUnmarshal(t types.Type, m *types.Func) bool {
 
 // isDecoderPtr returns whether t is *codegen.Decoder.
 func isDecoderPtr(t types.Type) bool {
-	p, ok := t.(*types.Pointer)
+	p, ok := types.Unalias(t).(*types.Pointer)
 	if !ok {
 		return false
 	}
-	n, ok := p.Elem().(*types.Named)
+	n, ok := types.Unalias(p.Elem()).(*types.Named)
 	if !ok {
 		return false
 	}
@@ -781,11 +784,11 @@ func (tset *typeSet) hasMarshalBinary(t types.Type) bool {
 }
 
 func isByteSlice(t types.Type) bool {
-	s, ok := t.(*types.Slice)
+	s, ok := types.Unalias(t).(*types.Slice)
 	if !ok {
 		return false
 	}
-	e, ok := s.Elem().(*types.Basic)
+	e, ok := types.Unalias(s.Elem()).(*types.Basic)
 	if !ok {
 		return false
 	}
@@ -857,7 +860,7 @@ func isUnmarshalBinary(t types.Type, m *types.Func) bool {
 // isWeaverType returns true iff t is a named type from the weaver package with
 // the specified name and n type arguments.
 func isWeaverType(t types.Type, name string, n int) bool {
-	named, ok := t.(*types.Named)
+	named, ok := types.Unalias(t).(*types.Named)
 	return ok &&
 		named.Obj().Pkg() != nil &&
 		named.Obj().Pkg().Path() == weaverPackagePath &&
@@ -894,12 +897,12 @@ func isWeaverNotRetriable(t types.Type) bool {
 }
 
 func isString(t types.Type) bool {
-	b, ok := t.(*types.Basic)
+	b, ok := types.Unalias(t).(*types.Basic)
 	return ok && b.Kind() == types.String
 }
 
 func isContext(t types.Type) bool {
-	n, ok := t.(*types.Named)
+	n, ok := types.Unalias(t).(*types.Named)
 	if !ok {
 		return false
 	}
@@ -907,7 +910,7 @@ func isContext(t types.Type) bool {
 }
 
 func isError(t types.Type) bool {
-	n, ok := t.(*types.Named)
+	n, ok := types.Unalias(t).(*types.Named)
 	if !ok {
 		return false
 	}
@@ -917,7 +920,7 @@ func isError(t types.Type) bool {
 // isPrimitiveRouter returns whether the provided type is a valid primitive
 // router type (i.e. an integer, a float, or a string).
 func isPrimitiveRouter(t types.Type) bool {
-	b, ok := t.(*types.Basic)
+	b, ok := types.Unalias(t).(*types.Basic)
 	if !ok {
 		return false
 	}
@@ -934,7 +937,7 @@ func isPrimitiveRouter(t types.Type) bool {
 // isValidRouterType returns whether the provided type is a valid router type.
 // A router type can be one of the following: an integer (signed or unsigned),
 // a float, or a string. Alternatively, it can be a struct that may optioanly
-// embed the weaver.AutoMarshal struct and rest of the fields must be either
+// embed the weft.AutoMarshal struct and rest of the fields must be either
 // integers, floats, or strings.
 func isValidRouterType(t types.Type) bool {
 	t = t.Underlying()

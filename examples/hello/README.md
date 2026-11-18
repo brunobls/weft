@@ -9,11 +9,11 @@ localhost:12345/hello?name=Alice`).
 %%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     %% Nodes.
-    github.com/ServiceWeaver/weaver/Main(weaver.Main)
-    github.com/ServiceWeaver/weaver/examples/hello/Reverser(hello.Reverser)
+    github.com/brunobls/weft/Main(weft.Main)
+    github.com/brunobls/weft/examples/hello/Reverser(hello.Reverser)
 
     %% Edges.
-    github.com/ServiceWeaver/weaver/Main --> github.com/ServiceWeaver/weaver/examples/hello/Reverser
+    github.com/brunobls/weft/Main --> github.com/brunobls/weft/examples/hello/Reverser
 ```
 
 [docs]: https://serviceweaver.dev/docs.html

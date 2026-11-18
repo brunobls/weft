@@ -32,7 +32,7 @@ var (
 	SetWeaverInfo func(impl any, info *WeaverInfo) error
 
 	// HasRefs returns whether the provided component implementation has
-	// weaver.Refs fields.
+	// weft.Refs fields.
 	HasRefs func(impl any) bool
 
 	// FillRefs initializes Ref[T] fields in a component implement struct.
@@ -42,7 +42,7 @@ var (
 	FillRefs func(impl any, get func(reflect.Type) (any, error)) error
 
 	// HasListeners returns whether the provided component implementation has
-	// weaver.Listener fields.
+	// weft.Listener fields.
 	HasListeners func(impl any) bool
 
 	// FillListeners initializes Listener fields in a component implementation
@@ -53,7 +53,7 @@ var (
 	FillListeners func(impl any, get func(string) (net.Listener, string, error)) error
 
 	// HasConfig returns whether the provided component implementation has
-	// an embedded weaver.Config field.
+	// an embedded weft.Config field.
 	HasConfig func(impl any) bool
 
 	// GetConfig returns the config stored in the provided component

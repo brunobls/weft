@@ -20,11 +20,11 @@ import (
 	"io"
 	"os"
 
-	"github.com/ServiceWeaver/weaver/internal/pipe"
-	"github.com/ServiceWeaver/weaver/internal/proto"
-	"github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/protomsg"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/internal/pipe"
+	"github.com/brunobls/weft/internal/proto"
+	"github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/protomsg"
+	"github.com/brunobls/weft/runtime/protos"
 )
 
 // Child manages the child of an envelope. This is typically a child process, but

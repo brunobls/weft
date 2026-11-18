@@ -5,47 +5,47 @@ package frontend
 
 import (
 	"context"
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/runtime/codegen"
 	"go.opentelemetry.io/otel/trace"
 	"reflect"
 )
 
 func init() {
 	codegen.Register(codegen.Registration{
-		Name:      "github.com/ServiceWeaver/weaver/Main",
-		Iface:     reflect.TypeOf((*weaver.Main)(nil)).Elem(),
+		Name:      "github.com/brunobls/weft/Main",
+		Iface:     reflect.TypeOf((*weft.Main)(nil)).Elem(),
 		Impl:      reflect.TypeOf(server{}),
 		Listeners: []string{"bank"},
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return main_local_stub{impl: impl.(weaver.Main), tracer: tracer}
+			return main_local_stub{impl: impl.(weft.Main), tracer: tracer}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any { return main_client_stub{stub: stub} },
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
-			return main_server_stub{impl: impl.(weaver.Main), addLoad: addLoad}
+			return main_server_stub{impl: impl.(weft.Main), addLoad: addLoad}
 		},
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return main_reflect_stub{caller: caller}
 		},
-		RefData: "⟦583f439b:wEaVeReDgE:github.com/ServiceWeaver/weaver/Main→github.com/ServiceWeaver/weaver/examples/bankofanthos/balancereader/T⟧\n⟦01efa328:wEaVeReDgE:github.com/ServiceWeaver/weaver/Main→github.com/ServiceWeaver/weaver/examples/bankofanthos/contacts/T⟧\n⟦285db949:wEaVeReDgE:github.com/ServiceWeaver/weaver/Main→github.com/ServiceWeaver/weaver/examples/bankofanthos/ledgerwriter/T⟧\n⟦c236fa3b:wEaVeReDgE:github.com/ServiceWeaver/weaver/Main→github.com/ServiceWeaver/weaver/examples/bankofanthos/transactionhistory/T⟧\n⟦0906345d:wEaVeReDgE:github.com/ServiceWeaver/weaver/Main→github.com/ServiceWeaver/weaver/examples/bankofanthos/userservice/T⟧\n⟦969790bc:wEaVeRlIsTeNeRs:github.com/ServiceWeaver/weaver/Main→bank⟧\n",
+		RefData: "⟦abf70401:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/bankofanthos/balancereader/T⟧\n⟦e799ee35:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/bankofanthos/contacts/T⟧\n⟦b5b1366d:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/bankofanthos/ledgerwriter/T⟧\n⟦3e75d2d7:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/bankofanthos/transactionhistory/T⟧\n⟦edc16fcb:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/bankofanthos/userservice/T⟧\n⟦f424a993:wEaVeRlIsTeNeRs:github.com/brunobls/weft/Main→bank⟧\n",
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[weaver.Main] = (*server)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[weft.Main] = (*server)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*server)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*server)(nil)
 
 // Local stub implementations.
 
 type main_local_stub struct {
-	impl   weaver.Main
+	impl   weft.Main
 	tracer trace.Tracer
 }
 
-// Check that main_local_stub implements the weaver.Main interface.
-var _ weaver.Main = (*main_local_stub)(nil)
+// Check that main_local_stub implements the weft.Main interface.
+var _ weft.Main = (*main_local_stub)(nil)
 
 // Client stub implementations.
 
@@ -53,36 +53,36 @@ type main_client_stub struct {
 	stub codegen.Stub
 }
 
-// Check that main_client_stub implements the weaver.Main interface.
-var _ weaver.Main = (*main_client_stub)(nil)
+// Check that main_client_stub implements the weft.Main interface.
+var _ weft.Main = (*main_client_stub)(nil)
 
-// Note that "weaver generate" will always generate the error message below.
+// Note that "weft generate" will always generate the error message below.
 // Everything is okay. The error message is only relevant if you see it when
 // you run "go build" or "go run".
 var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`
 
-ERROR: You generated this file with 'weaver generate' (devel) (codegen
+ERROR: You generated this file with 'weft generate' (devel) (codegen
 version v0.24.0). The generated code is incompatible with the version of the
-github.com/ServiceWeaver/weaver module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weft module
 version can be found in your go.mod file or by running the following command.
 
-    go list -m github.com/ServiceWeaver/weaver
+    go list -m github.com/brunobls/weft
 
-We recommend updating the weaver module and the 'weaver generate' command by
+We recommend updating the weft module and the 'weft generate' command by
 running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weft@latest
 
-Then, re-run 'weaver generate' and re-build your code. If the problem persists,
-please file an issue at https://github.com/ServiceWeaver/weaver/issues.
+Then, re-run 'weft generate' and re-build your code. If the problem persists,
+please file an issue at https://github.com/brunobls/weft/issues.
 
 `)
 
 // Server stub implementations.
 
 type main_server_stub struct {
-	impl    weaver.Main
+	impl    weft.Main
 	addLoad func(key uint64, load float64)
 }
 
@@ -103,6 +103,6 @@ type main_reflect_stub struct {
 	caller func(string, context.Context, []any, []any) error
 }
 
-// Check that main_reflect_stub implements the weaver.Main interface.
-var _ weaver.Main = (*main_reflect_stub)(nil)
+// Check that main_reflect_stub implements the weft.Main interface.
+var _ weft.Main = (*main_reflect_stub)(nil)
 

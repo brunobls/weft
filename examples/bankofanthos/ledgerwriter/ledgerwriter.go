@@ -21,9 +21,9 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/examples/bankofanthos/balancereader"
-	"github.com/ServiceWeaver/weaver/examples/bankofanthos/model"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/examples/bankofanthos/balancereader"
+	"github.com/brunobls/weft/examples/bankofanthos/model"
 	"github.com/patrickmn/go-cache"
 )
 
@@ -38,11 +38,11 @@ type config struct {
 }
 
 type impl struct {
-	weaver.Implements[T]
-	weaver.WithConfig[config]
+	weft.Implements[T]
+	weft.WithConfig[config]
 	cache         *cache.Cache
 	txnRepo       *transactionRepository
-	balanceReader weaver.Ref[balancereader.T]
+	balanceReader weft.Ref[balancereader.T]
 }
 
 func (i *impl) Init(context.Context) error {

@@ -50,14 +50,14 @@ import (
 	"flag"
 	"log"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
-//go:generate ../../cmd/weaver/weaver generate
+//go:generate ../../cmd/weft/weft generate
 
 func main() {
 	flag.Parse()
-	if err := weaver.Run(context.Background(), serve); err != nil {
+	if err := weft.Run(context.Background(), serve); err != nil {
 		log.Fatal(err)
 	}
 }

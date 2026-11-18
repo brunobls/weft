@@ -24,15 +24,15 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/internal/reflection"
-	"github.com/ServiceWeaver/weaver/internal/weaver"
-	"github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/runtime/deployers"
-	"github.com/ServiceWeaver/weaver/runtime/envelope"
-	"github.com/ServiceWeaver/weaver/runtime/logging"
-	"github.com/ServiceWeaver/weaver/runtime/protomsg"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/internal/reflection"
+	"github.com/brunobls/weft/internal/weaver"
+	"github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/runtime/deployers"
+	"github.com/brunobls/weft/runtime/envelope"
+	"github.com/brunobls/weft/runtime/logging"
+	"github.com/brunobls/weft/runtime/protomsg"
+	"github.com/brunobls/weft/runtime/protos"
 	"github.com/google/pprof/profile"
 	"github.com/google/uuid"
 	"golang.org/x/sync/errgroup"
@@ -45,10 +45,10 @@ import (
 // - A component's Init method fails.
 
 var (
-	componenta = "github.com/ServiceWeaver/weaver/internal/testdeployer/a"
-	componentb = "github.com/ServiceWeaver/weaver/internal/testdeployer/b"
-	componentc = "github.com/ServiceWeaver/weaver/internal/testdeployer/c"
-	componentd = "github.com/ServiceWeaver/weaver/internal/testdeployer/d"
+	componenta = "github.com/brunobls/weft/internal/testdeployer/a"
+	componentb = "github.com/brunobls/weft/internal/testdeployer/b"
+	componentc = "github.com/brunobls/weft/internal/testdeployer/c"
+	componentd = "github.com/brunobls/weft/internal/testdeployer/d"
 	colocated  = map[string][]string{"1": {componenta, componentb, componentc}}
 )
 

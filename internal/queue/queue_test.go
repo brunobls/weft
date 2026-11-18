@@ -21,7 +21,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/internal/queue"
+	"github.com/brunobls/weft/internal/queue"
 	"golang.org/x/sync/errgroup"
 )
 

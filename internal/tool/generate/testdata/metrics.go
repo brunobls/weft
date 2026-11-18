@@ -24,14 +24,14 @@ package foo
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 type foo interface {
 	Method(context.Context, string) (string, error)
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (i *impl) Method(context.Context, string) (string, error) {
 	return "", nil

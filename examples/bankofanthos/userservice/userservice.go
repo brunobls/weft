@@ -24,14 +24,14 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 	"github.com/golang-jwt/jwt"
 	"golang.org/x/crypto/bcrypt"
 )
 
 // CreateUserRequest contains data used for creating a new user.
 type CreateUserRequest struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	Username       string
 	Password       string
 	PasswordRepeat string
@@ -47,7 +47,7 @@ type CreateUserRequest struct {
 
 // LoginRequest contains data used for logging in an existing user.
 type LoginRequest struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	Username string
 	Password string
 }
@@ -66,8 +66,8 @@ type config struct {
 }
 
 type impl struct {
-	weaver.Implements[T]
-	weaver.WithConfig[config]
+	weft.Implements[T]
+	weft.WithConfig[config]
 	db         *userDB
 	privateKey *rsa.PrivateKey
 }
@@ -87,7 +87,7 @@ func (i *impl) Init(context.Context) error {
 
 func (i *impl) validateNewUser(r CreateUserRequest) error {
 	v := reflect.ValueOf(r)
-	// Start validation from field 1, since field 0 is weaver.AutoMarshal.
+	// Start validation from field 1, since field 0 is weft.AutoMarshal.
 	for i := 1; i < v.NumField(); i++ {
 		if v.Field(i).IsZero() {
 			return fmt.Errorf("missing value for input field: %v", v.Field(i).Type().Name())

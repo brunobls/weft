@@ -21,10 +21,10 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/internal/reflection"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/weavertest"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/internal/reflection"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/weavertest"
 )
 
 // TODO(mwhittaker): Induce an error in the encoding, decoding, and RPC call.
@@ -80,8 +80,8 @@ func TestPanic(t *testing.T) {
 	weavertest.Multi.Test(t, func(t *testing.T, client testApp) {
 		// Trigger a panic.
 		_, err := client.Get(ctx, "foo", panicError)
-		if err == nil || !errors.Is(err, weaver.RemoteCallError) {
-			t.Fatalf("expected a weaver.RemoteCallError; got: %v", err)
+		if err == nil || !errors.Is(err, weft.RemoteCallError) {
+			t.Fatalf("expected a weft.RemoteCallError; got: %v", err)
 		}
 	})
 }

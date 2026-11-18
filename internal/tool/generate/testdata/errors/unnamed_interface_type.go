@@ -20,9 +20,9 @@ package foo
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 type foo struct {
-	weaver.Implements[interface{ M(context.Context) error }]
+	weft.Implements[interface{ M(context.Context) error }]
 }

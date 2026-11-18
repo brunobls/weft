@@ -21,7 +21,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/ServiceWeaver/weaver/internal/reflection"
+	"github.com/brunobls/weft/internal/reflection"
 )
 
 // registrar is the canonical Registrar implementation. A registrar is not safe

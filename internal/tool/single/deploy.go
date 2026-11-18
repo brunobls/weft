@@ -24,21 +24,21 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/ServiceWeaver/weaver/internal/tool/config"
-	"github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/runtime/tool"
+	"github.com/brunobls/weft/internal/tool/config"
+	"github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/runtime/tool"
 )
 
 const (
-	ConfigKey      = "github.com/ServiceWeaver/weaver/single"
+	ConfigKey      = "github.com/brunobls/weft/single"
 	ShortConfigKey = "single"
 )
 
 var deployCmd = tool.Command{
 	Name:        "deploy",
-	Description: "Deploy a Service Weaver app",
-	Help:        "Usage:\n  weaver single deploy <configfile>",
+	Description: "Deploy a Weft app",
+	Help:        "Usage:\n  weft single deploy <configfile>",
 	Flags:       flag.NewFlagSet("deploy", flag.ContinueOnError),
 	Fn:          deploy,
 }
@@ -82,7 +82,7 @@ func deploy(ctx context.Context, args []string) error {
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	cmd.Env = append(cmd.Environ(), "SERVICEWEAVER_CONFIG="+configFile)
+	cmd.Env = appEnv(cmd.Environ(), configFile)
 
 	// Make sure that the subprocess dies when we die. This isn't perfect, as
 	// we can't catch a SIGKILL, but it's good in the common case.
@@ -98,4 +98,11 @@ func deploy(ctx context.Context, args []string) error {
 
 	// Run the binary
 	return cmd.Run()
+}
+
+// appEnv returns env plus the variables that tell the application where its
+// config file is: WEFT_CONFIG and, for applications built with a runtime that
+// predates Weft, SERVICEWEAVER_CONFIG.
+func appEnv(env []string, configFile string) []string {
+	return append(env, "WEFT_CONFIG="+configFile, "SERVICEWEAVER_CONFIG="+configFile)
 }

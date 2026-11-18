@@ -17,10 +17,10 @@ package benchmarks
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
-//go:generate ../../cmd/weaver/weaver generate
+//go:generate ../../cmd/weft/weft generate
 //go:generate ../../dev/protoc.sh payload.proto
 
 // We want a chain of ten components, each one calling the next.
@@ -68,61 +68,61 @@ type Ping9 interface{ Ping }
 type Ping10 interface{ Ping }
 
 type ping1 struct {
-	weaver.Implements[Ping1]
-	next weaver.Ref[Ping2]
+	weft.Implements[Ping1]
+	next weft.Ref[Ping2]
 	pingCommon
 }
 
 type ping2 struct {
-	weaver.Implements[Ping2]
-	next weaver.Ref[Ping3]
+	weft.Implements[Ping2]
+	next weft.Ref[Ping3]
 	pingCommon
 }
 
 type ping3 struct {
-	weaver.Implements[Ping3]
-	next weaver.Ref[Ping4]
+	weft.Implements[Ping3]
+	next weft.Ref[Ping4]
 	pingCommon
 }
 
 type ping4 struct {
-	weaver.Implements[Ping4]
-	next weaver.Ref[Ping5]
+	weft.Implements[Ping4]
+	next weft.Ref[Ping5]
 	pingCommon
 }
 
 type ping5 struct {
-	weaver.Implements[Ping5]
-	next weaver.Ref[Ping6]
+	weft.Implements[Ping5]
+	next weft.Ref[Ping6]
 	pingCommon
 }
 
 type ping6 struct {
-	weaver.Implements[Ping6]
-	next weaver.Ref[Ping7]
+	weft.Implements[Ping6]
+	next weft.Ref[Ping7]
 	pingCommon
 }
 
 type ping7 struct {
-	weaver.Implements[Ping7]
-	next weaver.Ref[Ping8]
+	weft.Implements[Ping7]
+	next weft.Ref[Ping8]
 	pingCommon
 }
 
 type ping8 struct {
-	weaver.Implements[Ping8]
-	next weaver.Ref[Ping9]
+	weft.Implements[Ping8]
+	next weft.Ref[Ping9]
 	pingCommon
 }
 
 type ping9 struct {
-	weaver.Implements[Ping9]
-	next weaver.Ref[Ping10]
+	weft.Implements[Ping9]
+	next weft.Ref[Ping10]
 	pingCommon
 }
 
 type ping10 struct {
-	weaver.Implements[Ping10]
+	weft.Implements[Ping10]
 	pingCommon
 }
 
@@ -140,13 +140,13 @@ func (p *ping9) Init(context.Context) error { return p.pingCommon.setNext(p.next
 
 // payloadS contains a simple payload.
 type payloadS struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	Values []string
 }
 
 // payloadC defines a payload that emulates some production payload.
 type payloadC struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A float64
 	B string
 	C int64
@@ -161,38 +161,38 @@ type payloadC struct {
 }
 
 type X1 struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A X2
 	B []int64
 }
 
 type X2 struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A X3
 }
 
 type X3 struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A X4
 	B int64
 	C int64
 }
 
 type X4 struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A int64
 	B X5
 	C int64
 }
 
 type X5 struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A int64
 	B int64
 }
 
 type X6 struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	A []bool
 }
 

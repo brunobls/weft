@@ -17,12 +17,12 @@ package control
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/runtime/protos"
 )
 
 // WeaveletPath is the path used for the weavelet control component.
 // It points to an internal type in a different package.
-const WeaveletPath = "github.com/ServiceWeaver/weaver/weaveletControl"
+const WeaveletPath = "github.com/brunobls/weft/weaveletControl"
 
 // WeaveletControl is the interface for the weaver.weaveletControl component. It is
 // present in its own package so other packages do not need to copy the interface

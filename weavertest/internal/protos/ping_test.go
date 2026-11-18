@@ -18,7 +18,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/ServiceWeaver/weaver/weavertest"
+	"github.com/brunobls/weft/weavertest"
 )
 
 func TestPingPong(t *testing.T) {

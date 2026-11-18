@@ -21,7 +21,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/runtime/metrics"
+	"github.com/brunobls/weft/runtime/metrics"
 )
 
 // TODO(rgrandl): Right now we aggregate local and remote metrics. Show them separately.

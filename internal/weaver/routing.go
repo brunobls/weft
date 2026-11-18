@@ -20,9 +20,9 @@ import (
 	"math/rand"
 	"sync"
 
-	"github.com/ServiceWeaver/weaver/internal/cond"
-	"github.com/ServiceWeaver/weaver/internal/net/call"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/internal/cond"
+	"github.com/brunobls/weft/internal/net/call"
+	"github.com/brunobls/weft/runtime/protos"
 	"github.com/google/uuid"
 )
 

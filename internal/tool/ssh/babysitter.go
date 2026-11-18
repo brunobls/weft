@@ -17,15 +17,15 @@ package ssh
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver/internal/tool/ssh/impl"
-	"github.com/ServiceWeaver/weaver/runtime/tool"
+	"github.com/brunobls/weft/internal/tool/ssh/impl"
+	"github.com/brunobls/weft/runtime/tool"
 )
 
 var babysitterCmd = tool.Command{
 	Name:        "babysitter",
-	Description: "The weaver ssh babysitter",
+	Description: "The weft ssh babysitter",
 	Help: `Usage:
-  weaver ssh babysitter
+  weft ssh babysitter
 
 Flags:
   -h, --help   Print this help message.`,

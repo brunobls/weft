@@ -28,24 +28,32 @@ function cmd_tidy() {
 
 function cmd_generate() {
   # Generate go files.
-  (cd cmd/weaver && go build)
+  (cd cmd/weft && go build -buildvcs=false)
   go generate ./...
+
+  # No go:generate directive covers these packages, so generate them
+  # explicitly; otherwise their weaver_gen.go files go stale.
+  ./cmd/weft/weft generate ./examples/bankofanthos/... ./sim/internal/bank
+
+  # Record the dependencies once everything is generated, so that godeps.txt
+  # is right after a single pass.
+  ./dev/writedeps.sh
 
   # Add license headers.
   if ! exists addlicense; then
     printf "addlicense not found; install via\ngo install github.com/google/addlicense@latest\n" >&2
     exit 1
   fi
-  addlicense -c "Google LLC" -l apache .
+  addlicense -c "The Weft Authors" -l apache .
 }
 
 function cmd_build() {
   go build ./...
 
   # Also build the important binaries (go build does not build them if passed
-  # any arguments). Note; we build cmd/weaver since user may have skipped the
+  # any arguments). Note; we build cmd/weft since user may have skipped the
   # generate phase.
-  (cd cmd/weaver && go build)
+  (cd cmd/weft && go build -buildvcs=false)
 }
 
 function cmd_vet() {
@@ -54,7 +62,7 @@ function cmd_vet() {
 
 function cmd_lint() {
   if ! exists staticcheck; then
-    printf "staticcheck not found; install via\ngo install honnef.co/go/tools/cmd/staticcheck@v0.5.0\n" >&2
+    printf "staticcheck not found; install via\ngo install honnef.co/go/tools/cmd/staticcheck@v0.8.2\n" >&2
     exit 1
   fi
 

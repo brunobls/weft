@@ -21,20 +21,20 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 type server struct {
-	weaver.Implements[weaver.Main]
+	weft.Implements[weft.Main]
 	mux  http.ServeMux
-	odd  weaver.Ref[Odd]
-	even weaver.Ref[Even]
-	lis  weaver.Listener `weaver:"collatz"`
+	odd  weft.Ref[Odd]
+	even weft.Ref[Even]
+	lis  weft.Listener `weaver:"collatz"`
 }
 
 func serve(ctx context.Context, s *server) error {
-	s.mux.Handle("/", weaver.InstrumentHandlerFunc("collatz", s.handle))
-	s.mux.HandleFunc(weaver.HealthzURL, weaver.HealthzHandler)
+	s.mux.Handle("/", weft.InstrumentHandlerFunc("collatz", s.handle))
+	s.mux.HandleFunc(weft.HealthzURL, weft.HealthzHandler)
 	s.Logger(ctx).Debug("Collatz service available", "address", s.lis)
 	return http.Serve(s.lis, &s.mux)
 }

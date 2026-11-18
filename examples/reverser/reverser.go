@@ -17,8 +17,8 @@ package main
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/metrics"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/metrics"
 )
 
 // stringLength is a histogram that tracks the length of strings passed to the
@@ -36,7 +36,7 @@ type Reverser interface {
 
 // Implementation of the Reverser component.
 type reverser struct {
-	weaver.Implements[Reverser]
+	weft.Implements[Reverser]
 }
 
 func (r reverser) Reverse(ctx context.Context, s string) (string, error) {

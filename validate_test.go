@@ -12,15 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package weaver
+package weft
 
 import (
 	"io"
 	"strings"
 	"testing"
 
-	"github.com/ServiceWeaver/weaver/internal/reflection"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft/internal/reflection"
+	"github.com/brunobls/weft/runtime/codegen"
 )
 
 // TestValidateNoRegistrations tests that validateRegistrations succeeds on an
@@ -62,7 +62,7 @@ func TestValidateValidRegistrations(t *testing.T) {
 }
 
 // TestValidateUnregisteredRef tests that validateRegistrations fails when a
-// component has a weaver.Ref on an unregistered component.
+// component has a weft.Ref on an unregistered component.
 func TestValidateUnregisteredRef(t *testing.T) {
 	type foo interface{}
 	type fooImpl struct{ Ref[io.Reader] }

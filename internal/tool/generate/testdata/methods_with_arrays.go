@@ -36,7 +36,7 @@ package foo
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 const N = 1024
@@ -47,11 +47,11 @@ type foo interface {
 }
 
 type X struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	a int
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (l *impl) A(context.Context, [9123]X, [5 + 7]int) ([2 * N]string, error) {
 	return [2 * N]string{}, nil

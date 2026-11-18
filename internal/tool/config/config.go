@@ -17,9 +17,9 @@ package config
 import (
 	"fmt"
 
-	"github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/bin"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/bin"
+	"github.com/brunobls/weft/runtime/protos"
 	"google.golang.org/protobuf/proto"
 )
 

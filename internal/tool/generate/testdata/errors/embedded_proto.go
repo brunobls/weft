@@ -18,7 +18,7 @@ package foo
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
@@ -33,7 +33,7 @@ type Foo interface {
 }
 
 type foo struct {
-	weaver.Implements[Foo]
+	weft.Implements[Foo]
 }
 
 func (foo) M(context.Context, WeIgnoreEmbeddedProtos) error {

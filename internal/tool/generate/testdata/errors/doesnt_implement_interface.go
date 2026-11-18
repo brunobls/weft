@@ -18,7 +18,7 @@ package foo
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 type Foo interface {
@@ -26,5 +26,5 @@ type Foo interface {
 }
 
 type foo struct {
-	weaver.Implements[Foo]
+	weft.Implements[Foo]
 }

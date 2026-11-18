@@ -13,7 +13,7 @@
 // limitations under the License.
 
 syntax = "proto3";
-option go_package = "github.com/ServiceWeaver/weaver/weavertest/internal/protos;protos";
+option go_package = "github.com/brunobls/weft/weavertest/internal/protos;protos";
 
 package protos;
 

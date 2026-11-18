@@ -20,7 +20,7 @@ import (
 	"os"
 	"regexp"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 type T interface {
@@ -37,8 +37,8 @@ type config struct {
 }
 
 type impl struct {
-	weaver.Implements[T]
-	weaver.WithConfig[config]
+	weft.Implements[T]
+	weft.WithConfig[config]
 	db        *contactDB
 	publicKey string
 }
