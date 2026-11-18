@@ -129,6 +129,11 @@ func TestBinaries(t *testing.T) {
 		if err != nil || !strings.Contains(string(out), name+" generate") {
 			t.Errorf("%s help generate: err=%v\n%s", name, err, out)
 		}
+		// The group title and its lines name the same command ("weft multi").
+		out, _ = exec.Command(bin, "multi", "--help").CombinedOutput()
+		if !strings.Contains(string(out), "weft multi") || strings.Contains(string(out), "weaver multi") {
+			t.Errorf("%s multi --help mixes names:\n%s", name, out)
+		}
 		out, _ = exec.Command(bin, "nosuch").CombinedOutput()
 		if !strings.Contains(string(out), `"`+name+" nosuch\"") {
 			t.Errorf("%s nosuch error does not use invoked name:\n%s", name, out)

@@ -61,17 +61,19 @@ running `source ~/.bashrc`:
 $ export PATH="$PATH:$HOME/go/bin"
 ```
 
-If the installation was successful, you should be able to run `weaver --help`:
+If the installation was successful, you should be able to run `weft --help` (or `weaver --help`, if you also
+installed the `weaver` alias, which prints the same text with `weaver` as the
+command name):
 
 ```console
-$ weaver --help
+$ weft --help
 USAGE
 
-  weaver generate                 // weaver code generator
-  weaver version                  // show weaver version
-  weaver single    <command> ...  // for single process deployments
-  weaver multi     <command> ...  // for multiprocess deployments
-  weaver ssh       <command> ...  // for multimachine deployments
+  weft generate                 // code generator
+  weft version                  // show version
+  weft single    <command> ...  // for single process deployments
+  weft multi     <command> ...  // for multiprocess deployments
+  weft ssh       <command> ...  // for multimachine deployments
   ...
 ```
 

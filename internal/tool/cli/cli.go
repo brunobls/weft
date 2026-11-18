@@ -146,7 +146,7 @@ Description:
 
 	case "single", "multi", "ssh":
 		os.Args = os.Args[1:]
-		tool.Run(name+" "+flag.Arg(0), internals[flag.Arg(0)])
+		tool.Run("weft "+flag.Arg(0), internals[flag.Arg(0)])
 		return
 
 	case "help":
@@ -161,7 +161,7 @@ Description:
 			fmt.Fprintln(os.Stdout, generate.Usage(name))
 		case n == 2 && internals[command] != nil:
 			// help <command>
-			fmt.Fprintln(os.Stdout, tool.MainHelp(name+" "+command, internals[command]))
+			fmt.Fprintln(os.Stdout, tool.MainHelp("weft "+command, internals[command]))
 		case n == 2:
 			// help <external>
 			code, err := run(name, command, []string{"--help"})
