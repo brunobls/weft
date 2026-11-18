@@ -28,28 +28,28 @@ import (
 )
 
 var (
-	// The directories and files where "weaver multi" stores data.
+	// The directories and files where "weft multi" stores data.
 	logDir       = filepath.Join(runtime.LogsDir(), "multi")
 	dataDir      = filepath.Join(must.Must(runtime.DataDir()), "multi")
 	registryDir  = filepath.Join(dataDir, "registry")
 	perfettoFile = filepath.Join(dataDir, "traces.DB")
 
 	dashboardSpec = &status.DashboardSpec{
-		Tool:         "weaver multi",
+		Tool:         "weft multi",
 		PerfettoFile: perfettoFile,
 		Registry:     defaultRegistry,
 		Commands: func(deploymentId string) []status.Command {
 			return []status.Command{
-				{Label: "status", Command: "weaver multi status"},
-				{Label: "cat logs", Command: fmt.Sprintf("weaver multi logs 'version==%q'", logging.Shorten(deploymentId))},
-				{Label: "follow logs", Command: fmt.Sprintf("weaver multi logs --follow 'version==%q'", logging.Shorten(deploymentId))},
-				{Label: "profile", Command: fmt.Sprintf("weaver multi profile --duration=30s %s", deploymentId)},
+				{Label: "status", Command: "weft multi status"},
+				{Label: "cat logs", Command: fmt.Sprintf("weft multi logs 'version==%q'", logging.Shorten(deploymentId))},
+				{Label: "follow logs", Command: fmt.Sprintf("weft multi logs --follow 'version==%q'", logging.Shorten(deploymentId))},
+				{Label: "profile", Command: fmt.Sprintf("weft multi profile --duration=30s %s", deploymentId)},
 			}
 		},
 	}
 
 	purgeSpec = &tool.PurgeSpec{
-		Tool:  "weaver multi",
+		Tool:  "weft multi",
 		Kill:  "(weft|weaver) multi (dashboard|deploy|logs|profile)",
 		Paths: []string{logDir, dataDir},
 	}
@@ -57,16 +57,16 @@ var (
 	Commands = map[string]*tool.Command{
 		"deploy": &deployCmd,
 		"logs": tool.LogsCmd(&tool.LogsSpec{
-			Tool: "weaver multi",
+			Tool: "weft multi",
 			Source: func(context.Context) (logging.Source, error) {
 				return logging.FileSource(logDir), nil
 			},
 		}),
 		"dashboard": status.DashboardCommand(dashboardSpec),
-		"status":    status.StatusCommand("weaver multi", defaultRegistry),
-		"metrics":   status.MetricsCommand("weaver multi", defaultRegistry),
-		"profile":   status.ProfileCommand("weaver multi", defaultRegistry),
+		"status":    status.StatusCommand("weft multi", defaultRegistry),
+		"metrics":   status.MetricsCommand("weft multi", defaultRegistry),
+		"profile":   status.ProfileCommand("weft multi", defaultRegistry),
 		"purge":     tool.PurgeCmd(purgeSpec),
-		"version":   itool.VersionCmd("weaver multi"),
+		"version":   itool.VersionCmd("weft multi"),
 	}
 )

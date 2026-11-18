@@ -27,8 +27,8 @@ import (
 
 // validateRegistrations validates the provided registrations, returning an
 // diagnostic error if they are invalid. Note that some validation is performed
-// by 'weaver generate', but because users can run a Service Weaver app after
-// forgetting to run 'weaver generate', some checks have to be done at runtime.
+// by 'weft generate', but because users can run a Service Weaver app after
+// forgetting to run 'weft generate', some checks have to be done at runtime.
 func validateRegistrations(regs []*codegen.Registration) error {
 	// Gather the set of registered interfaces.
 	intfs := map[reflect.Type]struct{}{}
@@ -49,7 +49,7 @@ func validateRegistrations(regs []*codegen.Registration) error {
 				if _, ok := intfs[v.Type]; !ok {
 					// T is not a registered component interface.
 					err := fmt.Errorf(
-						"component implementation struct %v has component reference field %v, but component %v was not registered; maybe you forgot to run 'weaver generate'",
+						"component implementation struct %v has component reference field %v, but component %v was not registered; maybe you forgot to run 'weft generate'",
 						reg.Impl, f.Type, v.Type,
 					)
 					errs = append(errs, err)
@@ -67,7 +67,7 @@ func validateRegistrations(regs []*codegen.Registration) error {
 					name = tag
 				}
 				if !slices.Contains(reg.Listeners, name) {
-					err := fmt.Errorf("component implementation struct %v has a listener field %v, but listener %v hasn't been registered; maybe you forgot to run 'weaver generate'", reg.Impl, name, name)
+					err := fmt.Errorf("component implementation struct %v has a listener field %v, but listener %v hasn't been registered; maybe you forgot to run 'weft generate'", reg.Impl, name, name)
 					errs = append(errs, err)
 				}
 			}

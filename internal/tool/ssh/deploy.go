@@ -122,7 +122,7 @@ updating the 'weft ssh' command by running the following.
     go get github.com/brunobls/weft@latest
     go install github.com/brunobls/weft/cmd/weft@latest
 
-Then, re-build your code and re-run 'weaver ssh deploy'. If the problem
+Then, re-build your code and re-run 'weft ssh deploy'. If the problem
 persists, please file an issue at https://github.com/brunobls/weft/issues.`,
 			binary, versions.ModuleVersion, selfVersion)
 	}

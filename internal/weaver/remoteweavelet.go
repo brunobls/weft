@@ -348,7 +348,7 @@ func (w *RemoteWeavelet) GetIntf(t reflect.Type) (any, error) {
 func (w *RemoteWeavelet) getIntf(t reflect.Type, requester string) (any, error) {
 	c, ok := w.componentsByIntf[t]
 	if !ok {
-		return nil, fmt.Errorf("component of type %v was not registered; maybe you forgot to run weaver generate", t)
+		return nil, fmt.Errorf("component of type %v was not registered; maybe you forgot to run weft generate", t)
 	}
 
 	if r, ok := w.redirects[c.reg.Name]; ok {
@@ -425,7 +425,7 @@ func (w *RemoteWeavelet) redirect(requester string, c *component, target, addres
 func (w *RemoteWeavelet) GetImpl(t reflect.Type) (any, error) {
 	c, ok := w.componentsByImpl[t]
 	if !ok {
-		return nil, fmt.Errorf("component implementation of type %v was not registered; maybe you forgot to run weaver generate", t)
+		return nil, fmt.Errorf("component implementation of type %v was not registered; maybe you forgot to run weft generate", t)
 	}
 
 	c.implInit.Do(func() {
@@ -720,7 +720,7 @@ func (w *RemoteWeavelet) getComponent(name string) (*component, error) {
 	// read-only.
 	c, ok := w.componentsByName[name]
 	if !ok {
-		return nil, fmt.Errorf("component %q was not registered; maybe you forgot to run weaver generate", name)
+		return nil, fmt.Errorf("component %q was not registered; maybe you forgot to run weft generate", name)
 	}
 	return c, nil
 }

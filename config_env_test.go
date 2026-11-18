@@ -14,7 +14,11 @@
 
 package weft
 
-import "testing"
+import (
+	"os"
+	"path/filepath"
+	"testing"
+)
 
 func TestConfigFileFromEnv(t *testing.T) {
 	for _, tc := range []struct{ weft, legacy, want string }{
@@ -28,5 +32,39 @@ func TestConfigFileFromEnv(t *testing.T) {
 		if got := configFileFromEnv(); got != tc.want {
 			t.Errorf("WEFT_CONFIG=%q SERVICEWEAVER_CONFIG=%q: got %q, want %q", tc.weft, tc.legacy, got, tc.want)
 		}
+	}
+}
+
+// TestLocalOptionsReadsConfig checks the point of use of the env variables: the
+// file named by either of them is the one read.
+func TestLocalOptionsReadsConfig(t *testing.T) {
+	dir := t.TempDir()
+	write := func(name, contents string) string {
+		f := filepath.Join(dir, name)
+		if err := os.WriteFile(f, []byte(contents), 0o600); err != nil {
+			t.Fatal(err)
+		}
+		return f
+	}
+	newF, oldF := write("weft.toml", "[weft]\n"), write("old.toml", "[serviceweaver]\n")
+	for _, tc := range []struct{ weft, legacy, wantFile, wantCfg string }{
+		{newF, "", newF, "[weft]\n"},
+		{"", oldF, oldF, "[serviceweaver]\n"},
+		{newF, oldF, newF, "[weft]\n"},
+		{"", "", "", ""},
+	} {
+		t.Setenv("WEFT_CONFIG", tc.weft)
+		t.Setenv("SERVICEWEAVER_CONFIG", tc.legacy)
+		opts, err := localOptions()
+		if err != nil {
+			t.Fatal(err)
+		}
+		if opts.ConfigFilename != tc.wantFile || opts.Config != tc.wantCfg {
+			t.Errorf("WEFT_CONFIG=%q SERVICEWEAVER_CONFIG=%q: got (%q, %q), want (%q, %q)", tc.weft, tc.legacy, opts.ConfigFilename, opts.Config, tc.wantFile, tc.wantCfg)
+		}
+	}
+	t.Setenv("WEFT_CONFIG", filepath.Join(dir, "missing.toml"))
+	if _, err := localOptions(); err == nil {
+		t.Error("missing config file: no error")
 	}
 }

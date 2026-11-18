@@ -1,4 +1,6 @@
-[weft]
+# The kube and gke deployers (weaver-kube, weaver-gke) come from Service Weaver
+# and only read [serviceweaver]; weft reads both names (see #9).
+[serviceweaver]
 binary = "./collatz"
 rollout = "5m"
 

@@ -241,7 +241,7 @@ func (w *SingleWeavelet) GetImpl(t reflect.Type) (any, error) {
 func (w *SingleWeavelet) getIntf(t reflect.Type, requester string) (any, error) {
 	reg, ok := w.regsByIntf[t]
 	if !ok {
-		return nil, fmt.Errorf("component %v not found; maybe you forgot to run weaver generate", t)
+		return nil, fmt.Errorf("component %v not found; maybe you forgot to run weft generate", t)
 	}
 	c, err := w.get(reg)
 	if err != nil {
@@ -257,7 +257,7 @@ func (w *SingleWeavelet) getIntf(t reflect.Type, requester string) (any, error) 
 func (w *SingleWeavelet) getImpl(t reflect.Type) (any, error) {
 	reg, ok := w.regsByImpl[t]
 	if !ok {
-		return nil, fmt.Errorf("component implementation %v not found; maybe you forgot to run weaver generate", t)
+		return nil, fmt.Errorf("component implementation %v not found; maybe you forgot to run weft generate", t)
 	}
 	return w.get(reg)
 }

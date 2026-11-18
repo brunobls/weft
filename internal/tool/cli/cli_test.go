@@ -46,6 +46,11 @@ func TestUsageAliasLine(t *testing.T) {
 	if !strings.Contains(Usage("weaver"), "weaver is an alias of weft") {
 		t.Errorf("weaver usage lacks the alias line")
 	}
+	u := Usage("weaver")
+	i, j := strings.Index(u, `"weft-<deployer>"`), strings.Index(u, `"weaver-<deployer>"`)
+	if i < 0 || j < 0 || i > j {
+		t.Errorf("weaver usage does not document weft-<deployer> before weaver-<deployer>:\n%s", u)
+	}
 	if strings.Contains(Usage("weft"), "weaver") {
 		t.Errorf("weft usage mentions weaver:\n%s", Usage("weft"))
 	}

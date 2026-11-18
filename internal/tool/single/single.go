@@ -33,30 +33,30 @@ var (
 	PerfettoFile = filepath.Join(dataDir, "traces.DB")
 
 	dashboardSpec = &status.DashboardSpec{
-		Tool:         "weaver single",
+		Tool:         "weft single",
 		PerfettoFile: PerfettoFile,
 		Registry:     defaultRegistry,
 		Commands: func(deploymentId string) []status.Command {
 			return []status.Command{
-				{Label: "status", Command: "weaver single status"},
-				{Label: "profile", Command: fmt.Sprintf("weaver single profile --duration=30s %s", deploymentId)},
+				{Label: "status", Command: "weft single status"},
+				{Label: "profile", Command: fmt.Sprintf("weft single profile --duration=30s %s", deploymentId)},
 			}
 		},
 	}
 	purgeSpec = &tool.PurgeSpec{
-		Tool:  "weaver single",
+		Tool:  "weft single",
 		Kill:  "(weft|weaver) single (dashboard|profile)",
 		Paths: []string{dataDir},
 	}
 
 	Commands = map[string]*tool.Command{
 		"deploy":    &deployCmd,
-		"status":    status.StatusCommand("weaver single", defaultRegistry),
+		"status":    status.StatusCommand("weft single", defaultRegistry),
 		"dashboard": status.DashboardCommand(dashboardSpec),
-		"metrics":   status.MetricsCommand("weaver single", defaultRegistry),
-		"profile":   status.ProfileCommand("weaver single", defaultRegistry),
+		"metrics":   status.MetricsCommand("weft single", defaultRegistry),
+		"profile":   status.ProfileCommand("weft single", defaultRegistry),
 		"purge":     tool.PurgeCmd(purgeSpec),
-		"version":   itool.VersionCmd("weaver single"),
+		"version":   itool.VersionCmd("weft single"),
 	}
 )
 

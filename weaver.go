@@ -155,17 +155,26 @@ func configFileFromEnv() string {
 	return os.Getenv("SERVICEWEAVER_CONFIG")
 }
 
-func runLocal[T any, _ PointerToMain[T]](ctx context.Context, app func(context.Context, *T) error) error {
-	// Read config from the WEFT_CONFIG (or legacy SERVICEWEAVER_CONFIG) env
-	// variable, if non-empty.
+// localOptions returns the options of a single weavelet, with the config read
+// from the file named by the WEFT_CONFIG (or legacy SERVICEWEAVER_CONFIG) env
+// variable, if non-empty.
+func localOptions() (weaver.SingleWeaveletOptions, error) {
 	opts := weaver.SingleWeaveletOptions{}
 	if filename := configFileFromEnv(); filename != "" {
 		contents, err := os.ReadFile(filename)
 		if err != nil {
-			return fmt.Errorf("config file: %w", err)
+			return opts, fmt.Errorf("config file: %w", err)
 		}
 		opts.ConfigFilename = filename
 		opts.Config = string(contents)
+	}
+	return opts, nil
+}
+
+func runLocal[T any, _ PointerToMain[T]](ctx context.Context, app func(context.Context, *T) error) error {
+	opts, err := localOptions()
+	if err != nil {
+		return err
 	}
 
 	regs := codegen.Registered()

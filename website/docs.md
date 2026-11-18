@@ -39,13 +39,20 @@ section for a tutorial on how to write Service Weaver applications.
 # Installation
 
 Ensure you have [Go installed][go_install], version 1.21 or higher. Then, run
-the following to install the `weaver` command:
+the following to install the `weft` command:
 
 ```console
-$ go install github.com/brunobls/weft/cmd/weaver@latest
+$ go install github.com/brunobls/weft/cmd/weft@latest
 ```
 
-`go install` installs the `weaver` command to `$GOBIN`, which defaults to
+Weft also provides `weaver`, an alias of `weft` that the examples below still
+use. Install it with `go install github.com/brunobls/weft/cmd/weaver@latest`.
+Beware that this overwrites a `weaver` installed from Service Weaver in
+`$GOBIN` (and the other way around); `go version -m "$(command -v weaver)"`
+shows which module the active `weaver` was built from. See
+[Migrating from Service Weaver](https://github.com/brunobls/weft/blob/main/docs/migrating-from-service-weaver.md).
+
+`go install` installs the command to `$GOBIN`, which defaults to
 `$HOME/go/bin`. Make sure this directory is included in your `PATH`. You can
 accomplish this, for example, by adding the following to your `.bashrc` and
 running `source ~/.bashrc`:
@@ -81,7 +88,7 @@ commands on macOS, you may want to prefix the install command with
 `export CGO_ENABLED=1; export CC=gcc`.
 For example:
 ```console
-$ export CGO_ENABLED=1; export CC=gcc; go install github.com/brunobls/weft/cmd/weaver@latest
+$ export CGO_ENABLED=1; export CC=gcc; go install github.com/brunobls/weft/cmd/weft@latest
 ```
 
 # Step by Step Tutorial

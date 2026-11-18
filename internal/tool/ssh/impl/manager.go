@@ -24,6 +24,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"sync"
 	"syscall"
 	"time"
@@ -65,7 +66,7 @@ const (
 )
 
 var (
-	// The directories and files where "weaver ssh" stores data.
+	// The directories and files where "weft ssh" stores data.
 	//
 	// TODO(mwhittaker): Take these as arguments and move them to ssh.go.
 	LogDir       = filepath.Join(runtime.LogsDir(), "ssh")
@@ -639,9 +640,20 @@ func (m *manager) startBabysitter(loc string, info *BabysitterInfo) error {
 	if err != nil {
 		return err
 	}
-	binaryPath := babysitterPath(m.locations[loc], exe)
-	cmd := exec.Command("ssh", loc, env, binaryPath, "ssh", "babysitter")
-	return cmd.Start()
+	return babysitterCmd(loc, env, m.locations[loc], exe).Start()
+}
+
+// babysitterCmd returns the command that runs the babysitter at location loc.
+// ssh joins its arguments into one string that the remote shell parses, so the
+// path of the binary, whose name comes from the deployer's executable, is
+// quoted.
+func babysitterCmd(loc, env, dir, exe string) *exec.Cmd {
+	return exec.Command("ssh", loc, env, shellQuote(babysitterPath(dir, exe)), "ssh", "babysitter")
+}
+
+// shellQuote quotes s for a POSIX shell.
+func shellQuote(s string) string {
+	return "'" + strings.ReplaceAll(s, "'", `'\''`) + "'"
 }
 
 func (m *manager) getRoutingInfo(_ context.Context, req *GetRoutingInfoRequest) (*GetRoutingInfoReply, error) {

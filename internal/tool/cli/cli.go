@@ -39,6 +39,9 @@ import (
 func Usage(name string) string {
 	u := strings.ReplaceAll(usageTmpl, "@", name)
 	if name == "weaver" {
+		u = strings.Replace(u, `dispatch to a binary called "weaver-<deployer>".`,
+			`dispatch to a binary called "weft-<deployer>" or, if there is none,
+  "weaver-<deployer>".`, 1)
 		u += "\n  weaver is an alias of weft.\n"
 	}
 	return u
