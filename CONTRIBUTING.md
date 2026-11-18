@@ -4,23 +4,69 @@ We'd love to accept your patches and contributions to this project.
 
 ## Before you begin
 
-### Sign our Contributor License Agreement
+### Sign off your commits (Developer Certificate of Origin)
 
-Contributions to this project must be accompanied by a
-[Contributor License Agreement][cla] (CLA). You (or your employer) retain the
-copyright to your contribution; this simply gives us permission to use and
-redistribute your contributions as part of the project.
+Contributions to this project must be accompanied by a sign-off under the
+[Developer Certificate of Origin][dco] (DCO) version 1.1. You retain the
+copyright to your contribution; the sign-off certifies that you have the right
+to submit it under the project's license ([Apache License 2.0](LICENSE)).
 
-If you or your current employer have already signed the Google CLA (even if it
-was for a different project), you probably don't need to do it again.
+Add the sign-off by committing with the `-s` flag:
 
-Visit <https://cla.developers.google.com/> to see your current agreements or to
-sign a new one.
+```shell
+git commit -s -m "Describe your change"
+```
 
-### Review our Community Guidelines
+This appends a line like the following to the commit message, using the name
+and email from your Git configuration:
 
-This project follows [Google's Open Source Community
-Guidelines](https://opensource.google/conduct/).
+```
+Signed-off-by: Your Name <your.email@example.com>
+```
+
+The full text of the Developer Certificate of Origin, version 1.1:
+
+```
+Developer Certificate of Origin
+Version 1.1
+
+Copyright (C) 2004, 2006 The Linux Foundation and its contributors.
+
+Everyone is permitted to copy and distribute verbatim copies of this
+license document, but changing it is not allowed.
+
+
+Developer's Certificate of Origin 1.1
+
+By making a contribution to this project, I certify that:
+
+(a) The contribution was created in whole or in part by me and I
+    have the right to submit it under the open source license
+    indicated in the file; or
+
+(b) The contribution is based upon previous work that, to the best
+    of my knowledge, is covered under an appropriate open source
+    license and I have the right under that license to submit that
+    work with modifications, whether created in whole or in part
+    by me, under the same open source license (unless I am
+    permitted to submit under a different license), as indicated
+    in the file; or
+
+(c) The contribution was provided directly to me by some other
+    person who certified (a), (b) or (c) and I have not modified
+    it.
+
+(d) I understand and agree that this project and the contribution
+    are public and that a record of the contribution (including all
+    personal information I submit with it, including my sign-off) is
+    maintained indefinitely and may be redistributed consistent with
+    this project or the open source license(s) involved.
+```
+
+### Review our Code of Conduct
+
+This project follows the [Contributor Covenant][conduct], version 2.1. By
+participating, you are expected to uphold it.
 
 ## Contribution process
 
@@ -28,36 +74,36 @@ We follow the [fork and branch workflow][workflow].
 
 There will be three Git repositories involved:
 
-1.  *upstream* - the ServiceWeaver repository on GitHub.
+1.  *upstream* - the Weft repository on GitHub, `github.com/brunobls/weft`.
 2.  *origin* - your GitHub fork of `upstream`. This repository
-    will typically be at a URL that looks like `github.com/_your_user_name_/weaver`
+    will typically be at a URL that looks like `github.com/_your_user_name_/weft`
 3.  *local* - your local clone of `origin`
 
 ### First time setup
 
-Follow these steps to get ready for making changes to ServiceWeaver.  These
+Follow these steps to get ready for making changes to Weft.  These
 steps are only needed once and not for subsequent changes you might want to
 make:
 
-1.  Fork the `ServiceWeaver` repository on GitHub to create `origin`.
-    Visit [ServiceWeaver][github_weaver] GitHub repository and click the `Fork` button.
+1.  Fork the Weft repository on GitHub to create `origin`.
+    Visit the [Weft][github_weft] GitHub repository and click the `Fork` button.
 
 2.  Make a `local` clone of your fork.
 
     ```shell
-    git clone git@github.com:_your_user_name_/weaver.git
+    git clone git@github.com:_your_user_name_/weft.git
     ```
 
 3.  Add a remote pointing from `local` to `upstream`.
 
     ```shell
-    cd weaver
-    git remote add upstream git@github.com:ServiceWeaver/weaver.git
+    cd weft
+    git remote add upstream git@github.com:brunobls/weft.git
     ```
+
 ### Making changes
 
-Here is a detailed outline of the steps needed to make changes to Service
-Weaver.
+Here is a detailed outline of the steps needed to make changes to Weft.
 
 
 1. Make a local branch in your clone and pull any recent changes into it.
@@ -71,7 +117,7 @@ Weaver.
 
    ```shell
    # ... editing, testing, ... 
-   git commit ...
+   git commit -s ...
    ```
 
 3. Pull any changes that may have been made in the upstream repository
@@ -93,7 +139,7 @@ Weaver.
    ```
 
 5. Select the branch you are working on in the drop-down menu of branches on
-   https://github.com/_your_user_name_/weaver . Then hit the `Compare and pull
+   https://github.com/_your_user_name_/weft . Then hit the `Compare and pull
    request` button.
 
 6. Respond to feedback, which may involve making new commits.
@@ -132,9 +178,11 @@ Weaver.
     of the `upstream` repository. The reviewer may do this without
     being asked.
 
-    Select the `Squash and merge` option on https://github.com/ServiceWeaver/weaver
+    Select the `Squash and merge` option on https://github.com/brunobls/weft
     or use the command line instructions found on that page. Edit the commit message
-    as appropriate for the squashed commit.
+    as appropriate for the squashed commit, and keep the `Signed-off-by` trailer(s)
+    of the commits being squashed in the final message (see
+    [Sign off your commits](#sign-off-your-commits-developer-certificate-of-origin)).
 
 9.  Delete the branch from `origin`:
 
@@ -149,6 +197,7 @@ Weaver.
     git branch -D my_branch
     ```
 
+
 ### Code Reviews
 
 All submissions, including submissions by project members, require review. We
@@ -157,24 +206,45 @@ for more information on using pull requests.
 
 To make sure changes are well coordinated, we ask you to discuss any significant
 change prior to sending a pull request. To do so, either file a
-[new issue][new_issue] or claim an [existing one][issues].
+[new issue][new_issue] or claim an [existing one][issues]. Issues and pull
+requests on GitHub are the project's channel for coordination.
+
+### License headers
+
+Source files in this repository carry an Apache 2.0 license header:
+
+*   A **new** file that contains no code from Service Weaver gets the header
+    `Copyright <year> The Weft Authors`.
+*   A file that **already has** a `Copyright Google LLC` header keeps that line
+    unchanged when you modify it (the Apache License requires keeping existing
+    copyright notices).
+*   A file copied from Service Weaver, or that contains code copied or extracted
+    from it, keeps its original copyright header.
 
 ## What to contribute to?
 
 Here are the current areas where the community contributions would be most
 valuable:
 
-* Implement deployers for platforms other than local, SSH, and GKE.
+* Implement deployers for platforms other than local and SSH. The `kube` and
+  `gke` deployers are still open: see [brunobls/weft#9][deployers].
 * Bug fixes for the existing libraries.
-* Non-Go language support. (Note: please reach out to us on our
-  [google_group][Google Group], to coordinate development. We will likely
-  require a fair bit of API and language-integration design discussion before
-  the implementation starts.)
+* Non-Go language support. (Note: please open an [issue][new_issue] first, to
+  coordinate development. We will likely require a fair bit of API and
+  language-integration design discussion before the implementation starts.)
 
-[cla]: https://cla.developers.google.com/about
+## Attribution
+
+Weft is a derivative work of [Service Weaver][upstream_weaver], originally
+created by Google LLC and licensed under the Apache License 2.0. See the
+[NOTICE](NOTICE) file.
+
+[conduct]: CODE_OF_CONDUCT.md
+[dco]: https://developercertificate.org/
 [github_help]: https://help.github.com/articles/about-pull-requests/
-[github_weaver]: https://github.com/ServiceWeaver/weaver
-[google_group]: https://groups.google.com/g/serviceweaver
-[issues]: https://github.com/ServiceWeaver/weaver/issues
-[new_issue]: https://github.com/ServiceWeaver/weaver/issues/new
-[workflow]: https://www.google.com/search?q=github+fork+and+branch+workflow
+[deployers]: https://github.com/brunobls/weft/issues/9
+[github_weft]: https://github.com/brunobls/weft
+[issues]: https://github.com/brunobls/weft/issues
+[new_issue]: https://github.com/brunobls/weft/issues/new
+[upstream_weaver]: https://github.com/ServiceWeaver/weaver
+[workflow]: https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project
