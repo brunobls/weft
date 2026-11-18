@@ -38,7 +38,7 @@ section for a tutorial on how to write Service Weaver applications.
 
 # Installation
 
-Ensure you have [Go installed][go_install], version 1.21 or higher. Then, run
+Ensure you have [Go installed][go_install], version 1.26 or higher. Then, run
 the following to install the `weft` command:
 
 ```console

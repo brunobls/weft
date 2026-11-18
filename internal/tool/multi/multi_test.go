@@ -32,6 +32,13 @@ func TestPurgeKillMatchesBothNames(t *testing.T) {
 			t.Errorf("Kill %q does not match %q", purgeSpec.Kill, line)
 		}
 	}
+	for _, line := range []string{
+		"weft multi purge", "weaver multi purge", "weft multi status", "weaver multi status", "weft multi version",
+	} {
+		if re.MatchString(line) {
+			t.Errorf("Kill %q matches %q, which must not be killed by purge", purgeSpec.Kill, line)
+		}
+	}
 	if re.MatchString("weft single dashboard") {
 		t.Errorf("Kill %q matches a single process", purgeSpec.Kill)
 	}

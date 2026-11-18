@@ -98,15 +98,15 @@ func TestExamples(t *testing.T) {
 				run(t, test)
 			})
 
-			// "weaver single deploy" the application.
-			t.Run("weaver-single", func(t *testing.T) {
+			// "weft single deploy" the application.
+			t.Run("weft-single", func(t *testing.T) {
 				cmd := startCmd(ctx, t, nil, "../../cmd/weft/weft", "single", "deploy", "weft.toml")
 				t.Cleanup(terminateCmdAndWait(t, cmd))
 				run(t, test)
 			})
 
-			// "weaver multi deploy" the application.
-			t.Run("weaver-multi-nomtls", func(t *testing.T) {
+			// "weft multi deploy" the application.
+			t.Run("weft-multi-nomtls", func(t *testing.T) {
 				cmd := startCmd(ctx, t, nil, "../../cmd/weft/weft", "multi", "deploy", "weft.toml")
 				t.Cleanup(terminateCmdAndWait(t, cmd))
 				run(t, test)
@@ -122,9 +122,9 @@ func TestExamples(t *testing.T) {
 				}
 			})
 
-			// "weaver multi deploy" the application with MTLS.
+			// "weft multi deploy" the application with MTLS.
 			if name == "collatz" {
-				t.Run("weaver-multi-mtls", func(t *testing.T) {
+				t.Run("weft-multi-mtls", func(t *testing.T) {
 					if os.Getenv("GITHUB_RUN_ID") != "" {
 						t.Skip("test takes too long (over 30s) on github")
 					}

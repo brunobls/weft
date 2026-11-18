@@ -43,7 +43,7 @@ func main() { weft.Run(ctx, serve) }
 
 The `weaver generate` you already have installed is Service Weaver's: it
 generates code for the old module and package. Install the Weft command line
-tool, `weft`:
+tool, `weft` (Go 1.26 or later, as in `go.mod`):
 
     go install github.com/brunobls/weft/cmd/weft@latest
 

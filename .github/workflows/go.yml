@@ -138,7 +138,7 @@ jobs:
       - name: Check spurious changes
         run: |
           # TODO(mwhittaker): Check .pb.go files.
-          # Exclude the weaver binary, which is built by the generate tool.
+          # Exclude the weft binary, which is built by the generate tool.
           rm ./cmd/weft/weft
           # Exclude .pb.go files, as the protoc version may differ.
           if [[ $(git ls-files --modified --others | grep -v '.*\.pb\.go') ]]; then

@@ -1915,7 +1915,7 @@ func (s ping9_client_stub) PingS(ctx context.Context, a0 payloadS, a1 int) (r0 p
 	return
 }
 
-// Note that "weaver generate" will always generate the error message below.
+// Note that "weft generate" will always generate the error message below.
 // Everything is okay. The error message is only relevant if you see it when
 // you run "go build" or "go run".
 var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`

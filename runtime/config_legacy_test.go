@@ -27,20 +27,20 @@ func noValidation(string, string) error { return nil }
 // silently ignored (which would, for example, start an app without mTLS when
 // the old multi section had mtls = true).
 func TestLegacyConfigSections(t *testing.T) {
-	old, new := legacyModulePath, modulePath
+	old, newPath := legacyModulePath, modulePath
 	for _, c := range []struct {
 		name, cfg string
 		want      string // the new name the error must mention
 	}{
-		{"multi mtls", "[\"" + old + "/multi\"]\nmtls = true\n", new + "/multi"},
-		{"single", "[\"" + old + "/single\"]\n", new + "/single"},
-		{"ssh", "[\"" + old + "/ssh\"]\n", new + "/ssh"},
-		{"app", "[\"" + old + "\"]\nbinary = \"./x\"\n", new},
-		{"component", "[\"" + old + "/examples/chat/SQLStore\"]\nx = 1\n", new + "/examples/chat/SQLStore"},
-		{"framework component", "[\"" + old + "/Main\"]\n", new + "/Main"},
-		{"colocate", "[serviceweaver]\ncolocate = [[\"" + old + "/Main\", \"a/B\"]]\n", new + "/Main"},
-		{"wins over other config errors", "[\"" + old + "/multi\"]\nmtls = true\n[serviceweaver]\nenv = [\"NOT_AN_ASSIGNMENT\"]\n", new + "/multi"},
-		{"colocate with the new app section", "[\"" + new + "\"]\ncolocate = [[\"" + old + "/Main\"]]\n", new + "/Main"},
+		{"multi mtls", "[\"" + old + "/multi\"]\nmtls = true\n", newPath + "/multi"},
+		{"single", "[\"" + old + "/single\"]\n", newPath + "/single"},
+		{"ssh", "[\"" + old + "/ssh\"]\n", newPath + "/ssh"},
+		{"app", "[\"" + old + "\"]\nbinary = \"./x\"\n", newPath},
+		{"component", "[\"" + old + "/examples/chat/SQLStore\"]\nx = 1\n", newPath + "/examples/chat/SQLStore"},
+		{"framework component", "[\"" + old + "/Main\"]\n", newPath + "/Main"},
+		{"colocate", "[serviceweaver]\ncolocate = [[\"" + old + "/Main\", \"a/B\"]]\n", newPath + "/Main"},
+		{"wins over other config errors", "[\"" + old + "/multi\"]\nmtls = true\n[serviceweaver]\nenv = [\"NOT_AN_ASSIGNMENT\"]\n", newPath + "/multi"},
+		{"colocate with the new app section", "[\"" + newPath + "\"]\ncolocate = [[\"" + old + "/Main\"]]\n", newPath + "/Main"},
 	} {
 		t.Run(c.name, func(t *testing.T) {
 			_, err := ParseConfig("weaver.toml", c.cfg, noValidation)
@@ -57,14 +57,14 @@ func TestLegacyConfigSections(t *testing.T) {
 // TestNewConfigSectionsAccepted is the control of TestLegacyConfigSections:
 // the same sections under the new names (and the short key) are accepted.
 func TestNewConfigSectionsAccepted(t *testing.T) {
-	new := modulePath
+	newPath := modulePath
 	for _, c := range []struct{ name, cfg string }{
-		{"multi mtls", "[\"" + new + "/multi\"]\nmtls = true\n"},
-		{"single", "[\"" + new + "/single\"]\n"},
-		{"app long key", "[\"" + new + "\"]\nbinary = \"./x\"\n"},
+		{"multi mtls", "[\"" + newPath + "/multi\"]\nmtls = true\n"},
+		{"single", "[\"" + newPath + "/single\"]\n"},
+		{"app long key", "[\"" + newPath + "\"]\nbinary = \"./x\"\n"},
 		{"app short key", "[serviceweaver]\nbinary = \"./x\"\n"},
-		{"component", "[\"" + new + "/examples/chat/SQLStore\"]\nx = 1\n"},
-		{"colocate", "[serviceweaver]\ncolocate = [[\"" + new + "/Main\", \"a/B\"]]\n"},
+		{"component", "[\"" + newPath + "/examples/chat/SQLStore\"]\nx = 1\n"},
+		{"colocate", "[serviceweaver]\ncolocate = [[\"" + newPath + "/Main\", \"a/B\"]]\n"},
 		{"unrelated module with the same prefix", "[\"" + legacyModulePath + "-kube\"]\nx = 1\n"},
 	} {
 		t.Run(c.name, func(t *testing.T) {

@@ -137,7 +137,7 @@ func (s t_client_stub) GetBalance(ctx context.Context, a0 string) (r0 int64, err
 	return
 }
 
-// Note that "weaver generate" will always generate the error message below.
+// Note that "weft generate" will always generate the error message below.
 // Everything is okay. The error message is only relevant if you see it when
 // you run "go build" or "go run".
 var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`

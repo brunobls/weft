@@ -94,6 +94,10 @@ func TestFindPlugin(t *testing.T) {
 			if got != tc.want {
 				t.Fatalf("got %q, want %q", got, tc.want)
 			}
+			var nf *pluginNotFoundError
+			if tc.wantErr != errors.As(err, &nf) {
+				t.Fatalf("error %v: pluginNotFoundError = %v, want %v", err, !tc.wantErr, tc.wantErr)
+			}
 			if tc.wantErr {
 				for _, n := range []string{"weft-gke", "weaver-gke"} {
 					if !strings.Contains(err.Error(), n) {

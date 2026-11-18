@@ -175,7 +175,7 @@ Description:
 		return
 	}
 
-	// Handle all other "weaver <deployer>" subcommands.
+	// Handle all other "<name> <deployer>" subcommands.
 	code, err := run(name, flag.Args()[0], flag.Args()[1:])
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err.Error())
@@ -189,6 +189,13 @@ func pluginCandidates(deployer string) []string {
 	return []string{"weft-" + deployer, "weaver-" + deployer}
 }
 
+// pluginNotFoundError is the error of findPlugin when no candidate exists.
+type pluginNotFoundError struct{ candidates []string }
+
+func (e *pluginNotFoundError) Error() string {
+	return fmt.Sprintf("none of %q found", e.candidates)
+}
+
 // findPlugin returns the first candidate binary found by lookPath.
 func findPlugin(deployer string, lookPath func(string) (string, error)) (string, error) {
 	cands := pluginCandidates(deployer)
@@ -197,7 +204,7 @@ func findPlugin(deployer string, lookPath func(string) (string, error)) (string,
 			return c, nil
 		}
 	}
-	return "", fmt.Errorf("none of %q found", cands)
+	return "", &pluginNotFoundError{cands}
 }
 
 // run runs "weft-<deployer> [arg]..." (or "weaver-<deployer>") in a subprocess
@@ -205,7 +212,11 @@ func findPlugin(deployer string, lookPath func(string) (string, error)) (string,
 func run(name, deployer string, args []string) (int, error) {
 	binary, err := findPlugin(deployer, exec.LookPath)
 	if err != nil {
-		cands := pluginCandidates(deployer)
+		var nf *pluginNotFoundError
+		if !errors.As(err, &nf) {
+			return 1, err
+		}
+		cands := nf.candidates
 		msg := fmt.Sprintf(`"%s %s" is not a %s command. See "%s --help". If you're trying to invoke a custom deployer, the %q binary (or %q) was not found. You may need to install the %q binary or add it to your PATH.`, name, deployer, name, name, cands[0], cands[1], cands[0])
 		return 1, fmt.Errorf("%s", wrap(msg, 80))
 	}

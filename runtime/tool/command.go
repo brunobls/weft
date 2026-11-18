@@ -119,7 +119,7 @@ func MainHelp(tool string, commands map[string]*Command) string {
 		fmt.Fprintf(&cmds, "  %-12s %s\n", name, cmd.Description)
 	}
 
-	return fmt.Sprintf(`Deploy and manage Service Weaver programs.
+	return fmt.Sprintf(`Deploy and manage Weft programs.
 
 Usage:
   %s <command> ...

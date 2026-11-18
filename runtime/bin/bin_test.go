@@ -19,7 +19,9 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime/debug"
 	"sort"
+	"strings"
 	"testing"
 
 	"github.com/brunobls/weft/runtime/codegen"
@@ -194,5 +196,32 @@ func TestReadVersion(t *testing.T) {
 				t.Fatalf("bad deployer version: got %s, want %s", got.DeployerVersion, version.DeployerVersion)
 			}
 		})
+	}
+}
+
+func TestModuleVersion(t *testing.T) {
+	weft := &debug.Module{Path: "github.com/brunobls/weft", Version: "v1.2.3"}
+	got, err := moduleVersion(&debug.BuildInfo{Deps: []*debug.Module{weft}})
+	if err != nil || got != "v1.2.3" {
+		t.Errorf("as a dependency: got (%q, %v), want v1.2.3", got, err)
+	}
+	got, err = moduleVersion(&debug.BuildInfo{Main: *weft})
+	if err != nil || got != "v1.2.3" {
+		t.Errorf("as the main module: got (%q, %v), want v1.2.3", got, err)
+	}
+}
+
+// TestModuleVersionNotLinked checks the diagnostic for an application that is
+// not linked with Weft, for example one still built with Service Weaver.
+func TestModuleVersionNotLinked(t *testing.T) {
+	info := &debug.BuildInfo{Deps: []*debug.Module{{Path: "example.com/other", Version: "v1.0.0"}}}
+	_, err := moduleVersion(info)
+	if err == nil {
+		t.Fatal("no error")
+	}
+	for _, want := range []string{"Weft module", "github.com/brunobls/weft", "Service Weaver", "migrating-from-service-weaver.md", "weft generate"} {
+		if !strings.Contains(err.Error(), want) {
+			t.Errorf("error %q does not mention %q", err, want)
+		}
 	}
 }

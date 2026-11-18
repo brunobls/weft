@@ -1051,7 +1051,7 @@ func (g *generator) generateVersionCheck(p printFn) error {
 	//
 	//     var _ codegen.LatestVersion = codegen.Version[[0][1]struct{}]("You used ...")
 	p(``)
-	p(`// Note that "weaver generate" will always generate the error message below.`)
+	p(`// Note that "weft generate" will always generate the error message below.`)
 	p(`// Everything is okay. The error message is only relevant if you see it when`)
 	p(`// you run "go build" or "go run".`)
 	p(`var _ %s = %s[[%d][%d]struct{}](%s)`,

@@ -24,6 +24,7 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"runtime/debug"
 	"strconv"
 
 	"github.com/brunobls/weft/runtime/codegen"
@@ -173,14 +174,20 @@ func extractModuleVersion(filename string) (string, error) {
 		return "", err
 	}
 
-	// Find the Service Weaver module.
-	const weaverModule = "github.com/brunobls/weft"
+	return moduleVersion(info)
+}
+
+// moduleVersion returns the version of the Weft module recorded in info.
+func moduleVersion(info *debug.BuildInfo) (string, error) {
+	const weftModule = "github.com/brunobls/weft"
 	for _, m := range append(info.Deps, &info.Main) {
-		if m.Path == weaverModule {
+		if m.Path == weftModule {
 			return m.Version, nil
 		}
 	}
-	return "", fmt.Errorf("Service Weaver module was not linked into the application binary: that's an error")
+	return "", fmt.Errorf("the Weft module (%s) was not linked into the application binary. "+
+		"If the application was built with the original Service Weaver module, migrate it to Weft "+
+		"(see docs/migrating-from-service-weaver.md), regenerate its code with 'weft generate' and rebuild it", weftModule)
 }
 
 // extractDeployerVersion returns the deployer API version embedded

@@ -53,7 +53,7 @@ type typeSet struct {
 // importPkg is a package imported by the generated code.
 type importPkg struct {
 	path  string // e.g., "github.com/brunobls/weft"
-	pkg   string // e.g., "weaver", "context", "time"
+	pkg   string // e.g., "weft", "context", "time"
 	alias string // e.g., foo in `import foo "context"`
 	local bool   // are we in this package?
 }

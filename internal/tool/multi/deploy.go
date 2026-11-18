@@ -43,7 +43,7 @@ const (
 
 var deployCmd = tool.Command{
 	Name:        "deploy",
-	Description: "Deploy a Service Weaver app",
+	Description: "Deploy a Weft app",
 	Help:        "Usage:\n  weft multi deploy <configfile>",
 	Flags:       flag.NewFlagSet("deploy", flag.ContinueOnError),
 	Fn:          deploy,

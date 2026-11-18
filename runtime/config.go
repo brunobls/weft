@@ -151,7 +151,7 @@ func ParseConfigSection(key, shortKey string, sections map[string]string, dst an
 }
 
 func extractApp(file string, config *protos.AppConfig) error {
-	const appKey = "github.com/brunobls/weft"
+	const appKey = modulePath
 	// The short keys of the app section: "weft", and the legacy "serviceweaver"
 	// which stays accepted. At most one of them (or appKey) may be present.
 	const weftShortKey, legacyShortKey = "weft", "serviceweaver"

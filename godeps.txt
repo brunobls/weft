@@ -737,6 +737,7 @@ github.com/brunobls/weft/runtime/bin
     golang.org/x/exp/slices
     os
     regexp
+    runtime/debug
     strconv
 github.com/brunobls/weft/runtime/bin/testprogram
     context
