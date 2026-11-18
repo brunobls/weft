@@ -52,23 +52,28 @@ Then run `weft generate` in your module, as before.
 If you generate with `go generate`, change the directive in your Go files from
 `//go:generate weaver generate` to `//go:generate weft generate`. Do not leave
 it as it is: when the `weaver` found in your `PATH` is Service Weaver's,
-`go generate` succeeds (exit status 0) and writes code for the old module, and
-the failure only shows up at the next build. With the default build the error
-looks like
+`go generate` succeeds (exit status 0) but rewrites nothing in your migrated
+application: the old `weaver_gen.go` just stays, and it keeps importing the old
+module. The failure only shows up at the next build. With the default build the error looks like
 
     no required module provides package <old Service Weaver import path>;
     to add it:
         go get <old Service Weaver import path>
 
 **Do not run that `go get`**: it brings the old module back. Fix the cause
-instead: change the imports to `github.com/brunobls/weft` (see section 1), run
-`go mod tidy`, check which `weaver` is first in your `PATH` with
-`go version -m "$(command -v weaver)"` (see below), and regenerate with `weft`.
+instead, in this order:
 
-The `weft` command accepts
-the same subcommands as `weaver` (`generate`, `version`, `single`, `multi`,
-`ssh`, ...). Deployers outside this repository are found as `weft-<deployer>`,
-and as `weaver-<deployer>` when no `weft-<deployer>` exists.
+1. change the imports to `github.com/brunobls/weft` (see section 1);
+2. check which `weaver` is first in your `PATH` with
+   `go version -m "$(command -v weaver)"` (see below), and regenerate with
+   `weft generate`;
+3. only then run `go mod tidy`. Run before the code is regenerated, it still
+   finds the old generated code and adds the old module back to `go.mod`.
+
+The `weft` command accepts the same subcommands as `weaver` (`generate`,
+`version`, `single`, `multi`, `ssh`, ...). Deployers outside this repository
+are found as `weft-<deployer>`, and as `weaver-<deployer>` when no
+`weft-<deployer>` exists.
 
 For compatibility Weft also provides a `weaver` command, which is an alias of
 `weft` and reports itself as `weaver`. It is installed with
