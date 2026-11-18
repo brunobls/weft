@@ -626,6 +626,7 @@ github.com/brunobls/weft/internal/tool/ssh/impl
     os/exec
     path/filepath
     reflect
+    strings
     sync
     syscall
     time
