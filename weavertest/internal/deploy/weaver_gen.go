@@ -6,8 +6,8 @@ package deploy
 import (
 	"context"
 	"errors"
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/runtime/codegen"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 	"reflect"
@@ -15,14 +15,14 @@ import (
 
 func init() {
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/weavertest/internal/deploy/Started",
+		Name:  "github.com/brunobls/weft/weavertest/internal/deploy/Started",
 		Iface: reflect.TypeOf((*Started)(nil)).Elem(),
 		Impl:  reflect.TypeOf(started{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return started_local_stub{impl: impl.(Started), tracer: tracer, markStartedMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/weavertest/internal/deploy/Started", Method: "MarkStarted", Remote: false, Generated: true})}
+			return started_local_stub{impl: impl.(Started), tracer: tracer, markStartedMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/weavertest/internal/deploy/Started", Method: "MarkStarted", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return started_client_stub{stub: stub, markStartedMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/weavertest/internal/deploy/Started", Method: "MarkStarted", Remote: true, Generated: true})}
+			return started_client_stub{stub: stub, markStartedMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/weavertest/internal/deploy/Started", Method: "MarkStarted", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return started_server_stub{impl: impl.(Started), addLoad: addLoad}
@@ -33,14 +33,14 @@ func init() {
 		RefData: "",
 	})
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/weavertest/internal/deploy/Widget",
+		Name:  "github.com/brunobls/weft/weavertest/internal/deploy/Widget",
 		Iface: reflect.TypeOf((*Widget)(nil)).Elem(),
 		Impl:  reflect.TypeOf(widget{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return widget_local_stub{impl: impl.(Widget), tracer: tracer, useMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/weavertest/internal/deploy/Widget", Method: "Use", Remote: false, Generated: true})}
+			return widget_local_stub{impl: impl.(Widget), tracer: tracer, useMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/weavertest/internal/deploy/Widget", Method: "Use", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return widget_client_stub{stub: stub, useMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/weavertest/internal/deploy/Widget", Method: "Use", Remote: true, Generated: true})}
+			return widget_client_stub{stub: stub, useMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/weavertest/internal/deploy/Widget", Method: "Use", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return widget_server_stub{impl: impl.(Widget), addLoad: addLoad}
@@ -48,17 +48,17 @@ func init() {
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return widget_reflect_stub{caller: caller}
 		},
-		RefData: "⟦f3fa3c18:wEaVeReDgE:github.com/ServiceWeaver/weaver/weavertest/internal/deploy/Widget→github.com/ServiceWeaver/weaver/weavertest/internal/deploy/Started⟧\n",
+		RefData: "⟦36b538d5:wEaVeReDgE:github.com/brunobls/weft/weavertest/internal/deploy/Widget→github.com/brunobls/weft/weavertest/internal/deploy/Started⟧\n",
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[Started] = (*started)(nil)
-var _ weaver.InstanceOf[Widget] = (*widget)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[Started] = (*started)(nil)
+var _ weft.InstanceOf[Widget] = (*widget)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*started)(nil)
-var _ weaver.Unrouted = (*widget)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*started)(nil)
+var _ weft.Unrouted = (*widget)(nil)
 
 // Local stub implementations.
 
@@ -147,7 +147,7 @@ func (s started_client_stub) MarkStarted(ctx context.Context, a0 string) (err er
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -175,7 +175,7 @@ func (s started_client_stub) MarkStarted(ctx context.Context, a0 string) (err er
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -210,7 +210,7 @@ func (s widget_client_stub) Use(ctx context.Context, a0 string) (err error) {
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -238,7 +238,7 @@ func (s widget_client_stub) Use(ctx context.Context, a0 string) (err error) {
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -248,26 +248,26 @@ func (s widget_client_stub) Use(ctx context.Context, a0 string) (err error) {
 	return
 }
 
-// Note that "weaver generate" will always generate the error message below.
+// Note that "weft generate" will always generate the error message below.
 // Everything is okay. The error message is only relevant if you see it when
 // you run "go build" or "go run".
 var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`
 
-ERROR: You generated this file with 'weaver generate' (devel) (codegen
+ERROR: You generated this file with 'weft generate' (devel) (codegen
 version v0.24.0). The generated code is incompatible with the version of the
-github.com/ServiceWeaver/weaver module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weft module
 version can be found in your go.mod file or by running the following command.
 
-    go list -m github.com/ServiceWeaver/weaver
+    go list -m github.com/brunobls/weft
 
-We recommend updating the weaver module and the 'weaver generate' command by
+We recommend updating the weft module and the 'weft generate' command by
 running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weft@latest
 
-Then, re-run 'weaver generate' and re-build your code. If the problem persists,
-please file an issue at https://github.com/ServiceWeaver/weaver/issues.
+Then, re-run 'weft generate' and re-build your code. If the problem persists,
+please file an issue at https://github.com/brunobls/weft/issues.
 
 `)
 

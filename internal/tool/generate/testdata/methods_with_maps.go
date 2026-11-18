@@ -33,17 +33,17 @@ package foo
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 type Y struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	a int
 	b X
 }
 
 type X struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	a int
 }
 
@@ -51,7 +51,7 @@ type foo interface {
 	A(context.Context, map[int][]X, map[int]bool, map[[10]int]int) (map[Y]map[string][]X, error)
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (l *impl) A(context.Context, map[int][]X, map[int]bool, map[[10]int]int) (map[Y]map[string][]X, error) {
 	return nil, nil

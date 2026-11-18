@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package weaver
+package weft
 
 import (
 	"fmt"
@@ -20,8 +20,8 @@ import (
 	"net"
 	"reflect"
 
-	"github.com/ServiceWeaver/weaver/internal/reflection"
-	"github.com/ServiceWeaver/weaver/internal/weaver"
+	"github.com/brunobls/weft/internal/reflection"
+	"github.com/brunobls/weft/internal/weaver"
 )
 
 func init() {
@@ -40,7 +40,7 @@ func init() {
 func setLogger(v any, logger *slog.Logger) error {
 	x, ok := v.(interface{ setLogger(*slog.Logger) })
 	if !ok {
-		return fmt.Errorf("setLogger: %T does not implement weaver.Implements", v)
+		return fmt.Errorf("setLogger: %T does not implement weft.Implements", v)
 	}
 	x.setLogger(logger)
 	return nil
@@ -50,7 +50,7 @@ func setLogger(v any, logger *slog.Logger) error {
 func setWeaverInfo(impl any, info *weaver.WeaverInfo) error {
 	x, ok := impl.(interface{ setWeaverInfo(*weaver.WeaverInfo) })
 	if !ok {
-		return fmt.Errorf("setWeaverInfo: %T does not implement weaver.Implements", impl)
+		return fmt.Errorf("setWeaverInfo: %T does not implement weft.Implements", impl)
 	}
 	x.setWeaverInfo(info)
 	return nil

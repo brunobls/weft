@@ -18,7 +18,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/runtime/protos"
 	"github.com/google/cel-go/parser"
 )
 

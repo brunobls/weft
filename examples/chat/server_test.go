@@ -25,7 +25,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/weavertest"
+	"github.com/brunobls/weft/weavertest"
 )
 
 // db is a fake store for the chat database.

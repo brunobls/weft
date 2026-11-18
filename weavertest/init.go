@@ -24,10 +24,10 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/internal/reflection"
-	"github.com/ServiceWeaver/weaver/internal/weaver"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/runtime/logging"
+	"github.com/brunobls/weft/internal/reflection"
+	"github.com/brunobls/weft/internal/weaver"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/runtime/logging"
 )
 
 // Runner runs user-supplied testing code as a weaver application.
@@ -114,8 +114,8 @@ func Fake[T any](impl any) FakeComponent {
 // Component arguments can either be component interface types (e.g., Foo) or
 // component implementation pointer types (e.g., *bar).
 //
-// In contrast with weaver.Run, the Test method does not run the Main method of
-// any registered weaver.Main component.
+// In contrast with weft.Run, the Test method does not run the Main method of
+// any registered weft.Main component.
 func (r Runner) Test(t *testing.T, body any) {
 	t.Helper()
 	t.Run(r.Name, func(t *testing.T) { r.sub(t, false, body) })
@@ -144,8 +144,8 @@ func (r Runner) Test(t *testing.T, body any) {
 // Component arguments can either be component interface types (e.g., Foo) or
 // component implementation pointer types (e.g., *bar).
 //
-// In contrast with weaver.Run, the Bench method does not run the Main method of
-// any registered weaver.Main component.
+// In contrast with weft.Run, the Bench method does not run the Main method of
+// any registered weft.Main component.
 func (r Runner) Bench(b *testing.B, testBody any) {
 	b.Helper()
 	b.Run(r.Name, func(b *testing.B) { r.sub(b, true, testBody) })
@@ -304,7 +304,7 @@ func checkRunFunc(t testing.TB, fn any) (func(context.Context, weaver.Weavelet) 
 
 // extractComponentInterfaceType extracts the component interface type from the
 // provided component implementation. For example, calling
-// extractComponentInterfaceType on a struct that embeds weaver.Implements[Foo]
+// extractComponentInterfaceType on a struct that embeds weft.Implements[Foo]
 // returns Foo.
 //
 // extractComponentInterfaceType returns an error if the provided type is not a
@@ -313,10 +313,10 @@ func extractComponentInterfaceType(t reflect.Type) (reflect.Type, error) {
 	if t.Kind() != reflect.Struct {
 		return nil, fmt.Errorf("type %v is not a struct", t)
 	}
-	// See the definition of weaver.Implements.
+	// See the definition of weft.Implements.
 	f, ok := t.FieldByName("component_interface_type")
 	if !ok {
-		return nil, fmt.Errorf("type %v does not embed weaver.Implements", t)
+		return nil, fmt.Errorf("type %v does not embed weft.Implements", t)
 	}
 	return f.Type, nil
 }

@@ -377,5 +377,5 @@ func writeFile(dstName string, data []byte) error {
 }
 
 func addLicense(fname string) error {
-	return exec.Command("addlicense", "-c", "Google LLC", "-l", "apache", fname).Run()
+	return exec.Command("addlicense", "-c", "The Weft Authors", "-l", "apache", fname).Run()
 }

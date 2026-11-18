@@ -20,7 +20,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 type GoodService interface {
@@ -28,7 +28,7 @@ type GoodService interface {
 }
 
 type goodServiceImpl struct {
-	weaver.Implements[GoodService]
+	weft.Implements[GoodService]
 }
 
 func (g *goodServiceImpl) DoSomething(context.Context) error {

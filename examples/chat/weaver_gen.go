@@ -7,8 +7,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/runtime/codegen"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 	"reflect"
@@ -17,14 +17,14 @@ import (
 
 func init() {
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/examples/chat/ImageScaler",
+		Name:  "github.com/brunobls/weft/examples/chat/ImageScaler",
 		Iface: reflect.TypeOf((*ImageScaler)(nil)).Elem(),
 		Impl:  reflect.TypeOf(scaler{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return imageScaler_local_stub{impl: impl.(ImageScaler), tracer: tracer, scaleMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/chat/ImageScaler", Method: "Scale", Remote: false, Generated: true})}
+			return imageScaler_local_stub{impl: impl.(ImageScaler), tracer: tracer, scaleMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/chat/ImageScaler", Method: "Scale", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return imageScaler_client_stub{stub: stub, scaleMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/chat/ImageScaler", Method: "Scale", Remote: true, Generated: true})}
+			return imageScaler_client_stub{stub: stub, scaleMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/chat/ImageScaler", Method: "Scale", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return imageScaler_server_stub{impl: impl.(ImageScaler), addLoad: addLoad}
@@ -35,14 +35,14 @@ func init() {
 		RefData: "",
 	})
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/examples/chat/LocalCache",
+		Name:  "github.com/brunobls/weft/examples/chat/LocalCache",
 		Iface: reflect.TypeOf((*LocalCache)(nil)).Elem(),
 		Impl:  reflect.TypeOf(localCache{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return localCache_local_stub{impl: impl.(LocalCache), tracer: tracer, getMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/chat/LocalCache", Method: "Get", Remote: false, Generated: true}), putMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/chat/LocalCache", Method: "Put", Remote: false, Generated: true})}
+			return localCache_local_stub{impl: impl.(LocalCache), tracer: tracer, getMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/chat/LocalCache", Method: "Get", Remote: false, Generated: true}), putMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/chat/LocalCache", Method: "Put", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return localCache_client_stub{stub: stub, getMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/chat/LocalCache", Method: "Get", Remote: true, Generated: true}), putMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/chat/LocalCache", Method: "Put", Remote: true, Generated: true})}
+			return localCache_client_stub{stub: stub, getMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/chat/LocalCache", Method: "Get", Remote: true, Generated: true}), putMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/chat/LocalCache", Method: "Put", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return localCache_server_stub{impl: impl.(LocalCache), addLoad: addLoad}
@@ -53,32 +53,32 @@ func init() {
 		RefData: "",
 	})
 	codegen.Register(codegen.Registration{
-		Name:      "github.com/ServiceWeaver/weaver/Main",
-		Iface:     reflect.TypeOf((*weaver.Main)(nil)).Elem(),
+		Name:      "github.com/brunobls/weft/Main",
+		Iface:     reflect.TypeOf((*weft.Main)(nil)).Elem(),
 		Impl:      reflect.TypeOf(server{}),
 		Listeners: []string{"chat"},
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return main_local_stub{impl: impl.(weaver.Main), tracer: tracer}
+			return main_local_stub{impl: impl.(weft.Main), tracer: tracer}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any { return main_client_stub{stub: stub} },
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
-			return main_server_stub{impl: impl.(weaver.Main), addLoad: addLoad}
+			return main_server_stub{impl: impl.(weft.Main), addLoad: addLoad}
 		},
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return main_reflect_stub{caller: caller}
 		},
-		RefData: "⟦7e1a0aa0:wEaVeReDgE:github.com/ServiceWeaver/weaver/Main→github.com/ServiceWeaver/weaver/examples/chat/SQLStore⟧\n⟦ae108c0d:wEaVeReDgE:github.com/ServiceWeaver/weaver/Main→github.com/ServiceWeaver/weaver/examples/chat/ImageScaler⟧\n⟦c86a1d44:wEaVeReDgE:github.com/ServiceWeaver/weaver/Main→github.com/ServiceWeaver/weaver/examples/chat/LocalCache⟧\n⟦7b9a3b0b:wEaVeRlIsTeNeRs:github.com/ServiceWeaver/weaver/Main→chat⟧\n",
+		RefData: "⟦21b6b4d8:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/chat/SQLStore⟧\n⟦9091102b:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/chat/ImageScaler⟧\n⟦a62c57c7:wEaVeReDgE:github.com/brunobls/weft/Main→github.com/brunobls/weft/examples/chat/LocalCache⟧\n⟦23142e0c:wEaVeRlIsTeNeRs:github.com/brunobls/weft/Main→chat⟧\n",
 	})
 	codegen.Register(codegen.Registration{
-		Name:    "github.com/ServiceWeaver/weaver/examples/chat/SQLStore",
+		Name:    "github.com/brunobls/weft/examples/chat/SQLStore",
 		Iface:   reflect.TypeOf((*SQLStore)(nil)).Elem(),
 		Impl:    reflect.TypeOf(sqlStore{}),
 		NoRetry: []int{0, 1},
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return sQLStore_local_stub{impl: impl.(SQLStore), tracer: tracer, createPostMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/chat/SQLStore", Method: "CreatePost", Remote: false, Generated: true}), createThreadMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/chat/SQLStore", Method: "CreateThread", Remote: false, Generated: true}), getFeedMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/chat/SQLStore", Method: "GetFeed", Remote: false, Generated: true}), getImageMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/chat/SQLStore", Method: "GetImage", Remote: false, Generated: true})}
+			return sQLStore_local_stub{impl: impl.(SQLStore), tracer: tracer, createPostMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/chat/SQLStore", Method: "CreatePost", Remote: false, Generated: true}), createThreadMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/chat/SQLStore", Method: "CreateThread", Remote: false, Generated: true}), getFeedMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/chat/SQLStore", Method: "GetFeed", Remote: false, Generated: true}), getImageMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/chat/SQLStore", Method: "GetImage", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return sQLStore_client_stub{stub: stub, createPostMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/chat/SQLStore", Method: "CreatePost", Remote: true, Generated: true}), createThreadMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/chat/SQLStore", Method: "CreateThread", Remote: true, Generated: true}), getFeedMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/chat/SQLStore", Method: "GetFeed", Remote: true, Generated: true}), getImageMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/chat/SQLStore", Method: "GetImage", Remote: true, Generated: true})}
+			return sQLStore_client_stub{stub: stub, createPostMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/chat/SQLStore", Method: "CreatePost", Remote: true, Generated: true}), createThreadMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/chat/SQLStore", Method: "CreateThread", Remote: true, Generated: true}), getFeedMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/chat/SQLStore", Method: "GetFeed", Remote: true, Generated: true}), getImageMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/chat/SQLStore", Method: "GetImage", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return sQLStore_server_stub{impl: impl.(SQLStore), addLoad: addLoad}
@@ -90,17 +90,17 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[ImageScaler] = (*scaler)(nil)
-var _ weaver.InstanceOf[LocalCache] = (*localCache)(nil)
-var _ weaver.InstanceOf[weaver.Main] = (*server)(nil)
-var _ weaver.InstanceOf[SQLStore] = (*sqlStore)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[ImageScaler] = (*scaler)(nil)
+var _ weft.InstanceOf[LocalCache] = (*localCache)(nil)
+var _ weft.InstanceOf[weft.Main] = (*server)(nil)
+var _ weft.InstanceOf[SQLStore] = (*sqlStore)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*scaler)(nil)
-var _ weaver.Unrouted = (*localCache)(nil)
-var _ weaver.Unrouted = (*server)(nil)
-var _ weaver.Unrouted = (*sqlStore)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*scaler)(nil)
+var _ weft.Unrouted = (*localCache)(nil)
+var _ weft.Unrouted = (*server)(nil)
+var _ weft.Unrouted = (*sqlStore)(nil)
 
 // Local stub implementations.
 
@@ -184,12 +184,12 @@ func (s localCache_local_stub) Put(ctx context.Context, a0 string, a1 string) (e
 }
 
 type main_local_stub struct {
-	impl   weaver.Main
+	impl   weft.Main
 	tracer trace.Tracer
 }
 
-// Check that main_local_stub implements the weaver.Main interface.
-var _ weaver.Main = (*main_local_stub)(nil)
+// Check that main_local_stub implements the weft.Main interface.
+var _ weft.Main = (*main_local_stub)(nil)
 
 type sQLStore_local_stub struct {
 	impl                SQLStore
@@ -310,7 +310,7 @@ func (s imageScaler_client_stub) Scale(ctx context.Context, a0 []byte, a1 int, a
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -342,7 +342,7 @@ func (s imageScaler_client_stub) Scale(ctx context.Context, a0 []byte, a1 int, a
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -379,7 +379,7 @@ func (s localCache_client_stub) Get(ctx context.Context, a0 string) (r0 string, 
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -407,7 +407,7 @@ func (s localCache_client_stub) Get(ctx context.Context, a0 string) (r0 string, 
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -435,7 +435,7 @@ func (s localCache_client_stub) Put(ctx context.Context, a0 string, a1 string) (
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -465,7 +465,7 @@ func (s localCache_client_stub) Put(ctx context.Context, a0 string, a1 string) (
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -479,8 +479,8 @@ type main_client_stub struct {
 	stub codegen.Stub
 }
 
-// Check that main_client_stub implements the weaver.Main interface.
-var _ weaver.Main = (*main_client_stub)(nil)
+// Check that main_client_stub implements the weft.Main interface.
+var _ weft.Main = (*main_client_stub)(nil)
 
 type sQLStore_client_stub struct {
 	stub                codegen.Stub
@@ -510,7 +510,7 @@ func (s sQLStore_client_stub) CreatePost(ctx context.Context, a0 string, a1 time
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -536,7 +536,7 @@ func (s sQLStore_client_stub) CreatePost(ctx context.Context, a0 string, a1 time
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -563,7 +563,7 @@ func (s sQLStore_client_stub) CreateThread(ctx context.Context, a0 string, a1 ti
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -590,7 +590,7 @@ func (s sQLStore_client_stub) CreateThread(ctx context.Context, a0 string, a1 ti
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -618,7 +618,7 @@ func (s sQLStore_client_stub) GetFeed(ctx context.Context, a0 string) (r0 []Thre
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -646,13 +646,13 @@ func (s sQLStore_client_stub) GetFeed(ctx context.Context, a0 string) (r0 []Thre
 	results, err = s.stub.Run(ctx, 2, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
 	// Decode the results.
 	dec := codegen.NewDecoder(results)
-	r0 = serviceweaver_dec_slice_Thread_511e1469(dec)
+	r0 = serviceweaver_dec_slice_Thread_e671cae1(dec)
 	err = dec.Error()
 	return
 }
@@ -674,7 +674,7 @@ func (s sQLStore_client_stub) GetImage(ctx context.Context, a0 string, a1 ImageI
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -704,7 +704,7 @@ func (s sQLStore_client_stub) GetImage(ctx context.Context, a0 string, a1 ImageI
 	results, err = s.stub.Run(ctx, 3, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -715,26 +715,26 @@ func (s sQLStore_client_stub) GetImage(ctx context.Context, a0 string, a1 ImageI
 	return
 }
 
-// Note that "weaver generate" will always generate the error message below.
+// Note that "weft generate" will always generate the error message below.
 // Everything is okay. The error message is only relevant if you see it when
 // you run "go build" or "go run".
 var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`
 
-ERROR: You generated this file with 'weaver generate' (devel) (codegen
+ERROR: You generated this file with 'weft generate' (devel) (codegen
 version v0.24.0). The generated code is incompatible with the version of the
-github.com/ServiceWeaver/weaver module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weft module
 version can be found in your go.mod file or by running the following command.
 
-    go list -m github.com/ServiceWeaver/weaver
+    go list -m github.com/brunobls/weft
 
-We recommend updating the weaver module and the 'weaver generate' command by
+We recommend updating the weft module and the 'weft generate' command by
 running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weft@latest
 
-Then, re-run 'weaver generate' and re-build your code. If the problem persists,
-please file an issue at https://github.com/ServiceWeaver/weaver/issues.
+Then, re-run 'weft generate' and re-build your code. If the problem persists,
+please file an issue at https://github.com/brunobls/weft/issues.
 
 `)
 
@@ -859,7 +859,7 @@ func (s localCache_server_stub) put(ctx context.Context, args []byte) (res []byt
 }
 
 type main_server_stub struct {
-	impl    weaver.Main
+	impl    weft.Main
 	addLoad func(key uint64, load float64)
 }
 
@@ -981,7 +981,7 @@ func (s sQLStore_server_stub) getFeed(ctx context.Context, args []byte) (res []b
 
 	// Encode the results.
 	enc := codegen.NewEncoder()
-	serviceweaver_enc_slice_Thread_511e1469(enc, r0)
+	serviceweaver_enc_slice_Thread_e671cae1(enc, r0)
 	enc.Error(appErr)
 	return enc.Data(), nil
 }
@@ -1048,8 +1048,8 @@ type main_reflect_stub struct {
 	caller func(string, context.Context, []any, []any) error
 }
 
-// Check that main_reflect_stub implements the weaver.Main interface.
-var _ weaver.Main = (*main_reflect_stub)(nil)
+// Check that main_reflect_stub implements the weft.Main interface.
+var _ weft.Main = (*main_reflect_stub)(nil)
 
 type sQLStore_reflect_stub struct {
 	caller func(string, context.Context, []any, []any) error
@@ -1083,7 +1083,7 @@ func (s sQLStore_reflect_stub) GetImage(ctx context.Context, a0 string, a1 Image
 var _ codegen.AutoMarshal = (*Post)(nil)
 
 type __is_Post[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	ID      PostID
 	Creator string
 	When    time.Time
@@ -1118,7 +1118,7 @@ func (x *Post) WeaverUnmarshal(dec *codegen.Decoder) {
 var _ codegen.AutoMarshal = (*Thread)(nil)
 
 type __is_Thread[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	ID    ThreadID
 	Posts []Post
 }] struct{}
@@ -1130,7 +1130,7 @@ func (x *Thread) WeaverMarshal(enc *codegen.Encoder) {
 		panic(fmt.Errorf("Thread.WeaverMarshal: nil receiver"))
 	}
 	enc.Int64((int64)(x.ID))
-	serviceweaver_enc_slice_Post_29a9ee83(enc, x.Posts)
+	serviceweaver_enc_slice_Post_c3e0b90d(enc, x.Posts)
 }
 
 func (x *Thread) WeaverUnmarshal(dec *codegen.Decoder) {
@@ -1138,10 +1138,10 @@ func (x *Thread) WeaverUnmarshal(dec *codegen.Decoder) {
 		panic(fmt.Errorf("Thread.WeaverUnmarshal: nil receiver"))
 	}
 	*(*int64)(&x.ID) = dec.Int64()
-	x.Posts = serviceweaver_dec_slice_Post_29a9ee83(dec)
+	x.Posts = serviceweaver_dec_slice_Post_c3e0b90d(dec)
 }
 
-func serviceweaver_enc_slice_Post_29a9ee83(enc *codegen.Encoder, arg []Post) {
+func serviceweaver_enc_slice_Post_c3e0b90d(enc *codegen.Encoder, arg []Post) {
 	if arg == nil {
 		enc.Len(-1)
 		return
@@ -1152,7 +1152,7 @@ func serviceweaver_enc_slice_Post_29a9ee83(enc *codegen.Encoder, arg []Post) {
 	}
 }
 
-func serviceweaver_dec_slice_Post_29a9ee83(dec *codegen.Decoder) []Post {
+func serviceweaver_dec_slice_Post_c3e0b90d(dec *codegen.Decoder) []Post {
 	n := dec.Len()
 	if n == -1 {
 		return nil
@@ -1212,7 +1212,7 @@ func serviceweaver_dec_slice_string_4af10117(dec *codegen.Decoder) []string {
 	return res
 }
 
-func serviceweaver_enc_slice_Thread_511e1469(enc *codegen.Encoder, arg []Thread) {
+func serviceweaver_enc_slice_Thread_e671cae1(enc *codegen.Encoder, arg []Thread) {
 	if arg == nil {
 		enc.Len(-1)
 		return
@@ -1223,7 +1223,7 @@ func serviceweaver_enc_slice_Thread_511e1469(enc *codegen.Encoder, arg []Thread)
 	}
 }
 
-func serviceweaver_dec_slice_Thread_511e1469(dec *codegen.Decoder) []Thread {
+func serviceweaver_dec_slice_Thread_e671cae1(dec *codegen.Decoder) []Thread {
 	n := dec.Len()
 	if n == -1 {
 		return nil

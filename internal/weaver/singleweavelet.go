@@ -28,20 +28,20 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/internal/config"
-	"github.com/ServiceWeaver/weaver/internal/env"
-	imetrics "github.com/ServiceWeaver/weaver/internal/metrics"
-	"github.com/ServiceWeaver/weaver/internal/status"
-	"github.com/ServiceWeaver/weaver/internal/tool/single"
-	"github.com/ServiceWeaver/weaver/internal/traceio"
-	"github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/runtime/colors"
-	"github.com/ServiceWeaver/weaver/runtime/logging"
-	"github.com/ServiceWeaver/weaver/runtime/metrics"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
-	"github.com/ServiceWeaver/weaver/runtime/retry"
-	"github.com/ServiceWeaver/weaver/runtime/traces"
+	"github.com/brunobls/weft/internal/config"
+	"github.com/brunobls/weft/internal/env"
+	imetrics "github.com/brunobls/weft/internal/metrics"
+	"github.com/brunobls/weft/internal/status"
+	"github.com/brunobls/weft/internal/tool/single"
+	"github.com/brunobls/weft/internal/traceio"
+	"github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/runtime/colors"
+	"github.com/brunobls/weft/runtime/logging"
+	"github.com/brunobls/weft/runtime/metrics"
+	"github.com/brunobls/weft/runtime/protos"
+	"github.com/brunobls/weft/runtime/retry"
+	"github.com/brunobls/weft/runtime/traces"
 	"github.com/google/uuid"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/types/known/timestamppb"
@@ -241,7 +241,7 @@ func (w *SingleWeavelet) GetImpl(t reflect.Type) (any, error) {
 func (w *SingleWeavelet) getIntf(t reflect.Type, requester string) (any, error) {
 	reg, ok := w.regsByIntf[t]
 	if !ok {
-		return nil, fmt.Errorf("component %v not found; maybe you forgot to run weaver generate", t)
+		return nil, fmt.Errorf("component %v not found; maybe you forgot to run weft generate", t)
 	}
 	c, err := w.get(reg)
 	if err != nil {
@@ -257,7 +257,7 @@ func (w *SingleWeavelet) getIntf(t reflect.Type, requester string) (any, error) 
 func (w *SingleWeavelet) getImpl(t reflect.Type) (any, error) {
 	reg, ok := w.regsByImpl[t]
 	if !ok {
-		return nil, fmt.Errorf("component implementation %v not found; maybe you forgot to run weaver generate", t)
+		return nil, fmt.Errorf("component implementation %v not found; maybe you forgot to run weft generate", t)
 	}
 	return w.get(reg)
 }

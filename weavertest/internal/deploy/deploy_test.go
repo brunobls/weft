@@ -20,8 +20,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/ServiceWeaver/weaver/weavertest"
-	"github.com/ServiceWeaver/weaver/weavertest/internal/deploy"
+	"github.com/brunobls/weft/weavertest"
+	"github.com/brunobls/weft/weavertest/internal/deploy"
 )
 
 // TestReplicated tests that concurrent deployers deploy only a single instance

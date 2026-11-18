@@ -28,9 +28,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/examples/bankofanthos/contacts"
-	"github.com/ServiceWeaver/weaver/examples/bankofanthos/model"
-	"github.com/ServiceWeaver/weaver/examples/bankofanthos/userservice"
+	"github.com/brunobls/weft/examples/bankofanthos/contacts"
+	"github.com/brunobls/weft/examples/bankofanthos/model"
+	"github.com/brunobls/weft/examples/bankofanthos/userservice"
 	"github.com/golang-jwt/jwt"
 )
 

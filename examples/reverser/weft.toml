@@ -1,4 +1,4 @@
-[serviceweaver]
+[weft]
 binary = "./reverser"
 rollout = "5m"
 

@@ -23,7 +23,7 @@ import (
 	"time"
 
 	"github.com/DataDog/hyperloglog"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/runtime/protos"
 	"github.com/lightstep/varopt"
 )
 

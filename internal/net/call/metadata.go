@@ -17,8 +17,8 @@ package call
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver/metadata"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft/metadata"
+	"github.com/brunobls/weft/runtime/codegen"
 )
 
 // writeContextMetadata serializes the context metadata (if any) into enc.

@@ -17,11 +17,11 @@ package runtime
 import (
 	"fmt"
 
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/runtime/protos"
 )
 
 // Main is the name of the main component.
-const Main = "github.com/ServiceWeaver/weaver/Main"
+const Main = "github.com/brunobls/weft/Main"
 
 // CheckWeaveletArgs checks that WeaveletArgs is well-formed.
 func CheckWeaveletArgs(w *protos.WeaveletArgs) error {

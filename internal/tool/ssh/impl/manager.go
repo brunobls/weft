@@ -24,27 +24,28 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"sync"
 	"syscall"
 	"time"
 
-	imetrics "github.com/ServiceWeaver/weaver/internal/metrics"
-	"github.com/ServiceWeaver/weaver/internal/must"
-	"github.com/ServiceWeaver/weaver/internal/routing"
-	"github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/metrics"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
-	"github.com/ServiceWeaver/weaver/runtime/traces"
+	imetrics "github.com/brunobls/weft/internal/metrics"
+	"github.com/brunobls/weft/internal/must"
+	"github.com/brunobls/weft/internal/routing"
+	"github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/metrics"
+	"github.com/brunobls/weft/runtime/protos"
+	"github.com/brunobls/weft/runtime/traces"
 	"golang.org/x/exp/maps"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	"github.com/ServiceWeaver/weaver/internal/proto"
-	"github.com/ServiceWeaver/weaver/internal/proxy"
-	"github.com/ServiceWeaver/weaver/internal/status"
-	"github.com/ServiceWeaver/weaver/internal/versioned"
-	"github.com/ServiceWeaver/weaver/runtime/logging"
-	"github.com/ServiceWeaver/weaver/runtime/protomsg"
-	"github.com/ServiceWeaver/weaver/runtime/retry"
+	"github.com/brunobls/weft/internal/proto"
+	"github.com/brunobls/weft/internal/proxy"
+	"github.com/brunobls/weft/internal/status"
+	"github.com/brunobls/weft/internal/versioned"
+	"github.com/brunobls/weft/runtime/logging"
+	"github.com/brunobls/weft/runtime/protomsg"
+	"github.com/brunobls/weft/runtime/retry"
 	"github.com/google/uuid"
 )
 
@@ -65,7 +66,7 @@ const (
 )
 
 var (
-	// The directories and files where "weaver ssh" stores data.
+	// The directories and files where "weft ssh" stores data.
 	//
 	// TODO(mwhittaker): Take these as arguments and move them to ssh.go.
 	LogDir       = filepath.Join(runtime.LogsDir(), "ssh")
@@ -620,6 +621,13 @@ func (m *manager) handleRecvMetrics(_ context.Context, metrics *BabysitterMetric
 	return nil
 }
 
+// babysitterPath returns the path, in the deployment directory dir of a remote
+// location, of the copy of the executable exe. The executable is copied with
+// scp, which keeps its file name ("weft", "weaver", ...).
+func babysitterPath(dir, exe string) string {
+	return filepath.Join(dir, filepath.Base(exe))
+}
+
 // startBabysitter starts a new babysitter that manages a colocation group using SSH.
 func (m *manager) startBabysitter(loc string, info *BabysitterInfo) error {
 	input, err := proto.ToEnv(info)
@@ -628,9 +636,24 @@ func (m *manager) startBabysitter(loc string, info *BabysitterInfo) error {
 	}
 
 	env := fmt.Sprintf("%s=%s", babysitterInfoKey, input)
-	binaryPath := filepath.Join(m.locations[loc], "weaver")
-	cmd := exec.Command("ssh", loc, env, binaryPath, "ssh", "babysitter")
-	return cmd.Start()
+	exe, err := os.Executable()
+	if err != nil {
+		return err
+	}
+	return babysitterCmd(loc, env, m.locations[loc], exe).Start()
+}
+
+// babysitterCmd returns the command that runs the babysitter at location loc.
+// ssh joins its arguments into one string that the remote shell parses, so the
+// path of the binary, whose name comes from the deployer's executable, is
+// quoted.
+func babysitterCmd(loc, env, dir, exe string) *exec.Cmd {
+	return exec.Command("ssh", loc, env, shellQuote(babysitterPath(dir, exe)), "ssh", "babysitter")
+}
+
+// shellQuote quotes s for a POSIX shell.
+func shellQuote(s string) string {
+	return "'" + strings.ReplaceAll(s, "'", `'\''`) + "'"
 }
 
 func (m *manager) getRoutingInfo(_ context.Context, req *GetRoutingInfoRequest) (*GetRoutingInfoReply, error) {

@@ -25,8 +25,8 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/runtime/colors"
-	"github.com/ServiceWeaver/weaver/runtime/logging"
+	"github.com/brunobls/weft/runtime/colors"
+	"github.com/brunobls/weft/runtime/logging"
 )
 
 // LogSpec configures the command returned by LogsCmd.

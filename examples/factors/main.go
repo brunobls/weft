@@ -20,15 +20,15 @@ import (
 	"flag"
 	"log"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
-//go:generate ../../cmd/weaver/weaver generate
+//go:generate ../../cmd/weft/weft generate
 
 func main() {
 	flag.Parse()
 	ctx := context.Background()
-	if err := weaver.Run(ctx, serve); err != nil {
+	if err := weft.Run(ctx, serve); err != nil {
 		log.Fatal(err)
 	}
 }

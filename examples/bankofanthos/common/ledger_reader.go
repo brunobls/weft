@@ -20,7 +20,7 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/examples/bankofanthos/model"
+	"github.com/brunobls/weft/examples/bankofanthos/model"
 )
 
 const (

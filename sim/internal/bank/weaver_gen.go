@@ -6,8 +6,8 @@ package bank
 import (
 	"context"
 	"errors"
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/runtime/codegen"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 	"reflect"
@@ -15,14 +15,14 @@ import (
 
 func init() {
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/sim/internal/bank/Bank",
+		Name:  "github.com/brunobls/weft/sim/internal/bank/Bank",
 		Iface: reflect.TypeOf((*Bank)(nil)).Elem(),
 		Impl:  reflect.TypeOf(bank{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return bank_local_stub{impl: impl.(Bank), tracer: tracer, depositMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/internal/bank/Bank", Method: "Deposit", Remote: false, Generated: true}), withdrawMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/internal/bank/Bank", Method: "Withdraw", Remote: false, Generated: true})}
+			return bank_local_stub{impl: impl.(Bank), tracer: tracer, depositMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/internal/bank/Bank", Method: "Deposit", Remote: false, Generated: true}), withdrawMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/internal/bank/Bank", Method: "Withdraw", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return bank_client_stub{stub: stub, depositMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/internal/bank/Bank", Method: "Deposit", Remote: true, Generated: true}), withdrawMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/internal/bank/Bank", Method: "Withdraw", Remote: true, Generated: true})}
+			return bank_client_stub{stub: stub, depositMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/internal/bank/Bank", Method: "Deposit", Remote: true, Generated: true}), withdrawMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/internal/bank/Bank", Method: "Withdraw", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return bank_server_stub{impl: impl.(Bank), addLoad: addLoad}
@@ -30,17 +30,17 @@ func init() {
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return bank_reflect_stub{caller: caller}
 		},
-		RefData: "⟦dab0c530:wEaVeReDgE:github.com/ServiceWeaver/weaver/sim/internal/bank/Bank→github.com/ServiceWeaver/weaver/sim/internal/bank/Store⟧\n",
+		RefData: "⟦2b8449e3:wEaVeReDgE:github.com/brunobls/weft/sim/internal/bank/Bank→github.com/brunobls/weft/sim/internal/bank/Store⟧\n",
 	})
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/sim/internal/bank/Store",
+		Name:  "github.com/brunobls/weft/sim/internal/bank/Store",
 		Iface: reflect.TypeOf((*Store)(nil)).Elem(),
 		Impl:  reflect.TypeOf(store{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return store_local_stub{impl: impl.(Store), tracer: tracer, addMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/internal/bank/Store", Method: "Add", Remote: false, Generated: true}), getMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/internal/bank/Store", Method: "Get", Remote: false, Generated: true})}
+			return store_local_stub{impl: impl.(Store), tracer: tracer, addMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/internal/bank/Store", Method: "Add", Remote: false, Generated: true}), getMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/internal/bank/Store", Method: "Get", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return store_client_stub{stub: stub, addMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/internal/bank/Store", Method: "Add", Remote: true, Generated: true}), getMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/sim/internal/bank/Store", Method: "Get", Remote: true, Generated: true})}
+			return store_client_stub{stub: stub, addMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/internal/bank/Store", Method: "Add", Remote: true, Generated: true}), getMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/sim/internal/bank/Store", Method: "Get", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return store_server_stub{impl: impl.(Store), addLoad: addLoad}
@@ -52,13 +52,13 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[Bank] = (*bank)(nil)
-var _ weaver.InstanceOf[Store] = (*store)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[Bank] = (*bank)(nil)
+var _ weft.InstanceOf[Store] = (*store)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*bank)(nil)
-var _ weaver.Unrouted = (*store)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*bank)(nil)
+var _ weft.Unrouted = (*store)(nil)
 
 // Local stub implementations.
 
@@ -190,7 +190,7 @@ func (s bank_client_stub) Deposit(ctx context.Context, a0 string, a1 int) (r0 in
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -220,7 +220,7 @@ func (s bank_client_stub) Deposit(ctx context.Context, a0 string, a1 int) (r0 in
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -248,7 +248,7 @@ func (s bank_client_stub) Withdraw(ctx context.Context, a0 string, a1 int) (r0 i
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -278,7 +278,7 @@ func (s bank_client_stub) Withdraw(ctx context.Context, a0 string, a1 int) (r0 i
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -315,7 +315,7 @@ func (s store_client_stub) Add(ctx context.Context, a0 string, a1 int) (r0 int, 
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -345,7 +345,7 @@ func (s store_client_stub) Add(ctx context.Context, a0 string, a1 int) (r0 int, 
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -373,7 +373,7 @@ func (s store_client_stub) Get(ctx context.Context, a0 string) (r0 int, err erro
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -401,7 +401,7 @@ func (s store_client_stub) Get(ctx context.Context, a0 string) (r0 int, err erro
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -412,26 +412,26 @@ func (s store_client_stub) Get(ctx context.Context, a0 string) (r0 int, err erro
 	return
 }
 
-// Note that "weaver generate" will always generate the error message below.
+// Note that "weft generate" will always generate the error message below.
 // Everything is okay. The error message is only relevant if you see it when
 // you run "go build" or "go run".
 var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`
 
-ERROR: You generated this file with 'weaver generate' (devel) (codegen
+ERROR: You generated this file with 'weft generate' (devel) (codegen
 version v0.24.0). The generated code is incompatible with the version of the
-github.com/ServiceWeaver/weaver module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weft module
 version can be found in your go.mod file or by running the following command.
 
-    go list -m github.com/ServiceWeaver/weaver
+    go list -m github.com/brunobls/weft
 
-We recommend updating the weaver module and the 'weaver generate' command by
+We recommend updating the weft module and the 'weft generate' command by
 running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weft@latest
 
-Then, re-run 'weaver generate' and re-build your code. If the problem persists,
-please file an issue at https://github.com/ServiceWeaver/weaver/issues.
+Then, re-run 'weft generate' and re-build your code. If the problem persists,
+please file an issue at https://github.com/brunobls/weft/issues.
 
 `)
 

@@ -18,7 +18,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -29,7 +29,7 @@ type Even interface {
 }
 
 type even struct {
-	weaver.Implements[Even]
+	weft.Implements[Even]
 }
 
 func (e *even) Do(ctx context.Context, x int) (int, error) {

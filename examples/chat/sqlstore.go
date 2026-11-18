@@ -21,7 +21,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 	_ "github.com/go-sql-driver/mysql"
 	_ "modernc.org/sqlite"
 )
@@ -39,8 +39,8 @@ import (
 //
 // Threads and posts are identified by unique numeric IDs.
 type sqlStore struct {
-	weaver.Implements[SQLStore]
-	weaver.WithConfig[config]
+	weft.Implements[SQLStore]
+	weft.WithConfig[config]
 	db *sql.DB
 }
 
@@ -55,14 +55,14 @@ type ImageID int64
 
 // Thread holds information about a given thread.
 type Thread struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	ID    ThreadID
 	Posts []Post
 }
 
 // Post holds information about a given post.
 type Post struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	ID      PostID
 	Creator string
 	When    time.Time
@@ -78,8 +78,8 @@ type SQLStore interface {
 }
 
 var (
-	_ weaver.NotRetriable = SQLStore.CreateThread
-	_ weaver.NotRetriable = SQLStore.CreatePost
+	_ weft.NotRetriable = SQLStore.CreateThread
+	_ weft.NotRetriable = SQLStore.CreatePost
 )
 
 type config struct {

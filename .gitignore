@@ -1,4 +1,5 @@
 cmd/weaver/weaver
+cmd/weft/weft
 examples/bankofanthos/bankofanthos
 examples/chat/chat
 examples/collatz/collatz

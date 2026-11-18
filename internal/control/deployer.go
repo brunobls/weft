@@ -17,12 +17,12 @@ package control
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/runtime/protos"
 )
 
 // DeployerPath is the path used for the deployer control component.
 // It points to an internal type in a different package.
-const DeployerPath = "github.com/ServiceWeaver/weaver/deployerControl"
+const DeployerPath = "github.com/brunobls/weft/deployerControl"
 
 // DeployerControl is the interface for the weaver.deployerControl component. It is
 // present in its own package so other packages do not need to copy the interface

@@ -28,15 +28,15 @@ import (
 	"flag"
 	"log"
 
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/examples/bankofanthos/frontend"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/examples/bankofanthos/frontend"
 )
 
-//go:generate ../../cmd/weaver/weaver generate
+//go:generate ../../cmd/weft/weft generate
 
 func main() {
 	flag.Parse()
-	if err := weaver.Run(context.Background(), frontend.Serve); err != nil {
+	if err := weft.Run(context.Background(), frontend.Serve); err != nil {
 		log.Fatal(err)
 	}
 }

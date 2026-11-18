@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package weaver
+package weft
 
 import (
 	"math/rand"
@@ -21,8 +21,8 @@ import (
 	"sync/atomic"
 	"time"
 
-	imetrics "github.com/ServiceWeaver/weaver/internal/metrics"
-	"github.com/ServiceWeaver/weaver/metrics"
+	imetrics "github.com/brunobls/weft/internal/metrics"
+	"github.com/brunobls/weft/metrics"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 )
 

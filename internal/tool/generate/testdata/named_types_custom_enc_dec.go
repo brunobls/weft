@@ -28,7 +28,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 // struct with local implementation of the (Un)marshalBinary interface.
@@ -49,7 +49,7 @@ type foo interface {
 	B(context.Context, []X) error
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (l *impl) A(context.Context, []X, time.Time) (X, error) {
 	return X{}, nil

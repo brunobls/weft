@@ -5,39 +5,39 @@ package model
 
 import (
 	"fmt"
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/runtime/codegen"
 	"time"
 )
 
-// weaver.InstanceOf checks.
+// weft.InstanceOf checks.
 
-// weaver.Router checks.
+// weft.Router checks.
 
 // Local stub implementations.
 
 // Client stub implementations.
 
-// Note that "weaver generate" will always generate the error message below.
+// Note that "weft generate" will always generate the error message below.
 // Everything is okay. The error message is only relevant if you see it when
 // you run "go build" or "go run".
 var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`
 
-ERROR: You generated this file with 'weaver generate' (devel) (codegen
+ERROR: You generated this file with 'weft generate' (devel) (codegen
 version v0.24.0). The generated code is incompatible with the version of the
-github.com/ServiceWeaver/weaver module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weft module
 version can be found in your go.mod file or by running the following command.
 
-    go list -m github.com/ServiceWeaver/weaver
+    go list -m github.com/brunobls/weft
 
-We recommend updating the weaver module and the 'weaver generate' command by
+We recommend updating the weft module and the 'weft generate' command by
 running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weft@latest
 
-Then, re-run 'weaver generate' and re-build your code. If the problem persists,
-please file an issue at https://github.com/ServiceWeaver/weaver/issues.
+Then, re-run 'weft generate' and re-build your code. If the problem persists,
+please file an issue at https://github.com/brunobls/weft/issues.
 
 `)
 
@@ -50,7 +50,7 @@ please file an issue at https://github.com/ServiceWeaver/weaver/issues.
 var _ codegen.AutoMarshal = (*Transaction)(nil)
 
 type __is_Transaction[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	FromAccountNum string    "gorm:\"column:from_acct;not null\""
 	FromRoutingNum string    "gorm:\"column:from_route;not null\""
 	ToAccountNum   string    "gorm:\"column:to_acct;not null\""
@@ -88,7 +88,7 @@ func (x *Transaction) WeaverUnmarshal(dec *codegen.Decoder) {
 var _ codegen.AutoMarshal = (*TransactionWithID)(nil)
 
 type __is_TransactionWithID[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	Transaction
 	TransactionID int64 "gorm:\"column:transaction_id;primaryKey;autoIncrement:true\""
 }] struct{}

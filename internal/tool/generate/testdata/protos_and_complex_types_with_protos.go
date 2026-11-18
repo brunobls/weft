@@ -24,7 +24,7 @@ package foo
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
@@ -41,7 +41,7 @@ type foo interface {
 	N(context.Context, []*TypeProto) (map[string]*TypeProto, error)
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (l *impl) M(context.Context, *TypeProto) (*TypeProto, error) {
 	return nil, nil

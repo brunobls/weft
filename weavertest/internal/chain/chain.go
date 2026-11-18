@@ -20,10 +20,10 @@ import (
 	"context"
 	"sync"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
-//go:generate ../../../cmd/weaver/weaver generate
+//go:generate ../../../cmd/weft/weft generate
 
 type A interface {
 	Propagate(context.Context, int) error
@@ -38,21 +38,21 @@ type C interface {
 }
 
 type a struct {
-	weaver.Implements[A]
-	b   weaver.Ref[B]
+	weft.Implements[A]
+	b   weft.Ref[B]
 	mu  sync.Mutex
 	val int
 }
 
 type b struct {
-	weaver.Implements[B]
-	c   weaver.Ref[C]
+	weft.Implements[B]
+	c   weft.Ref[C]
 	mu  sync.Mutex
 	val int
 }
 
 type c struct {
-	weaver.Implements[C]
+	weft.Implements[C]
 	mu  sync.Mutex
 	val int
 }

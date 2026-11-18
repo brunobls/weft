@@ -19,12 +19,14 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime/debug"
 	"sort"
+	"strings"
 	"testing"
 
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/runtime/graph"
-	"github.com/ServiceWeaver/weaver/runtime/version"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/runtime/graph"
+	"github.com/brunobls/weft/runtime/version"
 	"github.com/google/go-cmp/cmp"
 	"golang.org/x/exp/slices"
 )
@@ -52,8 +54,8 @@ func TestReadComponentGraph(t *testing.T) {
 			}
 
 			// Compare returned components.
-			pkg := "github.com/ServiceWeaver/weaver/runtime/bin/testprogram"
-			main := "github.com/ServiceWeaver/weaver/Main"
+			pkg := "github.com/brunobls/weft/runtime/bin/testprogram"
+			main := "github.com/brunobls/weft/Main"
 			wantComponents := []string{
 				main,
 				fmt.Sprintf("%s/A", pkg),
@@ -122,9 +124,9 @@ func TestReadListeners(t *testing.T) {
 
 			// Check that expected listeners are found.
 			pkg := func(c string) string {
-				return fmt.Sprintf("github.com/ServiceWeaver/weaver/runtime/bin/testprogram/%s", c)
+				return fmt.Sprintf("github.com/brunobls/weft/runtime/bin/testprogram/%s", c)
 			}
-			main := "github.com/ServiceWeaver/weaver/Main"
+			main := "github.com/brunobls/weft/Main"
 			want := []codegen.ComponentListeners{
 				{Component: main, Listeners: []string{"appLis"}},
 				{Component: pkg("A"), Listeners: []string{"aLis1", "aLis2", "aLis3"}},
@@ -194,5 +196,32 @@ func TestReadVersion(t *testing.T) {
 				t.Fatalf("bad deployer version: got %s, want %s", got.DeployerVersion, version.DeployerVersion)
 			}
 		})
+	}
+}
+
+func TestModuleVersion(t *testing.T) {
+	weft := &debug.Module{Path: "github.com/brunobls/weft", Version: "v1.2.3"}
+	got, err := moduleVersion(&debug.BuildInfo{Deps: []*debug.Module{weft}})
+	if err != nil || got != "v1.2.3" {
+		t.Errorf("as a dependency: got (%q, %v), want v1.2.3", got, err)
+	}
+	got, err = moduleVersion(&debug.BuildInfo{Main: *weft})
+	if err != nil || got != "v1.2.3" {
+		t.Errorf("as the main module: got (%q, %v), want v1.2.3", got, err)
+	}
+}
+
+// TestModuleVersionNotLinked checks the diagnostic for an application that is
+// not linked with Weft, for example one still built with Service Weaver.
+func TestModuleVersionNotLinked(t *testing.T) {
+	info := &debug.BuildInfo{Deps: []*debug.Module{{Path: "example.com/other", Version: "v1.0.0"}}}
+	_, err := moduleVersion(info)
+	if err == nil {
+		t.Fatal("no error")
+	}
+	for _, want := range []string{"Weft module", "github.com/brunobls/weft", "Service Weaver", "migrating-from-service-weaver.md", "weft generate"} {
+		if !strings.Contains(err.Error(), want) {
+			t.Errorf("error %q does not mention %q", err, want)
+		}
 	}
 }

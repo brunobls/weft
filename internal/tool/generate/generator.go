@@ -34,11 +34,11 @@ import (
 	"strings"
 	"unicode"
 
-	"github.com/ServiceWeaver/weaver/internal/files"
-	"github.com/ServiceWeaver/weaver/internal/tool"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/runtime/colors"
-	"github.com/ServiceWeaver/weaver/runtime/version"
+	"github.com/brunobls/weft/internal/files"
+	"github.com/brunobls/weft/internal/tool"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/runtime/colors"
+	"github.com/brunobls/weft/runtime/version"
 	"golang.org/x/exp/maps"
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/tools/go/types/typeutil"
@@ -51,15 +51,15 @@ import (
 const (
 	generatedCodeFile = "weaver_gen.go"
 
-	Usage = `Generate code for a Service Weaver application.
+	usageTemplate = `Generate code for a Weft application.
 
 Usage:
   weaver generate [-tags taglist] [packages]
 
 Description:
-  "weaver generate" generates code for the Service Weaver applications in the
+  "weaver generate" generates code for the Weft applications in the
   provided packages. For example, "weaver generate . ./foo" will generate code
-  for the Service Weaver applications in the current directory and in the ./foo
+  for the Weft applications in the current directory and in the ./foo
   directory. For every package, the generated code is placed in a weaver_gen.go
   file in the package's directory. For example, "weaver generate . ./foo" will
   create ./weaver_gen.go and ./foo/weaver_gen.go.
@@ -106,7 +106,13 @@ type Options struct {
 	BuildTags string
 }
 
-// Generate generates Service Weaver code for the specified packages.
+// Usage returns the help text of the generate subcommand of the command
+// invoked as name.
+func Usage(name string) string {
+	return strings.ReplaceAll(usageTemplate, "weaver generate", name+" generate")
+}
+
+// Generate generates Weft code for the specified packages.
 // The list of supplied packages are treated similarly to the arguments
 // passed to "go build" (see "go help packages" for details).
 func Generate(dir string, pkgs []string, opt Options) error {
@@ -165,7 +171,7 @@ type generator struct {
 // errorf is like fmt.Errorf but prefixes the error with the provided position.
 func errorf(fset *token.FileSet, pos token.Pos, format string, args ...interface{}) error {
 	// Rewrite the position's filename relative to the current directory. This
-	// replaces long filenames like "/home/foo/ServiceWeaver/weaver/weaver.go"
+	// replaces long filenames like "/home/foo/weft/weaver.go"
 	// with much shorter filenames like "./weaver.go".
 	position := fset.Position(pos)
 	if cwd, err := filepath.Abs("."); err == nil {
@@ -193,7 +199,7 @@ func newGenerator(opt Options, pkg *packages.Package, fset *token.FileSet, autom
 	}
 
 	// Search every file in the package for types that embed the
-	// weaver.AutoMarshal struct.
+	// weft.AutoMarshal struct.
 	tset := newTypeSet(pkg, automarshals, &typeutil.Map{})
 	for _, file := range pkg.Syntax {
 		filename := fset.Position(file.Package).Filename
@@ -214,10 +220,10 @@ func newGenerator(opt Options, pkg *packages.Package, fset *token.FileSet, autom
 		return nil, err
 	}
 
-	// Just because a type embeds weaver.AutoMarshal doesn't mean we can
+	// Just because a type embeds weft.AutoMarshal doesn't mean we can
 	// automatically marshal it. Some types, like `struct { x chan int }`, are
 	// just not serializable. Here, we check that every type that embeds
-	// weaver.AutoMarshal is actually serializable.
+	// weft.AutoMarshal is actually serializable.
 	for _, t := range tset.automarshalCandidates.Keys() {
 		n := t.(*types.Named)
 		if err := errors.Join(tset.checkSerializable(n)...); err != nil {
@@ -247,7 +253,7 @@ func newGenerator(opt Options, pkg *packages.Package, fset *token.FileSet, autom
 
 		for _, c := range fileComponents {
 			// Check for component duplicates, two components that embed the
-			// same weaver.Implements[T].
+			// same weft.Implements[T].
 			//
 			// TODO(mwhittaker): This code relies on the fact that a component
 			// interface and component implementation have to be in the same
@@ -290,7 +296,7 @@ func newGenerator(opt Options, pkg *packages.Package, fset *token.FileSet, autom
 // findComponents will find and return the following component.
 //
 //	type something struct {
-//	    weaver.Implements[SomeComponentType]
+//	    weft.Implements[SomeComponentType]
 //	    ...
 //	}
 func findComponents(opt Options, pkg *packages.Package, f *ast.File, tset *typeSet) ([]*component, error) {
@@ -321,7 +327,7 @@ func findComponents(opt Options, pkg *packages.Package, f *ast.File, tset *typeS
 
 func findMethodAttributes(pkg *packages.Package, f *ast.File, components map[string]*component) error {
 	// Look for declarations of the form:
-	//	var _ weaver.NotRetriable = Component.Method
+	//	var _ weft.NotRetriable = Component.Method
 	var errs []error
 	for _, decl := range f.Decls {
 		gendecl, ok := decl.(*ast.GenDecl)
@@ -345,7 +351,7 @@ func findMethodAttributes(pkg *packages.Package, f *ast.File, components map[str
 				// We allow non-blank vars for uniformity.
 				comp, method, ok := findComponentMethod(pkg, components, val)
 				if !ok {
-					errs = append(errs, errorf(pkg.Fset, valspec.Pos(), "weaver.NonRetriable should only be assigned a value that identifies a method of a component implemented by this package"))
+					errs = append(errs, errorf(pkg.Fset, valspec.Pos(), "weft.NotRetriable should only be assigned a value that identifies a method of a component implemented by this package"))
 					continue
 				}
 				if comp.noretry == nil {
@@ -369,7 +375,7 @@ func findComponentMethod(pkg *packages.Package, components map[string]*component
 	if !ok {
 		return nil, "", false
 	}
-	ctype, ok := ctypeval.Type.(*types.Named)
+	ctype, ok := types.Unalias(ctypeval.Type).(*types.Named)
 	if !ok {
 		return nil, "", false
 	}
@@ -388,7 +394,7 @@ func findComponentMethod(pkg *packages.Package, components map[string]*component
 }
 
 // findAutoMarshals returns the types in the provided file which embed the
-// weaver.AutoMarshal struct.
+// weft.AutoMarshal struct.
 func findAutoMarshals(pkg *packages.Package, f *ast.File) ([]*types.Named, error) {
 	var automarshals []*types.Named
 	var errs []error
@@ -430,7 +436,7 @@ func findAutoMarshals(pkg *packages.Package, f *ast.File) ([]*types.Named, error
 				continue
 			}
 
-			// Check for an embedded weaver.AutoMarshal field.
+			// Check for an embedded weft.AutoMarshal field.
 			automarshal := false
 			for i := 0; i < t.NumFields(); i++ {
 				f := t.Field(i)
@@ -448,7 +454,7 @@ func findAutoMarshals(pkg *packages.Package, f *ast.File) ([]*types.Named, error
 			// declaration:
 			//
 			//     type Register[A any] struct {
-			//         weaver.AutoMarshal
+			//         weft.AutoMarshal
 			//         a A
 			//     }
 			//
@@ -460,7 +466,7 @@ func findAutoMarshals(pkg *packages.Package, f *ast.File) ([]*types.Named, error
 			// TODO(mwhittaker): Handle generics somehow?
 			if n.TypeParams() != nil { // generics have non-nil TypeParams()
 				errs = append(errs, errorf(pkg.Fset, spec.Pos(),
-					"generic struct %v cannot embed weaver.AutoMarshal. See serviceweaver.dev/docs.html#serializable-types for more information.",
+					"generic struct %v cannot embed weft.AutoMarshal. See serviceweaver.dev/docs.html#serializable-types for more information.",
 					formatType(pkg, n)))
 				continue
 			}
@@ -493,11 +499,11 @@ func extractComponent(opt Options, pkg *packages.Package, file *ast.File, tset *
 		return nil, nil
 	}
 
-	// Find any weaver.Implements[T] or weaver.WithRouter[T] embedded fields.
+	// Find any weft.Implements[T] or weft.WithRouter[T] embedded fields.
 	var intf *types.Named   // The component interface type
 	var router *types.Named // Router type (if any)
-	var isMain bool         // Is intf weaver.Main?
-	var refs []*types.Named // T for which weaver.Ref[T] exists in struct
+	var isMain bool         // Is intf weft.Main?
+	var refs []*types.Named // T for which weft.Ref[T] exists in struct
 	var listeners []string  // Names of all listener fields declared in struct
 	for _, f := range s.Fields.List {
 		typeAndValue, ok := pkg.TypesInfo.Types[f.Type]
@@ -507,16 +513,16 @@ func extractComponent(opt Options, pkg *packages.Package, file *ast.File, tset *
 		t := typeAndValue.Type
 
 		if isWeaverRef(t) {
-			// The field f has type weaver.Ref[T].
-			arg := t.(*types.Named).TypeArgs().At(0)
+			// The field f has type weft.Ref[T].
+			arg := types.Unalias(t).(*types.Named).TypeArgs().At(0)
 			if isWeaverMain(arg) {
 				return nil, errorf(pkg.Fset, f.Pos(),
-					"components cannot contain a reference to weaver.Main")
+					"components cannot contain a reference to weft.Main")
 			}
-			named, ok := arg.(*types.Named)
+			named, ok := types.Unalias(arg).(*types.Named)
 			if !ok {
 				return nil, errorf(pkg.Fset, f.Pos(),
-					"weaver.Ref argument %s is not a named type.",
+					"weft.Ref argument %s is not a named type.",
 					formatType(pkg, arg))
 			}
 			refs = append(refs, named)
@@ -532,47 +538,47 @@ func extractComponent(opt Options, pkg *packages.Package, file *ast.File, tset *
 			// Ignore unembedded fields.
 			//
 			// TODO(mwhittaker): Warn the user about unembedded
-			// weaver.Implements, weaver.WithConfig, or weaver.WithRouter?
+			// weft.Implements, weft.WithConfig, or weft.WithRouter?
 			continue
 		}
 
 		switch {
-		// The field f is an embedded weaver.Implements[T].
+		// The field f is an embedded weft.Implements[T].
 		case isWeaverImplements(t):
 			// Check that T is a named interface type inside the package.
-			arg := t.(*types.Named).TypeArgs().At(0)
-			named, ok := arg.(*types.Named)
+			arg := types.Unalias(t).(*types.Named).TypeArgs().At(0)
+			named, ok := types.Unalias(arg).(*types.Named)
 			if !ok {
 				return nil, errorf(pkg.Fset, f.Pos(),
-					"weaver.Implements argument %s is not a named type.",
+					"weft.Implements argument %s is not a named type.",
 					formatType(pkg, arg))
 			}
 			isMain = isWeaverMain(arg)
 			if !isMain && named.Obj().Pkg() != pkg.Types {
 				return nil, errorf(pkg.Fset, f.Pos(),
-					"weaver.Implements argument %s is a type outside the current package. A component interface and implementation must be in the same package. If you can't move them into the same package, you can add `type %s %v` to the implementation's package and embed `weaver.Implements[%s]` instead of `weaver.Implements[%s]`.",
+					"weft.Implements argument %s is a type outside the current package. A component interface and implementation must be in the same package. If you can't move them into the same package, you can add `type %s %v` to the implementation's package and embed `weft.Implements[%s]` instead of `weft.Implements[%s]`.",
 					formatType(pkg, named), named.Obj().Name(), formatType(pkg, named), named.Obj().Name(), formatType(pkg, named))
 			}
 			if _, ok := named.Underlying().(*types.Interface); !ok {
 				return nil, errorf(pkg.Fset, f.Pos(),
-					"weaver.Implements argument %s is not an interface.",
+					"weft.Implements argument %s is not an interface.",
 					formatType(pkg, named))
 			}
 			intf = named
 
-		// The field f is an embedded weaver.WithRouter[T].
+		// The field f is an embedded weft.WithRouter[T].
 		case isWeaverWithRouter(t):
 			// Check that T is a named type inside the package.
-			arg := t.(*types.Named).TypeArgs().At(0)
-			named, ok := arg.(*types.Named)
+			arg := types.Unalias(t).(*types.Named).TypeArgs().At(0)
+			named, ok := types.Unalias(arg).(*types.Named)
 			if !ok {
 				return nil, errorf(pkg.Fset, f.Pos(),
-					"weaver.WithRouter argument %s is not a named type.",
+					"weft.WithRouter argument %s is not a named type.",
 					formatType(pkg, arg))
 			}
 			if named.Obj().Pkg() != pkg.Types {
 				return nil, errorf(pkg.Fset, f.Pos(),
-					"weaver.WithRouter argument %s is a type outside the current package.",
+					"weft.WithRouter argument %s is a type outside the current package.",
 					formatType(pkg, named))
 			}
 			router = named
@@ -580,8 +586,8 @@ func extractComponent(opt Options, pkg *packages.Package, file *ast.File, tset *
 	}
 
 	if intf == nil {
-		// TODO(mwhittaker): Warn the user if they embed weaver.WithRouter or
-		// weaver.WithConfig but don't embed weaver.Implements.
+		// TODO(mwhittaker): Warn the user if they embed weft.WithRouter or
+		// weft.WithConfig but don't embed weft.Implements.
 		return nil, nil
 	}
 
@@ -589,7 +595,7 @@ func extractComponent(opt Options, pkg *packages.Package, file *ast.File, tset *
 	// interface.
 	if !types.Implements(types.NewPointer(impl), intf.Underlying().(*types.Interface)) {
 		return nil, errorf(pkg.Fset, spec.Pos(),
-			"type %s embeds weaver.Implements[%s] but does not implement interface %s.",
+			"type %s embeds weft.Implements[%s] but does not implement interface %s.",
 			formatType(pkg, impl), formatType(pkg, intf), formatType(pkg, intf))
 	}
 
@@ -646,7 +652,7 @@ func extractComponent(opt Options, pkg *packages.Package, file *ast.File, tset *
 }
 
 // getListenerNamesFromStructField extracts listener names from the given
-// weaver.Listener field in the component implementation struct.
+// weft.Listener field in the component implementation struct.
 func getListenerNamesFromStructField(pkg *packages.Package, f *ast.Field) ([]string, error) {
 	// Try to get the listener name from the struct tag.
 	if f.Tag != nil {
@@ -685,8 +691,8 @@ func getListenerNamesFromStructField(pkg *packages.Package, f *ast.Field) ([]str
 //
 //	type Adder interface{}
 //	type adder struct {
-//	    weaver.Implements[Adder]
-//	    weaver.WithRouter[router]
+//	    weft.Implements[Adder]
+//	    weft.WithRouter[router]
 //	}
 //	type router struct{}
 type component struct {
@@ -695,8 +701,8 @@ type component struct {
 	router        *types.Named        // router, or nil if there is no router
 	routingKey    types.Type          // routing key, or nil if there is no router
 	routedMethods map[string]bool     // the set of methods with a routing function
-	isMain        bool                // intf is weaver.Main
-	refs          []*types.Named      // List of T where a weaver.Ref[T] field is in impl struct
+	isMain        bool                // intf is weft.Main
+	refs          []*types.Named      // List of T where a weft.Ref[T] field is in impl struct
 	listeners     []string            // Names of listener fields declared in impl struct
 	noretry       map[string]struct{} // Methods that should not be retried
 }
@@ -782,7 +788,7 @@ func validateMethods(pkg *packages.Package, tset *typeSet, intf *types.Named) er
 		}
 
 		// Last result must be error.
-		if t.Results().Len() < 1 || t.Results().At(t.Results().Len()-1).Type().String() != "error" {
+		if t.Results().Len() < 1 || !isError(t.Results().At(t.Results().Len()-1).Type()) {
 			// TODO(mwhittaker): If the function doesn't return anything, don't
 			// print t.Results.
 			errs = append(errs, bad("return", "The last return must have type error."))
@@ -823,7 +829,7 @@ func checkMistypedInitOrShutdown(pkg *packages.Package, tset *typeSet, impl *typ
 		}
 
 		// Check returns.
-		if sig.Results().Len() != 1 || sig.Results().At(0).Type().String() != "error" {
+		if sig.Results().Len() != 1 || !isError(sig.Results().At(0).Type()) {
 			return err
 		}
 		return nil
@@ -836,8 +842,8 @@ func checkMistypedInitOrShutdown(pkg *packages.Package, tset *typeSet, impl *typ
 // A developer can annotate a Service Weaver component with a router, like this:
 //
 //	type foo struct {
-//		weaver.Implements[Foo]
-//		weaver.WithRouter[fooRouter]
+//		weft.Implements[Foo]
+//		weft.WithRouter[fooRouter]
 //		...
 //	}
 //	func (*foo) A(context.Context) error {...}
@@ -1045,7 +1051,7 @@ func (g *generator) generateVersionCheck(p printFn) error {
 	//
 	//     var _ codegen.LatestVersion = codegen.Version[[0][1]struct{}]("You used ...")
 	p(``)
-	p(`// Note that "weaver generate" will always generate the error message below.`)
+	p(`// Note that "weft generate" will always generate the error message below.`)
 	p(`// Everything is okay. The error message is only relevant if you see it when`)
 	p(`// you run "go build" or "go run".`)
 	p(`var _ %s = %s[[%d][%d]struct{}](%s)`,
@@ -1053,21 +1059,21 @@ func (g *generator) generateVersionCheck(p printFn) error {
 		version.CodegenMajor, version.CodegenMinor,
 		fmt.Sprintf("`"+`
 
-ERROR: You generated this file with 'weaver generate' %s (codegen
+ERROR: You generated this file with 'weft generate' %s (codegen
 version %s). The generated code is incompatible with the version of the
-github.com/ServiceWeaver/weaver module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weft module
 version can be found in your go.mod file or by running the following command.
 
-    go list -m github.com/ServiceWeaver/weaver
+    go list -m github.com/brunobls/weft
 
-We recommend updating the weaver module and the 'weaver generate' command by
+We recommend updating the weft module and the 'weft generate' command by
 running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weft@latest
 
-Then, re-run 'weaver generate' and re-build your code. If the problem persists,
-please file an issue at https://github.com/ServiceWeaver/weaver/issues.
+Then, re-run 'weft generate' and re-build your code. If the problem persists,
+please file an issue at https://github.com/brunobls/weft/issues.
 
 `+"`", selfVersion, version.CodegenVersion),
 	)
@@ -1075,16 +1081,16 @@ please file an issue at https://github.com/ServiceWeaver/weaver/issues.
 }
 
 // generateInstanceChecks generates code that checks that every component
-// implementation type implements weaver.InstanceOf[T] for the appropriate T.
+// implementation type implements weft.InstanceOf[T] for the appropriate T.
 func (g *generator) generateInstanceChecks(p printFn) {
-	// If someone deletes a weaver.Implements annotation and forgets to re-run
+	// If someone deletes a weft.Implements annotation and forgets to re-run
 	// `weaver generate`, these checks will fail to build. Similarly, if a user
-	// changes the interface in a weaver.Implements and forgets to re-run
+	// changes the interface in a weft.Implements and forgets to re-run
 	// `weaver generate`, these checks will fail to build.
 	p(``)
-	p(`// weaver.InstanceOf checks.`)
+	p(`// weft.InstanceOf checks.`)
 	for _, c := range g.components {
-		// e.g., var _ weaver.InstanceOf[Odd] = &odd{}
+		// e.g., var _ weft.InstanceOf[Odd] = &odd{}
 		p(`var _ %s[%s] = (*%s)(nil)`, g.weaver().qualify("InstanceOf"), g.tset.genTypeString(c.intf), g.tset.genTypeString(c.impl))
 	}
 }
@@ -1092,18 +1098,18 @@ func (g *generator) generateInstanceChecks(p printFn) {
 // generateRouterChecks generates code that checks that every component
 // implementation is either unrouted or is routed by the expected router.
 func (g *generator) generateRouterChecks(p printFn) {
-	// If a user adds, deletes, or changes an embedded weaver.WithRouter[T]
+	// If a user adds, deletes, or changes an embedded weft.WithRouter[T]
 	// annotation and forgets to re-run `weaver generate`, these checks will
 	// fail to build.
 	p(``)
-	p(`// weaver.Router checks.`)
+	p(`// weft.Router checks.`)
 	for _, c := range g.components {
 		if c.router == nil {
-			// e.g., var _ weaver.Unrouted = &odd{}
+			// e.g., var _ weft.Unrouted = &odd{}
 			p(`var _ %s = (*%s)(nil)`, g.weaver().qualify("Unrouted"), g.tset.genTypeString(c.impl))
 
 		} else {
-			// e.g., var _ weaver.RoutedBy[router] = &odd{}
+			// e.g., var _ weft.RoutedBy[router] = &odd{}
 			p(`var _ %s[%s] = (*%s)(nil)`, g.weaver().qualify("RoutedBy"), g.tset.genTypeString(c.router), g.tset.genTypeString(c.impl))
 		}
 	}
@@ -1513,7 +1519,7 @@ func (g *generator) generateClientStubs(p printFn) {
 			for i := 0; i < mt.Results().Len()-1; i++ { // Skip final error
 				rt := mt.Results().At(i).Type()
 				res := fmt.Sprintf("r%d", i)
-				if x, ok := rt.(*types.Pointer); ok && (g.tset.isProto(x) || g.tset.hasMarshalBinary(x)) {
+				if x, ok := types.Unalias(rt).(*types.Pointer); ok && (g.tset.isProto(x) || g.tset.hasMarshalBinary(x)) {
 					// To decode a pointer *t where t is a proto or
 					// BinaryUnmarshaler, we need to instantiate a zero value
 					// of type t before calling the appropriate decoding
@@ -1582,6 +1588,7 @@ func (g *generator) isWeaverEncoded(t types.Type) bool {
 		return false
 	}
 
+	t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 	switch x := t.(type) {
 	case *types.Basic:
 		switch x.Kind() {
@@ -1648,12 +1655,13 @@ func (g *generator) size(e string, t types.Type) string {
 	// size(e: []t) = 4 + len(e) * fixedsize(t)
 	// size(e: map[k]v) = 4 + len(e) * (fixedsize(k) + fixedsize(v))
 	// size(e: struct{...}) = serviceweaver_size_struct_XXXXXXXX(e)
-	// size(e: weaver.AutoMarshal) = 0
+	// size(e: weft.AutoMarshal) = 0
 	// size(e: type t struct{...}) = serviceweaver_size_t(e)
 	// size(e: type t u) = size(e: u)
 
 	var f func(e string, t types.Type) string
 	f = func(e string, t types.Type) string {
+		t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 		switch x := t.(type) {
 		case *types.Basic:
 			switch x.Kind() {
@@ -1738,6 +1746,7 @@ func (g *generator) size(e string, t types.Type) string {
 func (g *generator) findSizeFuncNeededs(t types.Type) {
 	var f func(t types.Type)
 	f = func(t types.Type) {
+		t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 		switch x := t.(type) {
 		case *types.Pointer:
 			g.sizeFuncNeeded.Set(t, true)
@@ -1784,6 +1793,7 @@ func (g *generator) generateSizeFunction(p printFn, t types.Type) {
 	p("// serviceweaver_size_%s returns the size (in bytes) of the serialization", sanitize(t))
 	p("// of the provided type.")
 
+	t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 	switch x := t.(type) {
 	case *types.Pointer:
 		// For example:
@@ -1898,7 +1908,7 @@ func (g *generator) generateServerStubs(p printFn) {
 			for i := 1; i < mt.Params().Len(); i++ { // Skip initial context.Context
 				at := mt.Params().At(i).Type()
 				arg := fmt.Sprintf("a%d", i-1)
-				if x, ok := at.(*types.Pointer); ok && (g.tset.isProto(x) || g.tset.hasMarshalBinary(x)) {
+				if x, ok := types.Unalias(at).(*types.Pointer); ok && (g.tset.isProto(x) || g.tset.hasMarshalBinary(x)) {
 					// To decode a pointer *t where t is a proto or
 					// BinaryUnmarshaler, we need to instantiate a zero value
 					// of type t before calling the appropriate decoding
@@ -2014,7 +2024,7 @@ func (g *generator) generateReflectStubs(p printFn) {
 }
 
 // generateAutoMarshalMethods generates WeaverMarshal and WeaverUnmarshal methods
-// for any types that declares itself as weaver.AutoMarshal.
+// for any types that declares itself as weft.AutoMarshal.
 func (g *generator) generateAutoMarshalMethods(p printFn) {
 	if g.tset.automarshalCandidates.Len() > 0 {
 		p(``)
@@ -2037,17 +2047,17 @@ func (g *generator) generateAutoMarshalMethods(p printFn) {
 		// Pair type:
 		//
 		//     type Pair struct {
-		//         weaver.AutoMarshal
+		//         weft.AutoMarshal
 		//         x int
 		//         y int
 		//     }
 		//
 		// We generate the following code:
 		//
-		//     var _ weaver.AutoMarshal = &pair{}
+		//     var _ weft.AutoMarshal = &pair{}
 		//
 		//     type __is_Pair[T ~struct {
-		//         weaver.AutoMarshal
+		//         weft.AutoMarshal
 		//         x int
 		//         y int
 		//     }] struct{}
@@ -2155,7 +2165,7 @@ func (g *generator) generateRouterMethodsFor(p printFn, comp *component, t types
 			if isWeaverAutoMarshal(f.Type()) {
 				continue
 			}
-			p(`	enc.Write%s(r.%s)`, exported(f.Type().String()), f.Name())
+			p(`	enc.Write%s(r.%s)`, exported(types.Unalias(f.Type()).String()), f.Name())
 		}
 	}
 	p(`	return enc.Encode()`)
@@ -2208,6 +2218,7 @@ func (g *generator) encode(stub, e string, t types.Type) string {
 	// enc(stub, e: type t u) = stub.EncodeBinaryMarshaler(&e) // t implements BinaryMarshaler
 	// enc(stub, e: type t u) = serviceweaver_enc_[t](&stub, &e)       // under(u) = struct{...}
 	// enc(stub, e: type t u) = enc(&stub, under(t)(e))        // otherwise
+	t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 	switch x := t.(type) {
 	case *types.Basic:
 		switch x.Kind() {
@@ -2281,6 +2292,7 @@ func (g *generator) decode(stub, v string, t types.Type) string {
 	// dec(stub, v: type t u) = stub.DecodeBinaryUnmarshaler(v) // t implements BinaryUnmarshaler
 	// dec(stub, v: type t u) = serviceweaver_dec_[t](stub, v)          // under(u) = struct{...}
 	// dec(stub, v: type t u) = dec(stub, (*under(t))(v))       // otherwise
+	t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 	switch x := t.(type) {
 	case *types.Basic:
 		switch x.Kind() {
@@ -2369,6 +2381,7 @@ func (g *generator) generateEncDecMethodsFor(p printFn, t types.Type) {
 	g.generated.Set(t, true)
 
 	ts := g.tset.genTypeString
+	t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 	switch x := t.(type) {
 	case *types.Basic:
 		// Basic types don't need encoding or decoding methods. Instead, we
@@ -2494,7 +2507,7 @@ func (g *generator) generateEncDecMethodsFor(p printFn, t types.Type) {
 
 	case *types.Named:
 		if g.tset.isProto(x) || g.tset.automarshals.At(x) != nil || g.tset.implementsAutoMarshal(x) || g.tset.hasMarshalBinary(x) {
-			// Types implementing proto.Marshal, weaver.AutoMarshal, or
+			// Types implementing proto.Marshal, weft.AutoMarshal, or
 			// encoding.BinaryMarshaler and encoding.BinaryUnmarshaler don't
 			// need encoding or decoding methods. Instead, we call methods
 			// directly on a codegen.Encoder or codegen.Decoder (e.g.,
@@ -2511,9 +2524,9 @@ func (g *generator) generateEncDecMethodsFor(p printFn, t types.Type) {
 	}
 }
 
-// weaver imports and returns the weaver package.
+// weaver imports and returns the root package (named weft).
 func (g *generator) weaver() importPkg {
-	return g.tset.importPackage(weaverPackagePath, "weaver")
+	return g.tset.importPackage(weaverPackagePath, "weft")
 }
 
 // codegen imports and returns the codegen package.
@@ -2566,6 +2579,7 @@ func formatType(currentPackage *packages.Package, t types.Type) string {
 func sanitize(t types.Type) string {
 	var sanitize func(types.Type) string
 	sanitize = func(t types.Type) string {
+		t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 		switch x := t.(type) {
 		case *types.Pointer:
 			return fmt.Sprintf("ptr_%s", sanitize(x.Elem()))
@@ -2640,6 +2654,7 @@ func sanitize(t types.Type) string {
 // int bool`, then TypeString returns "int" for both the named type int and the
 // primitive type int.
 func uniqueName(t types.Type) string {
+	t = types.Unalias(t) // go/types returns *types.Alias since go 1.23.
 	switch x := t.(type) {
 	case *types.Pointer:
 		return fmt.Sprintf("*%s", uniqueName(x.Elem()))

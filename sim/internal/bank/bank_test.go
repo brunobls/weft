@@ -21,9 +21,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/sim"
-	"github.com/ServiceWeaver/weaver/sim/internal/bank"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/sim"
+	"github.com/brunobls/weft/sim/internal/bank"
 )
 
 // fakestore is a fake implementation of the Store component that uses an
@@ -53,7 +53,7 @@ func (f *fakestore) Add(_ context.Context, key string, delta int) (int, error) {
 // BankWorkload is a workload that performs random deposits and withdrawals. It
 // checks the invariant that bank account balances can never be negative.
 type BankWorkload struct {
-	bank weaver.Ref[bank.Bank]
+	bank weft.Ref[bank.Bank]
 }
 
 // Init implements the sim.Workload interface.

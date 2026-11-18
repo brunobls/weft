@@ -15,9 +15,9 @@
 package ssh
 
 import (
-	"github.com/ServiceWeaver/weaver/internal/status"
-	itool "github.com/ServiceWeaver/weaver/internal/tool"
-	"github.com/ServiceWeaver/weaver/runtime/tool"
+	"github.com/brunobls/weft/internal/status"
+	itool "github.com/brunobls/weft/internal/tool"
+	"github.com/brunobls/weft/runtime/tool"
 )
 
 var (
@@ -25,7 +25,7 @@ var (
 		"deploy":    &deployCmd,
 		"logs":      tool.LogsCmd(&logsSpec),
 		"dashboard": status.DashboardCommand(dashboardSpec),
-		"version":   itool.VersionCmd("weaver ssh"),
+		"version":   itool.VersionCmd("weft ssh"),
 
 		// Hidden commands.
 		"babysitter": &babysitterCmd,

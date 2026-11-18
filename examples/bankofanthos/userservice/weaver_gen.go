@@ -7,8 +7,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/runtime/codegen"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 	"reflect"
@@ -16,14 +16,14 @@ import (
 
 func init() {
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/examples/bankofanthos/userservice/T",
+		Name:  "github.com/brunobls/weft/examples/bankofanthos/userservice/T",
 		Iface: reflect.TypeOf((*T)(nil)).Elem(),
 		Impl:  reflect.TypeOf(impl{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return t_local_stub{impl: impl.(T), tracer: tracer, createUserMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/bankofanthos/userservice/T", Method: "CreateUser", Remote: false, Generated: true}), loginMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/bankofanthos/userservice/T", Method: "Login", Remote: false, Generated: true})}
+			return t_local_stub{impl: impl.(T), tracer: tracer, createUserMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/bankofanthos/userservice/T", Method: "CreateUser", Remote: false, Generated: true}), loginMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/bankofanthos/userservice/T", Method: "Login", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return t_client_stub{stub: stub, createUserMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/bankofanthos/userservice/T", Method: "CreateUser", Remote: true, Generated: true}), loginMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/bankofanthos/userservice/T", Method: "Login", Remote: true, Generated: true})}
+			return t_client_stub{stub: stub, createUserMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/bankofanthos/userservice/T", Method: "CreateUser", Remote: true, Generated: true}), loginMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/bankofanthos/userservice/T", Method: "Login", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return t_server_stub{impl: impl.(T), addLoad: addLoad}
@@ -35,11 +35,11 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[T] = (*impl)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[T] = (*impl)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*impl)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*impl)(nil)
 
 // Local stub implementations.
 
@@ -121,7 +121,7 @@ func (s t_client_stub) CreateUser(ctx context.Context, a0 CreateUserRequest) (er
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -135,7 +135,7 @@ func (s t_client_stub) CreateUser(ctx context.Context, a0 CreateUserRequest) (er
 
 	// Preallocate a buffer of the right size.
 	size := 0
-	size += serviceweaver_size_CreateUserRequest_4ef79cd1(&a0)
+	size += serviceweaver_size_CreateUserRequest_261f9f09(&a0)
 	enc := codegen.NewEncoder()
 	enc.Reset(size)
 
@@ -149,7 +149,7 @@ func (s t_client_stub) CreateUser(ctx context.Context, a0 CreateUserRequest) (er
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -176,7 +176,7 @@ func (s t_client_stub) Login(ctx context.Context, a0 LoginRequest) (r0 string, e
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -190,7 +190,7 @@ func (s t_client_stub) Login(ctx context.Context, a0 LoginRequest) (r0 string, e
 
 	// Preallocate a buffer of the right size.
 	size := 0
-	size += serviceweaver_size_LoginRequest_cbd66e76(&a0)
+	size += serviceweaver_size_LoginRequest_fc0fa35b(&a0)
 	enc := codegen.NewEncoder()
 	enc.Reset(size)
 
@@ -204,7 +204,7 @@ func (s t_client_stub) Login(ctx context.Context, a0 LoginRequest) (r0 string, e
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -215,26 +215,26 @@ func (s t_client_stub) Login(ctx context.Context, a0 LoginRequest) (r0 string, e
 	return
 }
 
-// Note that "weaver generate" will always generate the error message below.
+// Note that "weft generate" will always generate the error message below.
 // Everything is okay. The error message is only relevant if you see it when
 // you run "go build" or "go run".
 var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`
 
-ERROR: You generated this file with 'weaver generate' (devel) (codegen
+ERROR: You generated this file with 'weft generate' (devel) (codegen
 version v0.24.0). The generated code is incompatible with the version of the
-github.com/ServiceWeaver/weaver module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weft module
 version can be found in your go.mod file or by running the following command.
 
-    go list -m github.com/ServiceWeaver/weaver
+    go list -m github.com/brunobls/weft
 
-We recommend updating the weaver module and the 'weaver generate' command by
+We recommend updating the weft module and the 'weft generate' command by
 running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weft@latest
 
-Then, re-run 'weaver generate' and re-build your code. If the problem persists,
-please file an issue at https://github.com/ServiceWeaver/weaver/issues.
+Then, re-run 'weft generate' and re-build your code. If the problem persists,
+please file an issue at https://github.com/brunobls/weft/issues.
 
 `)
 
@@ -333,7 +333,7 @@ func (s t_reflect_stub) Login(ctx context.Context, a0 LoginRequest) (r0 string, 
 var _ codegen.AutoMarshal = (*CreateUserRequest)(nil)
 
 type __is_CreateUserRequest[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	Username       string
 	Password       string
 	PasswordRepeat string
@@ -386,7 +386,7 @@ func (x *CreateUserRequest) WeaverUnmarshal(dec *codegen.Decoder) {
 var _ codegen.AutoMarshal = (*LoginRequest)(nil)
 
 type __is_LoginRequest[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	Username string
 	Password string
 }] struct{}
@@ -412,7 +412,7 @@ func (x *LoginRequest) WeaverUnmarshal(dec *codegen.Decoder) {
 var _ codegen.AutoMarshal = (*User)(nil)
 
 type __is_User[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	AccountID string "gorm:\"column:accountid;primary_key\""
 	Username  string "gorm:\"unique;not null\""
 	Passhash  []byte "gorm:\"not null\""
@@ -487,9 +487,9 @@ func serviceweaver_dec_slice_byte_87461245(dec *codegen.Decoder) []byte {
 
 // Size implementations.
 
-// serviceweaver_size_CreateUserRequest_4ef79cd1 returns the size (in bytes) of the serialization
+// serviceweaver_size_CreateUserRequest_261f9f09 returns the size (in bytes) of the serialization
 // of the provided type.
-func serviceweaver_size_CreateUserRequest_4ef79cd1(x *CreateUserRequest) int {
+func serviceweaver_size_CreateUserRequest_261f9f09(x *CreateUserRequest) int {
 	size := 0
 	size += 0
 	size += (4 + len(x.Username))
@@ -506,9 +506,9 @@ func serviceweaver_size_CreateUserRequest_4ef79cd1(x *CreateUserRequest) int {
 	return size
 }
 
-// serviceweaver_size_LoginRequest_cbd66e76 returns the size (in bytes) of the serialization
+// serviceweaver_size_LoginRequest_fc0fa35b returns the size (in bytes) of the serialization
 // of the provided type.
-func serviceweaver_size_LoginRequest_cbd66e76(x *LoginRequest) int {
+func serviceweaver_size_LoginRequest_fc0fa35b(x *LoginRequest) int {
 	size := 0
 	size += 0
 	size += (4 + len(x.Username))

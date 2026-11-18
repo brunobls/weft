@@ -23,9 +23,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/runtime/colors"
-	"github.com/ServiceWeaver/weaver/runtime/logging"
-	dtool "github.com/ServiceWeaver/weaver/runtime/tool"
+	"github.com/brunobls/weft/runtime/colors"
+	"github.com/brunobls/weft/runtime/logging"
+	dtool "github.com/brunobls/weft/runtime/tool"
 )
 
 // StatusCommand returns a "status" subcommand that pretty prints the status of

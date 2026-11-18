@@ -13,7 +13,7 @@
 // limitations under the License.
 
 syntax = "proto3";
-option go_package = "github.com/ServiceWeaver/weaver/internal/tool/single";
+option go_package = "github.com/brunobls/weft/internal/tool/single";
 
 package single;
 import "runtime/protos/config.proto";

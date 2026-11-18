@@ -7,8 +7,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/runtime/codegen"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 	"reflect"
@@ -16,14 +16,14 @@ import (
 
 func init() {
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/examples/bankofanthos/contacts/T",
+		Name:  "github.com/brunobls/weft/examples/bankofanthos/contacts/T",
 		Iface: reflect.TypeOf((*T)(nil)).Elem(),
 		Impl:  reflect.TypeOf(impl{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return t_local_stub{impl: impl.(T), tracer: tracer, addContactMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/bankofanthos/contacts/T", Method: "AddContact", Remote: false, Generated: true}), getContactsMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/bankofanthos/contacts/T", Method: "GetContacts", Remote: false, Generated: true})}
+			return t_local_stub{impl: impl.(T), tracer: tracer, addContactMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/bankofanthos/contacts/T", Method: "AddContact", Remote: false, Generated: true}), getContactsMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/bankofanthos/contacts/T", Method: "GetContacts", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return t_client_stub{stub: stub, addContactMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/bankofanthos/contacts/T", Method: "AddContact", Remote: true, Generated: true}), getContactsMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/examples/bankofanthos/contacts/T", Method: "GetContacts", Remote: true, Generated: true})}
+			return t_client_stub{stub: stub, addContactMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/bankofanthos/contacts/T", Method: "AddContact", Remote: true, Generated: true}), getContactsMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/examples/bankofanthos/contacts/T", Method: "GetContacts", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return t_server_stub{impl: impl.(T), addLoad: addLoad}
@@ -35,11 +35,11 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[T] = (*impl)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[T] = (*impl)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*impl)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*impl)(nil)
 
 // Local stub implementations.
 
@@ -121,7 +121,7 @@ func (s t_client_stub) AddContact(ctx context.Context, a0 string, a1 Contact) (e
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -136,7 +136,7 @@ func (s t_client_stub) AddContact(ctx context.Context, a0 string, a1 Contact) (e
 	// Preallocate a buffer of the right size.
 	size := 0
 	size += (4 + len(a0))
-	size += serviceweaver_size_Contact_15811618(&a1)
+	size += serviceweaver_size_Contact_f25159af(&a1)
 	enc := codegen.NewEncoder()
 	enc.Reset(size)
 
@@ -151,7 +151,7 @@ func (s t_client_stub) AddContact(ctx context.Context, a0 string, a1 Contact) (e
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -178,7 +178,7 @@ func (s t_client_stub) GetContacts(ctx context.Context, a0 string) (r0 []Contact
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -206,37 +206,37 @@ func (s t_client_stub) GetContacts(ctx context.Context, a0 string) (r0 []Contact
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
 	// Decode the results.
 	dec := codegen.NewDecoder(results)
-	r0 = serviceweaver_dec_slice_Contact_d00a3378(dec)
+	r0 = serviceweaver_dec_slice_Contact_471dce5a(dec)
 	err = dec.Error()
 	return
 }
 
-// Note that "weaver generate" will always generate the error message below.
+// Note that "weft generate" will always generate the error message below.
 // Everything is okay. The error message is only relevant if you see it when
 // you run "go build" or "go run".
 var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`
 
-ERROR: You generated this file with 'weaver generate' (devel) (codegen
+ERROR: You generated this file with 'weft generate' (devel) (codegen
 version v0.24.0). The generated code is incompatible with the version of the
-github.com/ServiceWeaver/weaver module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weft module
 version can be found in your go.mod file or by running the following command.
 
-    go list -m github.com/ServiceWeaver/weaver
+    go list -m github.com/brunobls/weft
 
-We recommend updating the weaver module and the 'weaver generate' command by
+We recommend updating the weft module and the 'weft generate' command by
 running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weft@latest
 
-Then, re-run 'weaver generate' and re-build your code. If the problem persists,
-please file an issue at https://github.com/ServiceWeaver/weaver/issues.
+Then, re-run 'weft generate' and re-build your code. If the problem persists,
+please file an issue at https://github.com/brunobls/weft/issues.
 
 `)
 
@@ -308,7 +308,7 @@ func (s t_server_stub) getContacts(ctx context.Context, args []byte) (res []byte
 
 	// Encode the results.
 	enc := codegen.NewEncoder()
-	serviceweaver_enc_slice_Contact_d00a3378(enc, r0)
+	serviceweaver_enc_slice_Contact_471dce5a(enc, r0)
 	enc.Error(appErr)
 	return enc.Data(), nil
 }
@@ -337,7 +337,7 @@ func (s t_reflect_stub) GetContacts(ctx context.Context, a0 string) (r0 []Contac
 var _ codegen.AutoMarshal = (*Contact)(nil)
 
 type __is_Contact[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	Username   string "gorm:\"not null\""
 	Label      string "gorm:\"not null\""
 	AccountNum string "gorm:\"not null\""
@@ -371,7 +371,7 @@ func (x *Contact) WeaverUnmarshal(dec *codegen.Decoder) {
 
 // Encoding/decoding implementations.
 
-func serviceweaver_enc_slice_Contact_d00a3378(enc *codegen.Encoder, arg []Contact) {
+func serviceweaver_enc_slice_Contact_471dce5a(enc *codegen.Encoder, arg []Contact) {
 	if arg == nil {
 		enc.Len(-1)
 		return
@@ -382,7 +382,7 @@ func serviceweaver_enc_slice_Contact_d00a3378(enc *codegen.Encoder, arg []Contac
 	}
 }
 
-func serviceweaver_dec_slice_Contact_d00a3378(dec *codegen.Decoder) []Contact {
+func serviceweaver_dec_slice_Contact_471dce5a(dec *codegen.Decoder) []Contact {
 	n := dec.Len()
 	if n == -1 {
 		return nil
@@ -396,9 +396,9 @@ func serviceweaver_dec_slice_Contact_d00a3378(dec *codegen.Decoder) []Contact {
 
 // Size implementations.
 
-// serviceweaver_size_Contact_15811618 returns the size (in bytes) of the serialization
+// serviceweaver_size_Contact_f25159af returns the size (in bytes) of the serialization
 // of the provided type.
-func serviceweaver_size_Contact_15811618(x *Contact) int {
+func serviceweaver_size_Contact_f25159af(x *Contact) int {
 	size := 0
 	size += 0
 	size += (4 + len(x.Username))

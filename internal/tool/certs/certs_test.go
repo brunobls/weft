@@ -19,7 +19,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/internal/tool/certs"
+	"github.com/brunobls/weft/internal/tool/certs"
 	"github.com/google/go-cmp/cmp"
 )
 

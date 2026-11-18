@@ -30,19 +30,19 @@ import (
 	"sync/atomic"
 	"syscall"
 
-	"github.com/ServiceWeaver/weaver/internal/config"
-	"github.com/ServiceWeaver/weaver/internal/control"
-	"github.com/ServiceWeaver/weaver/internal/net/call"
-	"github.com/ServiceWeaver/weaver/internal/register"
-	"github.com/ServiceWeaver/weaver/internal/traceio"
-	"github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/runtime/deployers"
-	"github.com/ServiceWeaver/weaver/runtime/logging"
-	"github.com/ServiceWeaver/weaver/runtime/metrics"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
-	"github.com/ServiceWeaver/weaver/runtime/retry"
-	"github.com/ServiceWeaver/weaver/runtime/version"
+	"github.com/brunobls/weft/internal/config"
+	"github.com/brunobls/weft/internal/control"
+	"github.com/brunobls/weft/internal/net/call"
+	"github.com/brunobls/weft/internal/register"
+	"github.com/brunobls/weft/internal/traceio"
+	"github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/runtime/deployers"
+	"github.com/brunobls/weft/runtime/logging"
+	"github.com/brunobls/weft/runtime/metrics"
+	"github.com/brunobls/weft/runtime/protos"
+	"github.com/brunobls/weft/runtime/retry"
+	"github.com/brunobls/weft/runtime/version"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/exp/maps"
 	"golang.org/x/sync/errgroup"
@@ -348,7 +348,7 @@ func (w *RemoteWeavelet) GetIntf(t reflect.Type) (any, error) {
 func (w *RemoteWeavelet) getIntf(t reflect.Type, requester string) (any, error) {
 	c, ok := w.componentsByIntf[t]
 	if !ok {
-		return nil, fmt.Errorf("component of type %v was not registered; maybe you forgot to run weaver generate", t)
+		return nil, fmt.Errorf("component of type %v was not registered; maybe you forgot to run weft generate", t)
 	}
 
 	if r, ok := w.redirects[c.reg.Name]; ok {
@@ -425,7 +425,7 @@ func (w *RemoteWeavelet) redirect(requester string, c *component, target, addres
 func (w *RemoteWeavelet) GetImpl(t reflect.Type) (any, error) {
 	c, ok := w.componentsByImpl[t]
 	if !ok {
-		return nil, fmt.Errorf("component implementation of type %v was not registered; maybe you forgot to run weaver generate", t)
+		return nil, fmt.Errorf("component implementation of type %v was not registered; maybe you forgot to run weft generate", t)
 	}
 
 	c.implInit.Do(func() {
@@ -720,7 +720,7 @@ func (w *RemoteWeavelet) getComponent(name string) (*component, error) {
 	// read-only.
 	c, ok := w.componentsByName[name]
 	if !ok {
-		return nil, fmt.Errorf("component %q was not registered; maybe you forgot to run weaver generate", name)
+		return nil, fmt.Errorf("component %q was not registered; maybe you forgot to run weft generate", name)
 	}
 	return c, nil
 }

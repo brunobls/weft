@@ -22,9 +22,9 @@ import (
 	"strings"
 	"sync"
 
-	"github.com/ServiceWeaver/weaver/internal/config"
-	"github.com/ServiceWeaver/weaver/runtime"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/internal/config"
+	"github.com/brunobls/weft/runtime"
+	"github.com/brunobls/weft/runtime/protos"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -63,7 +63,7 @@ type Registration struct {
 	Iface     reflect.Type // interface type for the component
 	Impl      reflect.Type // implementation type (struct)
 	Routed    bool         // True if calls to this component should be routed
-	Listeners []string     // the names of any weaver.Listeners
+	Listeners []string     // the names of any weft.Listeners
 	NoRetry   []int        // indices of methods that should not be retried
 
 	// Functions that return different types of stubs.
@@ -161,7 +161,7 @@ func ComponentConfigValidator(path, cfg string) error {
 	if componentConfig == nil {
 		return fmt.Errorf("unexpected configuration for component %v "+
 			"that does not support configuration (add a "+
-			"weaver.WithConfig[configType] embedded field to %v)",
+			"weft.WithConfig[configType] embedded field to %v)",
 			info.Name, info.Iface)
 	}
 	config := &protos.AppConfig{Sections: map[string]string{path: cfg}}
@@ -185,9 +185,9 @@ func CallGraph() []CallEdge {
 	for _, reg := range Registered() {
 		impl := reg.Impl
 		for i, n := 0, impl.NumField(); i < n; i++ {
-			// Handle field with type weaver.Ref[T].
+			// Handle field with type weft.Ref[T].
 			ref := impl.Field(i).Type
-			if ref.PkgPath() == "github.com/ServiceWeaver/weaver" &&
+			if ref.PkgPath() == "github.com/brunobls/weft" &&
 				strings.HasPrefix(ref.Name(), "Ref[") &&
 				ref.Kind() == reflect.Struct &&
 				ref.NumField() == 1 &&

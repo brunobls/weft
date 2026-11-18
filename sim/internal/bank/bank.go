@@ -35,7 +35,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 // A Bank is a persistent collection of user bank account balances.
@@ -55,8 +55,8 @@ type Bank interface {
 }
 
 type bank struct {
-	weaver.Implements[Bank]
-	store weaver.Ref[Store]
+	weft.Implements[Bank]
+	store weft.Ref[Store]
 }
 
 // Deposit implements the Bank interface.

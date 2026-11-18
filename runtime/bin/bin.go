@@ -24,11 +24,12 @@ import (
 	"fmt"
 	"os"
 	"regexp"
+	"runtime/debug"
 	"strconv"
 
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/runtime/graph"
-	"github.com/ServiceWeaver/weaver/runtime/version"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/runtime/graph"
+	"github.com/brunobls/weft/runtime/version"
 	"golang.org/x/exp/maps"
 	"golang.org/x/exp/slices"
 )
@@ -104,7 +105,7 @@ func ReadComponentGraph(file string) ([]string, graph.Graph, error) {
 	es := codegen.ExtractEdges(data)
 
 	// Assign node numbers to components in some deterministic order.
-	const mainComponent = "github.com/ServiceWeaver/weaver/Main"
+	const mainComponent = "github.com/brunobls/weft/Main"
 	// NOTE: initially, all node numbers are zero.
 	nodeMap := map[string]graph.Node{mainComponent: 0}
 	for _, e := range es {
@@ -173,14 +174,20 @@ func extractModuleVersion(filename string) (string, error) {
 		return "", err
 	}
 
-	// Find the Service Weaver module.
-	const weaverModule = "github.com/ServiceWeaver/weaver"
+	return moduleVersion(info)
+}
+
+// moduleVersion returns the version of the Weft module recorded in info.
+func moduleVersion(info *debug.BuildInfo) (string, error) {
+	const weftModule = "github.com/brunobls/weft"
 	for _, m := range append(info.Deps, &info.Main) {
-		if m.Path == weaverModule {
+		if m.Path == weftModule {
 			return m.Version, nil
 		}
 	}
-	return "", fmt.Errorf("Service Weaver module was not linked into the application binary: that's an error")
+	return "", fmt.Errorf("the Weft module (%s) was not linked into the application binary. "+
+		"If the application was built with the original Service Weaver module, migrate it to Weft "+
+		"(see docs/migrating-from-service-weaver.md), regenerate its code with 'weft generate' and rebuild it", weftModule)
 }
 
 // extractDeployerVersion returns the deployer API version embedded

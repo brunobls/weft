@@ -7,8 +7,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/runtime/codegen"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 	"reflect"
@@ -16,16 +16,16 @@ import (
 
 func init() {
 	codegen.Register(codegen.Registration{
-		Name:      "github.com/ServiceWeaver/weaver/internal/tool/generate/example/A",
+		Name:      "github.com/brunobls/weft/internal/tool/generate/example/A",
 		Iface:     reflect.TypeOf((*A)(nil)).Elem(),
 		Impl:      reflect.TypeOf(a{}),
 		Routed:    true,
 		Listeners: []string{"lis2", "renamed_listener"},
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return a_local_stub{impl: impl.(A), tracer: tracer, m1Metrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/internal/tool/generate/example/A", Method: "M1", Remote: false, Generated: true}), m2Metrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/internal/tool/generate/example/A", Method: "M2", Remote: false, Generated: true})}
+			return a_local_stub{impl: impl.(A), tracer: tracer, m1Metrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/internal/tool/generate/example/A", Method: "M1", Remote: false, Generated: true}), m2Metrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/internal/tool/generate/example/A", Method: "M2", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return a_client_stub{stub: stub, m1Metrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/internal/tool/generate/example/A", Method: "M1", Remote: true, Generated: true}), m2Metrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/internal/tool/generate/example/A", Method: "M2", Remote: true, Generated: true})}
+			return a_client_stub{stub: stub, m1Metrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/internal/tool/generate/example/A", Method: "M1", Remote: true, Generated: true}), m2Metrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/internal/tool/generate/example/A", Method: "M2", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return a_server_stub{impl: impl.(A), addLoad: addLoad}
@@ -33,19 +33,19 @@ func init() {
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return a_reflect_stub{caller: caller}
 		},
-		RefData: "⟦627f661b:wEaVeReDgE:github.com/ServiceWeaver/weaver/internal/tool/generate/example/A→github.com/ServiceWeaver/weaver/internal/tool/generate/example/B⟧\n⟦26168bd7:wEaVeRlIsTeNeRs:github.com/ServiceWeaver/weaver/internal/tool/generate/example/A→lis2,renamed_listener⟧\n",
+		RefData: "⟦2e884025:wEaVeReDgE:github.com/brunobls/weft/internal/tool/generate/example/A→github.com/brunobls/weft/internal/tool/generate/example/B⟧\n⟦1c6c83eb:wEaVeRlIsTeNeRs:github.com/brunobls/weft/internal/tool/generate/example/A→lis2,renamed_listener⟧\n",
 	})
 	codegen.Register(codegen.Registration{
-		Name:      "github.com/ServiceWeaver/weaver/internal/tool/generate/example/B",
+		Name:      "github.com/brunobls/weft/internal/tool/generate/example/B",
 		Iface:     reflect.TypeOf((*B)(nil)).Elem(),
 		Impl:      reflect.TypeOf(b{}),
 		Routed:    true,
 		Listeners: []string{"lis2", "renamed_listener"},
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return b_local_stub{impl: impl.(B), tracer: tracer, m1Metrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/internal/tool/generate/example/B", Method: "M1", Remote: false, Generated: true}), m2Metrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/internal/tool/generate/example/B", Method: "M2", Remote: false, Generated: true})}
+			return b_local_stub{impl: impl.(B), tracer: tracer, m1Metrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/internal/tool/generate/example/B", Method: "M1", Remote: false, Generated: true}), m2Metrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/internal/tool/generate/example/B", Method: "M2", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return b_client_stub{stub: stub, m1Metrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/internal/tool/generate/example/B", Method: "M1", Remote: true, Generated: true}), m2Metrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/internal/tool/generate/example/B", Method: "M2", Remote: true, Generated: true})}
+			return b_client_stub{stub: stub, m1Metrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/internal/tool/generate/example/B", Method: "M1", Remote: true, Generated: true}), m2Metrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/internal/tool/generate/example/B", Method: "M2", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return b_server_stub{impl: impl.(B), addLoad: addLoad}
@@ -53,17 +53,17 @@ func init() {
 		ReflectStubFn: func(caller func(string, context.Context, []any, []any) error) any {
 			return b_reflect_stub{caller: caller}
 		},
-		RefData: "⟦6971bce2:wEaVeReDgE:github.com/ServiceWeaver/weaver/internal/tool/generate/example/B→github.com/ServiceWeaver/weaver/internal/tool/generate/example/A⟧\n⟦c9c43570:wEaVeRlIsTeNeRs:github.com/ServiceWeaver/weaver/internal/tool/generate/example/B→lis2,renamed_listener⟧\n",
+		RefData: "⟦700b3f5a:wEaVeReDgE:github.com/brunobls/weft/internal/tool/generate/example/B→github.com/brunobls/weft/internal/tool/generate/example/A⟧\n⟦ac57e5b8:wEaVeRlIsTeNeRs:github.com/brunobls/weft/internal/tool/generate/example/B→lis2,renamed_listener⟧\n",
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[A] = (*a)(nil)
-var _ weaver.InstanceOf[B] = (*b)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[A] = (*a)(nil)
+var _ weft.InstanceOf[B] = (*b)(nil)
 
-// weaver.Router checks.
-var _ weaver.RoutedBy[router] = (*a)(nil)
-var _ weaver.RoutedBy[router] = (*b)(nil)
+// weft.Router checks.
+var _ weft.RoutedBy[router] = (*a)(nil)
+var _ weft.RoutedBy[router] = (*b)(nil)
 
 // Component "a", router "router" checks.
 var _ func(context.Context, int, string, bool, [10]int, []string, map[bool]int, message) routingKey = (&router{}).M1 // routed
@@ -202,7 +202,7 @@ func (s a_client_stub) M1(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -234,7 +234,7 @@ func (s a_client_stub) M1(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -262,7 +262,7 @@ func (s a_client_stub) M2(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -294,7 +294,7 @@ func (s a_client_stub) M2(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -331,7 +331,7 @@ func (s b_client_stub) M1(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -363,7 +363,7 @@ func (s b_client_stub) M1(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -391,7 +391,7 @@ func (s b_client_stub) M2(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -423,7 +423,7 @@ func (s b_client_stub) M2(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -434,26 +434,26 @@ func (s b_client_stub) M2(ctx context.Context, a0 int, a1 string, a2 bool, a3 [1
 	return
 }
 
-// Note that "weaver generate" will always generate the error message below.
+// Note that "weft generate" will always generate the error message below.
 // Everything is okay. The error message is only relevant if you see it when
 // you run "go build" or "go run".
 var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`
 
-ERROR: You generated this file with 'weaver generate' (devel) (codegen
+ERROR: You generated this file with 'weft generate' (devel) (codegen
 version v0.24.0). The generated code is incompatible with the version of the
-github.com/ServiceWeaver/weaver module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weft module
 version can be found in your go.mod file or by running the following command.
 
-    go list -m github.com/ServiceWeaver/weaver
+    go list -m github.com/brunobls/weft
 
-We recommend updating the weaver module and the 'weaver generate' command by
+We recommend updating the weft module and the 'weft generate' command by
 running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weft@latest
 
-Then, re-run 'weaver generate' and re-build your code. If the problem persists,
-please file an issue at https://github.com/ServiceWeaver/weaver/issues.
+Then, re-run 'weft generate' and re-build your code. If the problem persists,
+please file an issue at https://github.com/brunobls/weft/issues.
 
 `)
 
@@ -696,7 +696,7 @@ func (s b_reflect_stub) M2(ctx context.Context, a0 int, a1 string, a2 bool, a3 [
 var _ codegen.AutoMarshal = (*message)(nil)
 
 type __is_message[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	a int
 	b string
 	c bool
@@ -797,7 +797,7 @@ func serviceweaver_dec_map_bool_int_acb668fa(dec *codegen.Decoder) map[bool]int 
 var _ codegen.AutoMarshal = (*pair)(nil)
 
 type __is_pair[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	a message
 	b message
 }] struct{}
@@ -823,7 +823,7 @@ func (x *pair) WeaverUnmarshal(dec *codegen.Decoder) {
 var _ codegen.AutoMarshal = (*routingKey)(nil)
 
 type __is_routingKey[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	a int
 	b string
 	c float32

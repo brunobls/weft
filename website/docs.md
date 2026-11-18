@@ -11,9 +11,9 @@ single command.
 
 ```console
 $ go run .                       # Run locally.
-$ weaver ssh deploy weaver.toml  # Run on multiple machines.
-$ weaver gke deploy weaver.toml  # Run on Google Cloud.
-$ weaver kube deploy weaver.toml # Run on Kubernetes.
+$ weaver ssh deploy weft.toml  # Run on multiple machines.
+$ weaver gke deploy weft.toml  # Run on Google Cloud.
+$ weaver kube deploy weft.toml # Run on Kubernetes.
 ```
 
 A Service Weaver application is composed of a number of **components**. A
@@ -38,14 +38,21 @@ section for a tutorial on how to write Service Weaver applications.
 
 # Installation
 
-Ensure you have [Go installed][go_install], version 1.21 or higher. Then, run
-the following to install the `weaver` command:
+Ensure you have [Go installed][go_install], version 1.26 or higher. Then, run
+the following to install the `weft` command:
 
 ```console
-$ go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+$ go install github.com/brunobls/weft/cmd/weft@latest
 ```
 
-`go install` installs the `weaver` command to `$GOBIN`, which defaults to
+Weft also provides `weaver`, an alias of `weft` that the examples below still
+use. Install it with `go install github.com/brunobls/weft/cmd/weaver@latest`.
+Beware that this overwrites a `weaver` installed from Service Weaver in
+`$GOBIN` (and the other way around); `go version -m "$(command -v weaver)"`
+shows which module the active `weaver` was built from. See
+[Migrating from Service Weaver](https://github.com/brunobls/weft/blob/main/docs/migrating-from-service-weaver.md).
+
+`go install` installs the command to `$GOBIN`, which defaults to
 `$HOME/go/bin`. Make sure this directory is included in your `PATH`. You can
 accomplish this, for example, by adding the following to your `.bashrc` and
 running `source ~/.bashrc`:
@@ -54,17 +61,19 @@ running `source ~/.bashrc`:
 $ export PATH="$PATH:$HOME/go/bin"
 ```
 
-If the installation was successful, you should be able to run `weaver --help`:
+If the installation was successful, you should be able to run `weft --help` (or `weaver --help`, if you also
+installed the `weaver` alias, which prints the same text with `weaver` as the
+command name):
 
 ```console
-$ weaver --help
+$ weft --help
 USAGE
 
-  weaver generate                 // weaver code generator
-  weaver version                  // show weaver version
-  weaver single    <command> ...  // for single process deployments
-  weaver multi     <command> ...  // for multiprocess deployments
-  weaver ssh       <command> ...  // for multimachine deployments
+  weft generate                 // code generator
+  weft version                  // show version
+  weft single    <command> ...  // for single process deployments
+  weft multi     <command> ...  // for multiprocess deployments
+  weft ssh       <command> ...  // for multimachine deployments
   ...
 ```
 
@@ -81,7 +90,7 @@ commands on macOS, you may want to prefix the install command with
 `export CGO_ENABLED=1; export CC=gcc`.
 For example:
 ```console
-$ export CGO_ENABLED=1; export CC=gcc; go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+$ export CGO_ENABLED=1; export CC=gcc; go install github.com/brunobls/weft/cmd/weft@latest
 ```
 
 # Step by Step Tutorial
@@ -118,32 +127,32 @@ import (
     "fmt"
     "log"
 
-    "github.com/ServiceWeaver/weaver"
+    "github.com/brunobls/weft"
 )
 
 func main() {
-    if err := weaver.Run(context.Background(), serve); err != nil {
+    if err := weft.Run(context.Background(), serve); err != nil {
         log.Fatal(err)
     }
 }
 
-// app is the main component of the application. weaver.Run creates
+// app is the main component of the application. weft.Run creates
 // it and passes it to serve.
 type app struct{
-    weaver.Implements[weaver.Main]
+    weft.Implements[weft.Main]
 }
 
-// serve is called by weaver.Run and contains the body of the application.
+// serve is called by weft.Run and contains the body of the application.
 func serve(context.Context, *app) error {
     fmt.Println("Hello")
     return nil
 }
 ```
 
-`weaver.Run(...)` initializes and runs the Service Weaver application. In
-particular, `weaver.Run` finds the main component, creates it, and passes it to
+`weft.Run(...)` initializes and runs the Service Weaver application. In
+particular, `weft.Run` finds the main component, creates it, and passes it to
 a supplied function. In this example,`app` is the main component since it
-contains a `weaver.Implements[weaver.Main]` field.
+contains a `weft.Implements[weft.Main]` field.
 
 Before we build and run the app, we need to run Service Weaver's code generator,
 called `weaver generate`. `weaver generate` writes a `weaver_gen.go` file that
@@ -184,7 +193,7 @@ package main
 import (
     "context"
 
-    "github.com/ServiceWeaver/weaver"
+    "github.com/brunobls/weft"
 )
 
 // Reverser component.
@@ -194,7 +203,7 @@ type Reverser interface {
 
 // Implementation of the Reverser component.
 type reverser struct{
-    weaver.Implements[Reverser]
+    weft.Implements[Reverser]
 }
 
 func (r *reverser) Reverse(_ context.Context, s string) (string, error) {
@@ -210,7 +219,7 @@ func (r *reverser) Reverse(_ context.Context, s string) (string, error) {
 The `Reverser` component is represented by a `Reverser` interface with,
 unsurprisingly, a `Reverse` method that reverses strings. The `reverser` struct
 is our implementation of the `Reverser` component (as indicated by the
-`weaver.Implements[Reverser]` field it contains).
+`weft.Implements[Reverser]` field it contains).
 
 Next, edit the app component in `main.go` to use the `Reverser` component:
 
@@ -222,18 +231,18 @@ import (
     "fmt"
     "log"
 
-    "github.com/ServiceWeaver/weaver"
+    "github.com/brunobls/weft"
 )
 
 func main() {
-    if err := weaver.Run(context.Background(), serve); err != nil {
+    if err := weft.Run(context.Background(), serve); err != nil {
         log.Fatal(err)
     }
 }
 
 type app struct{
-    weaver.Implements[weaver.Main]
-    reverser weaver.Ref[Reverser]
+    weft.Implements[weft.Main]
+    reverser weft.Ref[Reverser]
 }
 
 func serve(ctx context.Context, app *app) error {
@@ -248,14 +257,14 @@ func serve(ctx context.Context, app *app) error {
 }
 ```
 
-The `app` struct has a new field of type `weaver.Ref[Reverser]` that provides
+The `app` struct has a new field of type `weft.Ref[Reverser]` that provides
 access to the `Reverser` component.
 
 In general, if component X uses component Y, the implementation struct for X
-should contain a field of type `weaver.Ref[Y]`. When an X component instance is
+should contain a field of type `weft.Ref[Y]`. When an X component instance is
 created, Service Weaver will automatically create the Y component as well and
-will fill the `weaver.Ref[Y]` field with a handle to the Y component.  The
-implementation of X can call `Get()` on the `weaver.Ref[Y]` field to get the Y
+will fill the `weft.Ref[Y]` field with a handle to the Y component.  The
+implementation of X can call `Get()` on the `weft.Ref[Y]` field to get the Y
 component, as demonstrated by the following lines in the preceding examples:
 
 ```go
@@ -278,19 +287,19 @@ import (
     "log"
     "net/http"
 
-    "github.com/ServiceWeaver/weaver"
+    "github.com/brunobls/weft"
 )
 
 func main() {
-    if err := weaver.Run(context.Background(), serve); err != nil {
+    if err := weft.Run(context.Background(), serve); err != nil {
         log.Fatal(err)
     }
 }
 
 type app struct {
-    weaver.Implements[weaver.Main]
-    reverser weaver.Ref[Reverser]
-    hello    weaver.Listener
+    weft.Implements[weft.Main]
+    reverser weft.Ref[Reverser]
+    hello    weft.Listener
 }
 
 func serve(ctx context.Context, app *app) error {
@@ -327,7 +336,7 @@ Here's an explanation of the code:
 By default, all application listeners listen on a random port chosen by the
 operating system. Here, we want to change this default behavior and assign a
 fixed local listener port for the `hello` listener. To do so, create a
-[TOML](https://toml.io) config file named `weaver.toml` with
+[TOML](https://toml.io) config file named `weft.toml` with
 the following contents:
 
 ```toml
@@ -341,9 +350,9 @@ using a `"weaver"` field tag like this:
 
 ```go
 type app struct {
-    weaver.Implements[weaver.Main]
-    reverser weaver.Ref[Reverser]
-    hello    weaver.Listener `weaver:"my_custom_listener_name"`
+    weft.Implements[weft.Main]
+    reverser weft.Ref[Reverser]
+    hello    weft.Listener `weaver:"my_custom_listener_name"`
 }
 ```
 
@@ -352,7 +361,7 @@ names `"foo"`, `"bar42"`, and `"_moo"` are legal, while `""`, `"foo bar"`, and
 `"foo-bar"` are illegal.
 
 Run `weaver generate`, then `go mod tidy`, and then
-`SERVICEWEAVER_CONFIG=weaver.toml go run .`.
+`WEFT_CONFIG=weft.toml go run .`.
 The program should print out the name of the application and a unique
 deployment id. It should then block serving HTTP requests on `localhost:12345`.
 
@@ -411,7 +420,7 @@ You can also run `weaver single dashboard` to open a dashboard in a web browser.
 We've seen how to run a Service Weaver application in a single process with `go
 run`. Now, we'll run our application in multiple processes, with method calls
 between components executed as RPCs. First, create a [TOML](https://toml.io)
-config file named `weaver.toml` with the following contents:
+config file named `weft.toml` with the following contents:
 
 ```toml
 [serviceweaver]
@@ -427,7 +436,7 @@ using `weaver multi deploy`:
 
 ```console
 $ go build                        # build the ./hello binary
-$ weaver multi deploy weaver.toml # deploy the application
+$ weaver multi deploy weft.toml # deploy the application
 ╭───────────────────────────────────────────────────╮
 │ app        : hello                                │
 │ deployment : 6b285407-423a-46cc-9a18-727b5891fc57 │
@@ -499,7 +508,7 @@ Engine][gke], Google Cloud's hosted Kubernetes offering, as easily as running a
 single command (see the [GKE](#gke) section for details):
 
 ```console
-$ weaver gke deploy weaver.toml
+$ weaver gke deploy weft.toml
 ```
 
 When you run this command, Service Weaver will
@@ -558,7 +567,7 @@ type Adder interface {
 }
 
 type adder struct {
-    weaver.Implements[Adder]
+    weft.Implements[Adder]
 }
 
 func (*adder) Add(_ context.Context, x, y int) (int, error) {
@@ -567,8 +576,8 @@ func (*adder) Add(_ context.Context, x, y int) (int, error) {
 ```
 
 `Adder` defines the component's interface, and `adder` defines the component's
-implementation. The two are linked with the embedded `weaver.Implements[Adder]`
-field. You can call `weaver.Ref[Adder].Get()` to get a client to the `Adder`
+implementation. The two are linked with the embedded `weft.Implements[Adder]`
+field. You can call `weft.Ref[Adder].Get()` to get a client to the `Adder`
 component. The returned client implements the component's interface, so you can
 invoke the component's methods as you would any regular Go method. When you
 invoke a component's method, the method call is performed by one of the possibly
@@ -618,13 +627,13 @@ A component implementation must be a struct that looks like:
 
 ```go
 type foo struct{
-    weaver.Implements[Foo]
+    weft.Implements[Foo]
     // ...
 }
 ```
 
 -   It must be a struct.
--   It must embed a `weaver.Implements[T]` field where `T` is the component
+-   It must embed a `weft.Implements[T]` field where `T` is the component
     interface it implements.
 
 If a component implementation implements an `Init(context.Context) error`
@@ -701,12 +710,12 @@ Noting the points above:
 
 If a remote method call fails to execute properly&mdash;because of a machine
 crash or a network partition, for example&mdash;it returns an error with an
-embedded `weaver.RemoteCallError`. Here's an illustrative example:
+embedded `weft.RemoteCallError`. Here's an illustrative example:
 
 ```go
 // Call the cache.Get method.
 value, err := cache.Get(ctx, "key")
-if errors.Is(err, weaver.RemoteCallError) {
+if errors.Is(err, weft.RemoteCallError) {
     // cache.Get did not execute properly.
 } else if err != nil {
     // cache.Get executed properly, but returned an error.
@@ -716,7 +725,7 @@ if errors.Is(err, weaver.RemoteCallError) {
 ```
 
 Note that if a method call returns an error with an embedded
-`weaver.RemoteCallError`, it does *not* mean that the method never executed. The
+`weft.RemoteCallError`, it does *not* mean that the method never executed. The
 method may have executed partially, or fully, or multiple times due to automatic
 retries.
 
@@ -739,21 +748,21 @@ type Cache interface{
 }
 
 // Do not retry Cache.Append.
-var _ weaver.NotRetriable = Cache.Append
+var _ weft.NotRetriable = Cache.Append
 ```
 
 ## Listeners
 
 A component implementation may wish to use one or more network listeners, e.g.,
-to serve HTTP network traffic. To do so, named `weaver.Listener` fields must
+to serve HTTP network traffic. To do so, named `weft.Listener` fields must
 be added to the implementation struct. For example, the following component
 implementation creates two network listeners:
 
 ```go
 type impl struct{
-    weaver.Implements[MyComponent]
-    foo weaver.Listener
-    Bar weaver.Listener
+    weft.Implements[MyComponent]
+    foo weft.Listener
+    Bar weft.Listener
 }
 ```
 
@@ -764,9 +773,9 @@ can be added to the struct field to specify the listener name explicitly:
 
 ```go
 type impl struct{
-    weaver.Implements[MyComponent]
-    foo weaver.Listener
-    lis weaver.Listener `weaver:"bar"`
+    weft.Implements[MyComponent]
+    foo weft.Listener
+    lis weft.Listener `weaver:"bar"`
 }
 ```
 
@@ -820,7 +829,7 @@ type Greeter interface {
 }
 
 type greeter struct {
-    weaver.Implements[Greeter]
+    weft.Implements[Greeter]
 }
 
 func (g *greeter) Greet(_ context.Context, name string) (string, error) {
@@ -838,12 +847,12 @@ type greeterOptions struct {
 ```
 
 Next, we associate the options struct with the `greeter` implementation by
-embedding the `weaver.WithConfig[T]` struct.
+embedding the `weft.WithConfig[T]` struct.
 
 ```go
 type greeter struct {
-    weaver.Implements[Greeter]
-    weaver.WithConfig[greeterOptions]
+    weft.Implements[Greeter]
+    weft.WithConfig[greeterOptions]
 }
 ```
 
@@ -888,16 +897,16 @@ my_custom_name = "Bonjour"
 ```
 
 If you run an application directly (i.e. using `go run`), you can pass the
-config file using the `SERVICEWEAVER_CONFIG` environment variable:
+config file using the `WEFT_CONFIG` environment variable:
 
 ```console
-$ SERVICEWEAVER_CONFIG=weaver.toml go run .
+$ WEFT_CONFIG=weft.toml go run .
 ```
 
 Or, use `weaver single deploy`:
 
 ```console
-$ weaver single deploy weaver.toml
+$ weaver single deploy weft.toml
 ```
 
 ## Context Propagation
@@ -935,7 +944,7 @@ func (*adder) Add(ctx context.Context, x, y int) (int, error) {
 TODO(mwhittaker): Pick a better name for node ids?
 </div>
 
-Service Weaver provides a logging API, `weaver.Logger`. By using Service
+Service Weaver provides a logging API, `weft.Logger`. By using Service
 Weaver's logging API, you can cat, tail, search, and filter logs from every one
 of your Service Weaver applications (past or present). Service Weaver also
 integrates the logs into the environment where your application is deployed. If
@@ -951,11 +960,11 @@ type Adder interface {
 }
 
 type adder struct {
-    weaver.Implements[Adder]
+    weft.Implements[Adder]
 }
 
 func (a *adder) Add(ctx context.Context, x, y int) (int, error) {
-    // adder embeds weaver.Implements[Adder] which provides the Logger method.
+    // adder embeds weft.Implements[Adder] which provides the Logger method.
     logger := a.Logger(ctx)
     logger.Debug("A debug log.")
     logger.Info("An info log.")
@@ -997,7 +1006,7 @@ fooLogger.Info("A log with attributes.")  // adds foo="bar"
 **Note**: You can also add normal print statements to your code. These prints
 will be captured and logged by Service Weaver, but they won't be associated with
 a particular component, they won't have `file:line` information, and they won't
-have any attributes, so we recommend you use a `weaver.Logger` whenever
+have any attributes, so we recommend you use a `weft.Logger` whenever
 possible.
 
 ```console
@@ -1053,7 +1062,7 @@ type Adder interface {
 }
 
 type adder struct {
-    weaver.Implements[Adder]
+    weft.Implements[Adder]
 }
 
 func (*adder) Add(_ context.Context, x, y int) (int, error) {
@@ -1094,7 +1103,7 @@ type Halver interface {
 }
 
 type halver struct {
-    weaver.Implements[Halver]
+    weft.Implements[Halver]
 }
 
 func (halver) Halve(_ context.Context, val int) (int, error) {
@@ -1152,7 +1161,7 @@ Service Weaver declares the following set of HTTP related metrics.
     an HTTP handler.
 
 If you pass an [`http.Handler`](https://pkg.go.dev/net/http#Handler) to the
-`weaver.InstrumentHandler` function, it will return a new `http.Handler` that
+`weft.InstrumentHandler` function, it will return a new `http.Handler` that
 updates these metrics automatically, labeled with the provided label. For
 example:
 
@@ -1160,7 +1169,7 @@ example:
 // Metrics are recorded for fooHandler with label "foo".
 var mux http.ServeMux
 var fooHandler http.Handler = ...
-mux.Handle("/foo", weaver.InstrumentHandler("foo", fooHandler))
+mux.Handle("/foo", weft.InstrumentHandler("foo", fooHandler))
 ```
 
 # Tracing
@@ -1172,14 +1181,14 @@ for example, traces are automatically exported to
 [Google Cloud Trace][cloud_trace].
 
 If you pass an [`http.Handler`](https://pkg.go.dev/net/http#Handler) to the
-`weaver.InstrumentHandler` function, it will return a new `http.Handler` that
+`weft.InstrumentHandler` function, it will return a new `http.Handler` that
 traces an HTTP request every second.
 
 ```go
 // Tracing is enabled for one request every second.
 var mux http.ServeMux
 var fooHandler http.Handler = ...
-mux.Handle("/foo", weaver.InstrumentHandler("foo", fooHandler))
+mux.Handle("/foo", weft.InstrumentHandler("foo", fooHandler))
 ```
 
 Alternatively, you can enable tracing manually using the [OpenTelemetry][otel]
@@ -1193,18 +1202,18 @@ import (
     "net/http"
 
     "go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
-    "github.com/ServiceWeaver/weaver"
+    "github.com/brunobls/weft"
 )
 
 func main() {
-    if err := weaver.Run(context.Background(), serve); err != nil {
+    if err := weft.Run(context.Background(), serve); err != nil {
         log.Fatal(err)
     }
 }
 
 type app struct {
-    weaver.Implements[weaver.Main]
-    lis weaver.Listener
+    weft.Implements[weft.Main]
+    lis weft.Listener
 }
 
 func serve(ctx context.Context, app *app) error {
@@ -1221,7 +1230,7 @@ func serve(ctx context.Context, app *app) error {
 }
 ```
 
-Regardless of whether you use `weaver.InstrumentHandler` or you manually enable
+Regardless of whether you use `weft.InstrumentHandler` or you manually enable
 tracing, once tracing is enabled for a given HTTP request, that request
 and the resulting component method calls will be automatically traced. Service
 Weaver will collect and export the traces for you. Refer to the
@@ -1275,7 +1284,7 @@ type Cache interface {
 }
 
 type cache struct {
-    weaver.Implements[Cache]
+    weft.Implements[Cache]
     // ...
 }
 ```
@@ -1302,9 +1311,9 @@ A routing key can be
 
 -   any integer (e.g., `int`, `int32`), float (i.e. `float32`, `float64`), or
     string; or
--   a struct that may optionally embed `weaver.AutoMarshal`, and all remaining
+-   a struct that may optionally embed `weft.AutoMarshal`, and all remaining
     fields must be either integers, floats, or strings. (e.g.
-    `struct{weaver.AutoMarshal; x int; y string}`, `struct{x int; y string}`, etc )
+    `struct{weft.AutoMarshal; x int; y string}`, `struct{x int; y string}`, etc )
 
 Every router method must return the same routing key type. The following, for
 example, is invalid:
@@ -1315,13 +1324,13 @@ func (cacheRouter) Get(_ context.Context, key string) string { return key }
 func (cacheRouter) Put(_ context.Context, key, value string) int { return 42 }
 ```
 
-To associate a router with its component, embed a `weaver.WithRouter[T]` field in
+To associate a router with its component, embed a `weft.WithRouter[T]` field in
 the component implementation where `T` is the type of the router.
 
 ```go
 type cache struct {
-    weaver.Implements[Cache]
-    weaver.WithRouter[cacheRouter]
+    weft.Implements[Cache]
+    weft.WithRouter[cacheRouter]
     // ...
 }
 ```
@@ -1364,8 +1373,8 @@ type Adder interface {
 }
 
 type adder struct {
-    weaver.Implements[Adder]
-    weaver.WithConfig[config]
+    weft.Implements[Adder]
+    weft.WithConfig[config]
 
     db *sql.DB
 }
@@ -1403,7 +1412,7 @@ environment variables.
 
 Service Weaver includes a `weavertest` package that you can use to test your
 Service Weaver applications. The package provides a `Runner` type with `Test`
-and `Bench` methods. Tests use `Runner.Test` instead of `weaver.Run`. To test an
+and `Bench` methods. Tests use `Runner.Test` instead of `weft.Run`. To test an
 `Adder` component with an `Add` method, for example, create an `adder_test.go`
 file with the following contents.
 
@@ -1414,8 +1423,8 @@ import (
     "context"
     "testing"
 
-    "github.com/ServiceWeaver/weaver"
-    "github.com/ServiceWeaver/weaver/weavertest"
+    "github.com/brunobls/weft"
+    "github.com/brunobls/weft/weavertest"
 )
 
 func TestAdd(t *testing.T) {
@@ -1605,10 +1614,10 @@ $ go run .
 ```
 
 If you run an application using `go run`, you can provide a config file using
-the `SERVICEWEAVER_CONFIG` environment variable:
+the `WEFT_CONFIG` environment variable:
 
 ```console
-$ SERVICEWEAVER_CONFIG=weaver.toml go run .
+$ WEFT_CONFIG=weft.toml go run .
 ```
 
 Or, you can use the `weaver single deploy` command. `weaver single deploy` is
@@ -1616,7 +1625,7 @@ practically identical to `go run .`, but it makes it easier to provide a config
 file.
 
 ```console
-$ weaver single deploy weaver.toml
+$ weaver single deploy weft.toml
 ```
 
 You can run `weaver single status` to view the status of all active Service
@@ -1660,14 +1669,14 @@ You can also run `weaver single dashboard` to open a dashboard in a web browser.
 
 ## Listeners
 
-You can add `weaver.Listener` fields to the component implementation to trigger
+You can add `weft.Listener` fields to the component implementation to trigger
 creation of network listeners (see the
 [Step by Step Tutorial](#step-by-step-tutorial) section for context).
 
 ```go
 type app struct {
-    weaver.Implements[weaver.Main]
-    hello    weaver.Listener
+    weft.Implements[weft.Main]
+    hello    weft.Listener
 }
 ```
 
@@ -1794,7 +1803,7 @@ to learn more about how to use the tracing UI.
 
 You can use `weaver multi` to deploy a Service Weaver application across
 multiple processes on your local machine, with each component replica running in
-a separate OS process. Create [a config file](#config-files), say `weaver.toml`,
+a separate OS process. Create [a config file](#config-files), say `weft.toml`,
 that points to your compiled Service Weaver application.
 
 ```toml
@@ -1805,7 +1814,7 @@ binary = "./your_compiled_serviceweaver_binary"
 Deploy the application using `weaver multi deploy`:
 
 ```console
-$ weaver multi deploy weaver.toml
+$ weaver multi deploy weft.toml
 ```
 
 Refer to the [Step by Step Tutorial](#step-by-step-tutorial) section for a full
@@ -1855,14 +1864,14 @@ You can also run `weaver multi dashboard` to open a dashboard in a web browser.
 
 ## Listeners
 
-You can add `weaver.Listener` fields to the component implementation to trigger
+You can add `weft.Listener` fields to the component implementation to trigger
 creation of network listeners (see the
 [Step by Step Tutorial](#step-by-step-tutorial) section for context).
 
 ```go
 type app struct {
-    weaver.Implements[weaver.Main]
-    hello    weaver.Listener
+    weft.Implements[weft.Main]
+    hello    weft.Listener
 }
 ```
 
@@ -1987,7 +1996,7 @@ imagine you `weaver multi deploy` your Service Weaver application and it gets a 
 id `28807368-1101-41a3-bdcb-9625e0f02ca0`.
 
 ```console
-$ weaver multi deploy weaver.toml
+$ weaver multi deploy weft.toml
 ╭───────────────────────────────────────────────────╮
 │ app        : hello                                │
 │ deployment : 28807368-1101-41a3-bdcb-9625e0f02ca0 │
@@ -2096,7 +2105,7 @@ Consider again the "Hello, World!" Service Weaver application from the [Step by
 Step Tutorial](#step-by-step-tutorial) section. The application runs an HTTP
 server on a listener named `hello` with a `/hello?name=<name>` endpoint that
 returns a `Hello, <name>!` greeting. To deploy this application on Kubernetes, first
-create a [Service Weaver application config file](#config-files), say `weaver.toml`,
+create a [Service Weaver application config file](#config-files), say `weft.toml`,
 with the following contents:
 
 ```toml
@@ -2111,7 +2120,7 @@ Then, create a `Kube` configuration file say `config.yaml`, with the following
 contents:
 
 ```yaml
-appConfig: weaver.toml
+appConfig: weft.toml
 repo: docker.io/mydockerid
 
 listeners:
@@ -2146,7 +2155,7 @@ kube deployment information successfully generated
 "Hello, World!" application.
 
 ```yaml
-# Listener Service for group github.com/ServiceWeaver/weaver/Main
+# Listener Service for group github.com/brunobls/weft/Main
 apiVersion: v1
 kind: Service
 spec:
@@ -2154,25 +2163,25 @@ spec:
 ...
 
 ---
-# Deployment for group github.com/ServiceWeaver/weaver/Main
+# Deployment for group github.com/brunobls/weft/Main
 apiVersion: apps/v1
 kind: Deployment
 ...
 
 ---
-# Autoscaler for group github.com/ServiceWeaver/weaver/Main
+# Autoscaler for group github.com/brunobls/weft/Main
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 ...
 
 ---
-# Deployment for group github.com/ServiceWeaver/weaver/examples/hello/Reverser
+# Deployment for group github.com/brunobls/weft/examples/hello/Reverser
 apiVersion: apps/v1
 kind: Deployment
 ...
 
 ---
-# Autoscaler for group github.com/ServiceWeaver/weaver/examples/hello/Reverser
+# Autoscaler for group github.com/brunobls/weft/examples/hello/Reverser
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 ...
@@ -2265,8 +2274,8 @@ I1107 23:39:38.350108 weavelet             49c6e04e call.go:690                 
 I1107 23:39:38.350252 weavelet             49c6e04e call.go:690                        │ connection addr="tcp://10.244.2.74:10000" from="checking" to="idle"
 D1107 23:39:38.358632 weavelet             49c6e04e remoteweavelet.go:429                │ Connected to remote component="hello.Reverser"
 S0101 00:00:00.000000 stdout               49c6e04e                       │ hello listener available on [::]:20000
-D1107 23:39:38.360294 weavelet             49c6e04e remoteweavelet.go:336                │ Constructed component="weaver.Main"
-D1107 23:39:38.360337 weavelet             49c6e04e remoteweavelet.go:491                │ Updated component="weaver.Main"
+D1107 23:39:38.360294 weavelet             49c6e04e remoteweavelet.go:336                │ Constructed component="weft.Main"
+D1107 23:39:38.360337 weavelet             49c6e04e remoteweavelet.go:491                │ Updated component="weft.Main"
 ```
 
 ## Config
@@ -2305,7 +2314,7 @@ the `Kube` deployer will run two colocation groups, where the pods that run the
 `Main` component require at least `64Mi` memory.
 
 ```yaml
-appConfig: weaver.toml
+appConfig: weft.toml
 repo: docker.io/mydockerid
 
 listeners:
@@ -2319,7 +2328,7 @@ resourceSpec:
 groups:
   - name: reverser-group
     components:
-      -  github.com/ServiceWeaver/weaver/examples/hello/Reverser
+      -  github.com/brunobls/weft/examples/hello/Reverser
     resourceSpec:
       requests:
         memory: "256Mi"
@@ -2404,7 +2413,7 @@ For example, if you want to do atomic rollouts across multiple versions of the
 listener as follows:
 
 ```yaml
-appConfig: weaver.toml
+appConfig: weft.toml
 repo: docker.io/mydockerid
 
 listeners:
@@ -2484,7 +2493,7 @@ Consider again the "Hello, World!" Service Weaver application from the [Step by
 Step Tutorial](#step-by-step-tutorial) section. The application runs an HTTP
 server on a listener named `hello` with a `/hello?name=<name>` endpoint that
 returns a `Hello, <name>!` greeting. To deploy this application to GKE, first
-create a [Service Weaver config file](#config-files), say `weaver.toml`, with
+create a [Service Weaver config file](#config-files), say `weft.toml`, with
 the following contents:
 
 ```toml
@@ -2518,7 +2527,7 @@ Deploy the application using `weaver gke deploy`:
 
 ```console
 $ GOOS=linux GOARCH=amd64 go build
-$ weaver gke deploy weaver.toml
+$ weaver gke deploy weft.toml
 ...
 Deploying the application... Done
 Version "8e1c640a-d87b-4020-b3dd-4efc1850756c" of app "hello" started successfully.
@@ -2908,14 +2917,14 @@ If you want to deploy in a different project then you should pass the name of th
 new Google Cloud project as a flag when deploying your application:
 
 ```console
-$ weaver gke deploy --project=new_project_name weaver.toml
+$ weaver gke deploy --project=new_project_name weft.toml
 ```
 
 If you want to deploy using a different account then you should pass the name of the
 new Google Cloud Account as a flag when deploying your application:
 
 ```console
-$ weaver gke deploy --account=new_account_name weaver.toml
+$ weaver gke deploy --account=new_account_name weft.toml
 ```
 
 ### Telemetry
@@ -2979,7 +2988,7 @@ World!" application to GKE using `weaver gke deploy`. We can deploy the same app
 locally using `weaver gke-local deploy`:
 
 ```console
-$ cat weaver.toml
+$ cat weft.toml
 [serviceweaver]
 binary = "./hello"
 
@@ -2987,7 +2996,7 @@ binary = "./hello"
 regions = ["us-west1"]
 listeners.hello = {is_public = true, hostname = "hello.com"}
 
-$ weaver gke-local deploy weaver.toml
+$ weaver gke-local deploy weft.toml
 Deploying the application... Done
 Version "a2bc7a7a-fcf6-45df-91fe-6e6af171885d" of app "hello" started successfully.
 Note that stopping this binary will not affect the app in any way.
@@ -3036,7 +3045,7 @@ $ weaver gke-local status
 The output is, unsurprisingly, identical to that of `weaver gke status`. There is
 information about every app, component, and listener. Note that for this
 example, `weaver gke-local` is running the "Hello, World!" application in a fake
-us-west1 "region", as specified in the `weaver.toml` config file.
+us-west1 "region", as specified in the `weft.toml` config file.
 
 `weaver gke-local` runs a proxy on port 8000 that simulates the global load
 balancer used by `weaver gke`. We can curl the proxy in the same way we curled
@@ -3251,7 +3260,7 @@ Step Tutorial](#step-by-step-tutorial) section. The application runs an HTTP
 server on a listener named `hello` with a `/hello?name=<name>` endpoint that
 returns a `Hello, <name>!` greeting. To deploy this application using the `SSH`
 deployer, first create a [Service Weaver application config file](#config-files),
-say `weaver.toml`, with the following contents:
+say `weft.toml`, with the following contents:
 
 ```toml
 [serviceweaver]
@@ -3277,7 +3286,7 @@ machines is specified as follows in `ssh_locations.txt`:
 Deploy the application using `weaver ssh deploy`:
 
 ```console
-$ weaver ssh deploy weaver.toml
+$ weaver ssh deploy weft.toml
 ```
 
 When `weaver ssh deploy` terminates (e.g., when you press `ctrl+c`), the
@@ -3378,7 +3387,7 @@ serializable:
     -   `t` implements [`encoding.BinaryMarshaler`][binary_marshaler] and
         [`encoding.BinaryUnmarshaler`][binary_unmarshaler];
     -   `u` is serializable; or
-    -   `u` is a struct type that embeds `weaver.AutoMarshal` (see below).
+    -   `u` is a struct type that embeds `weft.AutoMarshal` (see below).
 
 The following types are not serializable:
 
@@ -3390,17 +3399,17 @@ The following types are not serializable:
 **Note**: Named struct types that don't implement `proto.Message` or
 `BinaryMarshaler` and `BinaryUnmarshaler` are *not* serializable by default.
 However, they can trivially be made serializable by embedding
-`weaver.AutoMarshal`.
+`weft.AutoMarshal`.
 
 ```go
 type Pair struct {
-    weaver.AutoMarshal
+    weft.AutoMarshal
     x, y int
 }
 ```
 
-The `weaver.AutoMarshal` embedding instructs `weaver generate` to generate
-serialization methods for the struct. Note, however, that `weaver.AutoMarshal`
+The `weft.AutoMarshal` embedding instructs `weaver generate` to generate
+serialization methods for the struct. Note, however, that `weft.AutoMarshal`
 cannot magically make *any type* serializable. For example, `weaver generate`
 will raise an error for the following code because the `NotSerializable` struct
 is fundamentally not serializable.
@@ -3408,18 +3417,18 @@ is fundamentally not serializable.
 ```go
 // ERROR: NotSerializable cannot be made serializable.
 type NotSerializable struct {
-    weaver.AutoMarshal
+    weft.AutoMarshal
     f func()   // functions are not serializable
     c chan int // chans are not serializable
 }
 ```
 
-Also note that `weaver.AutoMarshal` can *not* be embedded in generic structs.
+Also note that `weft.AutoMarshal` can *not* be embedded in generic structs.
 
 ```go
-// ERROR: Cannot embed weaver.AutoMarshal in a generic struct.
+// ERROR: Cannot embed weft.AutoMarshal in a generic struct.
 type Pair[A any] struct {
-    weaver.AutoMarshal
+    weft.AutoMarshal
     x A
     y A
 }
@@ -3436,7 +3445,7 @@ by default transmits the textual representation of the error. Therefore any
 custom information stored in the error value, or custom `Is` or `As` methods,
 are not available to the caller.
 
-Applications that need custom error information can embed a `weaver.AutoMarshal`
+Applications that need custom error information can embed a `weft.AutoMarshal`
 in their custom error type. Service Weaver will then serialize and deserialize
 such errors properly and make them available to the caller.
 
@@ -3524,7 +3533,7 @@ overly burdensome, you can explicitly place relevant components in the same
 process.
 
 **Note**: Service Weaver guarantees that all system errors are surfaced to the
-application code as `weaver.RemoteCallError`, which can be handled as described
+application code as `weft.RemoteCallError`, which can be handled as described
 in an [earlier section](#components-semantics).
 
 ### What types of distributed applications does Service Weaver target?

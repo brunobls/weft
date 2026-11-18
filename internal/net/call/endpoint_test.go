@@ -17,7 +17,7 @@ package call_test
 import (
 	"testing"
 
-	"github.com/ServiceWeaver/weaver/internal/net/call"
+	"github.com/brunobls/weft/internal/net/call"
 )
 
 func TestParseNetEndpoint(t *testing.T) {

@@ -7,20 +7,20 @@ application.
 %%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     %% Nodes.
-    github.com/ServiceWeaver/weaver/Main(weaver.Main)
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/balancereader/T(balancereader.T)
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/contacts/T(contacts.T)
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/ledgerwriter/T(ledgerwriter.T)
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/transactionhistory/T(transactionhistory.T)
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/userservice/T(userservice.T)
+    github.com/brunobls/weft/Main(weft.Main)
+    github.com/brunobls/weft/examples/bankofanthos/balancereader/T(balancereader.T)
+    github.com/brunobls/weft/examples/bankofanthos/contacts/T(contacts.T)
+    github.com/brunobls/weft/examples/bankofanthos/ledgerwriter/T(ledgerwriter.T)
+    github.com/brunobls/weft/examples/bankofanthos/transactionhistory/T(transactionhistory.T)
+    github.com/brunobls/weft/examples/bankofanthos/userservice/T(userservice.T)
 
     %% Edges.
-    github.com/ServiceWeaver/weaver/Main --> github.com/ServiceWeaver/weaver/examples/bankofanthos/balancereader/T
-    github.com/ServiceWeaver/weaver/Main --> github.com/ServiceWeaver/weaver/examples/bankofanthos/contacts/T
-    github.com/ServiceWeaver/weaver/Main --> github.com/ServiceWeaver/weaver/examples/bankofanthos/ledgerwriter/T
-    github.com/ServiceWeaver/weaver/Main --> github.com/ServiceWeaver/weaver/examples/bankofanthos/transactionhistory/T
-    github.com/ServiceWeaver/weaver/Main --> github.com/ServiceWeaver/weaver/examples/bankofanthos/userservice/T
-    github.com/ServiceWeaver/weaver/examples/bankofanthos/ledgerwriter/T --> github.com/ServiceWeaver/weaver/examples/bankofanthos/balancereader/T
+    github.com/brunobls/weft/Main --> github.com/brunobls/weft/examples/bankofanthos/balancereader/T
+    github.com/brunobls/weft/Main --> github.com/brunobls/weft/examples/bankofanthos/contacts/T
+    github.com/brunobls/weft/Main --> github.com/brunobls/weft/examples/bankofanthos/ledgerwriter/T
+    github.com/brunobls/weft/Main --> github.com/brunobls/weft/examples/bankofanthos/transactionhistory/T
+    github.com/brunobls/weft/Main --> github.com/brunobls/weft/examples/bankofanthos/userservice/T
+    github.com/brunobls/weft/examples/bankofanthos/ledgerwriter/T --> github.com/brunobls/weft/examples/bankofanthos/balancereader/T
 ```
 
 ## Running Locally
@@ -76,10 +76,10 @@ Finally, run the application.
 $ go build .
 
 # Run the application in a single process.
-$ weaver single deploy weaver.toml
+$ weaver single deploy weft.toml
 
 # Run the application in multiple processes.
-$ weaver multi deploy weaver.toml
+$ weaver multi deploy weft.toml
 ```
 
 [accounts-db]: https://github.com/GoogleCloudPlatform/bank-of-anthos/tree/main/src/accounts/accounts-db/initdb

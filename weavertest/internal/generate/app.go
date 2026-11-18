@@ -21,10 +21,10 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
-//go:generate ../../../cmd/weaver/weaver generate
+//go:generate ../../../cmd/weft/weft generate
 
 type behaviorType int
 
@@ -36,7 +36,7 @@ const (
 )
 
 type customErrorValue struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	key string
 }
 
@@ -49,7 +49,7 @@ type testApp interface {
 }
 
 type impl struct {
-	weaver.Implements[testApp]
+	weft.Implements[testApp]
 }
 
 // Get returns an error or a value based on the expected behavior.

@@ -19,28 +19,28 @@ import (
 	"log"
 	"net/http"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 func main() {
-	if err := weaver.Run(context.Background(), serve); err != nil {
+	if err := weft.Run(context.Background(), serve); err != nil {
 		log.Fatal(err)
 	}
 }
 
-//go:generate ../../cmd/weaver/weaver generate
+//go:generate ../../cmd/weft/weft generate
 
 type app struct {
-	weaver.Implements[weaver.Main]
-	reverser weaver.Ref[Reverser]
-	hello    weaver.Listener
+	weft.Implements[weft.Main]
+	reverser weft.Ref[Reverser]
+	hello    weft.Listener
 }
 
 func serve(ctx context.Context, app *app) error {
 	fmt.Printf("hello listener available on %v\n", app.hello)
 
 	// Serve the /hello endpoint.
-	http.Handle("/hello", weaver.InstrumentHandlerFunc("hello",
+	http.Handle("/hello", weft.InstrumentHandlerFunc("hello",
 		func(w http.ResponseWriter, r *http.Request) {
 			name := r.URL.Query().Get("name")
 			if name == "" {

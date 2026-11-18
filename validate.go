@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package weaver
+package weft
 
 import (
 	"errors"
@@ -20,15 +20,15 @@ import (
 	"reflect"
 	"unicode"
 
-	"github.com/ServiceWeaver/weaver/internal/reflection"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft/internal/reflection"
+	"github.com/brunobls/weft/runtime/codegen"
 	"golang.org/x/exp/slices"
 )
 
 // validateRegistrations validates the provided registrations, returning an
 // diagnostic error if they are invalid. Note that some validation is performed
-// by 'weaver generate', but because users can run a Service Weaver app after
-// forgetting to run 'weaver generate', some checks have to be done at runtime.
+// by 'weft generate', but because users can run a Service Weaver app after
+// forgetting to run 'weft generate', some checks have to be done at runtime.
 func validateRegistrations(regs []*codegen.Registration) error {
 	// Gather the set of registered interfaces.
 	intfs := map[reflect.Type]struct{}{}
@@ -36,7 +36,7 @@ func validateRegistrations(regs []*codegen.Registration) error {
 		intfs[reg.Iface] = struct{}{}
 	}
 
-	// Check that for every weaver.Ref[T] field in a component implementation
+	// Check that for every weft.Ref[T] field in a component implementation
 	// struct, T is a registered interface.
 	var errs []error
 	for _, reg := range regs {
@@ -44,19 +44,19 @@ func validateRegistrations(regs []*codegen.Registration) error {
 			f := reg.Impl.Field(i)
 			switch {
 			case f.Type.Implements(reflection.Type[interface{ isRef() }]()):
-				// f is a weaver.Ref[T].
+				// f is a weft.Ref[T].
 				v := f.Type.Field(0) // a Ref[T]'s value field
 				if _, ok := intfs[v.Type]; !ok {
 					// T is not a registered component interface.
 					err := fmt.Errorf(
-						"component implementation struct %v has component reference field %v, but component %v was not registered; maybe you forgot to run 'weaver generate'",
+						"component implementation struct %v has component reference field %v, but component %v was not registered; maybe you forgot to run 'weft generate'",
 						reg.Impl, f.Type, v.Type,
 					)
 					errs = append(errs, err)
 				}
 
 			case f.Type == reflection.Type[Listener]():
-				// f is a weaver.Listener.
+				// f is a weft.Listener.
 				name := f.Name
 				if tag, ok := f.Tag.Lookup("weaver"); ok {
 					if !isValidListenerName(tag) {
@@ -67,7 +67,7 @@ func validateRegistrations(regs []*codegen.Registration) error {
 					name = tag
 				}
 				if !slices.Contains(reg.Listeners, name) {
-					err := fmt.Errorf("component implementation struct %v has a listener field %v, but listener %v hasn't been registered; maybe you forgot to run 'weaver generate'", reg.Impl, name, name)
+					err := fmt.Errorf("component implementation struct %v has a listener field %v, but listener %v hasn't been registered; maybe you forgot to run 'weft generate'", reg.Impl, name, name)
 					errs = append(errs, err)
 				}
 			}
@@ -77,7 +77,7 @@ func validateRegistrations(regs []*codegen.Registration) error {
 }
 
 // isValidListenerName returns whether the provided name is a valid
-// weaver.Listener name.
+// weft.Listener name.
 func isValidListenerName(name string) bool {
 	// We allow valid Go identifiers [1]. This code is taken from [2].
 	//

@@ -47,10 +47,10 @@ func init() {
 	weaverSrcDir = filepath.Join(testDir, "../../../")
 	goModFile = fmt.Sprintf(`module "foo"
 
-go 1.21
+go 1.26.0
 
-require github.com/ServiceWeaver/weaver v0.0.0
-replace github.com/ServiceWeaver/weaver => %s
+require github.com/brunobls/weft v0.0.0
+replace github.com/brunobls/weft => %s
 `, weaverSrcDir)
 }
 
@@ -103,7 +103,13 @@ func runGenerator(t *testing.T, directory, filename, contents string, subdirs []
 
 	// Run "weaver generate".
 	opt := Options{
-		Warn:      func(err error) { t.Log(err) },
+		Warn: func(err error) {
+			t.Log(err)
+			if strings.HasPrefix(filename, "alias_") {
+				// A type alias must not make the generator warn.
+				t.Errorf("unexpected warning: %v", err)
+			}
+		},
 		BuildTags: "ignoreWeaverGen" + "," + strings.Join(buildTags, ","),
 	}
 	if err := Generate(tmp, []string{tmp}, opt); err != nil {
@@ -145,6 +151,22 @@ func runGenerator(t *testing.T, directory, filename, contents string, subdirs []
 			printOutput(t, output)
 		}
 		t.Fatalf("go build: %v", err)
+	}
+
+	// The build above excludes weaver_gen.go (ignoreWeaverGen). For the alias
+	// fixtures, also build the generated code itself: an alias must not make
+	// the generator emit code that does not compile.
+	if strings.HasPrefix(filename, "alias_") {
+		genbuild := exec.Command("go", "build", "-tags="+strings.Join(buildTags, ","))
+		genbuild.Dir = tmp
+		genbuild.Stdout = os.Stdout
+		genbuild.Stderr = os.Stderr
+		if err := genbuild.Run(); err != nil {
+			if testing.Verbose() {
+				printOutput(t, output)
+			}
+			t.Fatalf("go build of the generated code: %v", err)
+		}
 	}
 
 	return string(output), nil
@@ -502,7 +524,7 @@ func TestExampleVersion(t *testing.T) {
 	got := fmt.Sprintf("%x", h.Sum(nil))
 
 	// If weaver_gen.go has changed, the codegen version may need updating.
-	const want = "fdc14ac425413ea0f80ea42d3c8d1bc555d57c511135b5639720f233668f4fe7"
+	const want = "fa7a73248e84af493d854c1d561dbc0d6af27685f369d29c18e7d329fe4d5f7f"
 	if got != want {
 		t.Fatalf(`Unexpected SHA-256 hash of examples/weaver_gen.go: got %s, want %s. If this change is meaningful, REMEMBER TO UPDATE THE CODEGEN VERSION in runtime/version/version.go.`, got, want)
 	}

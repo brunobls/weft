@@ -17,13 +17,58 @@ package runtime
 import (
 	"fmt"
 	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 
 	"github.com/BurntSushi/toml"
-	"github.com/ServiceWeaver/weaver/internal/env"
-	"github.com/ServiceWeaver/weaver/runtime/protos"
+	"github.com/brunobls/weft/internal/env"
+	"github.com/brunobls/weft/runtime/protos"
 )
+
+const (
+	// modulePath is the module path of this module. Config sections for the
+	// framework are named after it (e.g., "<modulePath>/multi").
+	modulePath = "github.com/brunobls/weft"
+
+	// legacyModulePath is the module path before the module was renamed.
+	// Config sections named after it are no longer supported.
+	legacyModulePath = "github.com/ServiceWeaver/weaver"
+)
+
+// legacyName returns the name that replaces name, if name is the legacy
+// module path or a name below it (e.g., a section or a component).
+func legacyName(name string) (string, bool) {
+	if name == legacyModulePath || strings.HasPrefix(name, legacyModulePath+"/") {
+		return modulePath + strings.TrimPrefix(name, legacyModulePath), true
+	}
+	return "", false
+}
+
+// checkLegacyNames returns an error if the config has a section, or lists a
+// colocated component, named after the legacy module path. Silently ignoring
+// them would change behavior (e.g., an old multi section with mtls = true
+// would start the app without mTLS).
+func checkLegacyNames(config *protos.AppConfig) error {
+	keys := make([]string, 0, len(config.Sections))
+	for k := range config.Sections {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+	for _, k := range keys {
+		if n, ok := legacyName(k); ok {
+			return fmt.Errorf("config section %q is no longer supported: rename it to %q", k, n)
+		}
+	}
+	for _, group := range config.Colocate {
+		for _, c := range group.Components {
+			if n, ok := legacyName(c); ok {
+				return fmt.Errorf("component %q in colocate is no longer supported: rename it to %q", c, n)
+			}
+		}
+	}
+	return nil
+}
 
 // ParseConfig parses the specified configuration input, which should
 // hold a set of sections in TOML format from the specified file.
@@ -48,8 +93,17 @@ func ParseConfig(file string, input string, sectionValidator func(string, string
 		config.Sections[k] = buf.String()
 	}
 
+	// Reject sections named after the legacy module path before looking at
+	// any of them, so that none is silently ignored.
+	if err := checkLegacyNames(config); err != nil {
+		return nil, err
+	}
+
 	// Parse app section.
 	if err := extractApp(file, config); err != nil {
+		return nil, err
+	}
+	if err := checkLegacyNames(config); err != nil { // colocate
 		return nil, err
 	}
 
@@ -97,8 +151,17 @@ func ParseConfigSection(key, shortKey string, sections map[string]string, dst an
 }
 
 func extractApp(file string, config *protos.AppConfig) error {
-	const appKey = "github.com/ServiceWeaver/weaver"
-	const shortAppKey = "serviceweaver"
+	const appKey = modulePath
+	// The short keys of the app section: "weft", and the legacy "serviceweaver"
+	// which stays accepted. At most one of them (or appKey) may be present.
+	const weftShortKey, legacyShortKey = "weft", "serviceweaver"
+	shortAppKey := legacyShortKey
+	if _, ok := config.Sections[weftShortKey]; ok {
+		if _, ok := config.Sections[legacyShortKey]; ok {
+			return fmt.Errorf("conflicting sections %q and %q", legacyShortKey, weftShortKey)
+		}
+		shortAppKey = weftShortKey
+	}
 
 	// appConfig holds the data from under appKey in the TOML config.
 	// It matches the contents of the Config proto.

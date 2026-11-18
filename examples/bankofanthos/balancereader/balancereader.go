@@ -17,9 +17,9 @@ package balancereader
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/examples/bankofanthos/common"
-	"github.com/ServiceWeaver/weaver/examples/bankofanthos/model"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/examples/bankofanthos/common"
+	"github.com/brunobls/weft/examples/bankofanthos/model"
 )
 
 // T is a component that reads user balances.
@@ -34,8 +34,8 @@ type config struct {
 }
 
 type impl struct {
-	weaver.Implements[T]
-	weaver.WithConfig[config]
+	weft.Implements[T]
+	weft.WithConfig[config]
 	txnRepo      *transactionRepository
 	balanceCache *balanceCache
 	ledgerReader *common.LedgerReader

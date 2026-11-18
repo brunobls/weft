@@ -19,7 +19,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 	lru "github.com/hashicorp/golang-lru/v2"
 )
 
@@ -34,8 +34,8 @@ type Factorer interface {
 }
 
 type factorer struct {
-	weaver.Implements[Factorer] // factorer implements the Factorer component
-	weaver.WithRouter[router]   // factorer's methods are routed by router
+	weft.Implements[Factorer] // factorer implements the Factorer component
+	weft.WithRouter[router]   // factorer's methods are routed by router
 
 	cache *lru.Cache[int, []int] // maps integers to their factors
 }

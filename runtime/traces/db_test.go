@@ -24,8 +24,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ServiceWeaver/weaver/runtime/protos"
-	"github.com/ServiceWeaver/weaver/runtime/traces"
+	"github.com/brunobls/weft/runtime/protos"
+	"github.com/brunobls/weft/runtime/traces"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 )

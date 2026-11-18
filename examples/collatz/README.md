@@ -28,13 +28,13 @@ positive number `x`, main repeatedly calls `Odd` (if `x` is odd) or `Even` (if
 %%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
 graph TD
     %% Nodes.
-    github.com/ServiceWeaver/weaver/Main(weaver.Main)
-    github.com/ServiceWeaver/weaver/examples/collatz/Even(collatz.Even)
-    github.com/ServiceWeaver/weaver/examples/collatz/Odd(collatz.Odd)
+    github.com/brunobls/weft/Main(weft.Main)
+    github.com/brunobls/weft/examples/collatz/Even(collatz.Even)
+    github.com/brunobls/weft/examples/collatz/Odd(collatz.Odd)
 
     %% Edges.
-    github.com/ServiceWeaver/weaver/Main --> github.com/ServiceWeaver/weaver/examples/collatz/Even
-    github.com/ServiceWeaver/weaver/Main --> github.com/ServiceWeaver/weaver/examples/collatz/Odd
+    github.com/brunobls/weft/Main --> github.com/brunobls/weft/examples/collatz/Even
+    github.com/brunobls/weft/Main --> github.com/brunobls/weft/examples/collatz/Odd
 ```
 
 This application highlights the benefits of colocation. The performance of the
@@ -52,11 +52,11 @@ $ curl localhost:9000?x=27  # In a different terminal.
 ```
 
 To run the app across multiple processes, use `weaver multi deploy`. The
-`weaver.toml` config file runs every component in a separate process, and the
+`weft.toml` config file runs every component in a separate process, and the
 `colocated.toml` config file colocates all three components.
 
 ```console
-$ weaver multi deploy weaver.toml     # not colocated
+$ weaver multi deploy weft.toml     # not colocated
 $ weaver multi deploy colocated.toml # colocated
 ```
 
@@ -65,7 +65,7 @@ $ weaver multi deploy colocated.toml # colocated
 To run the app on GKE, use `weaver gke deploy`:
 
 ```console
-$ weaver gke deploy weaver.toml
+$ weaver gke deploy weft.toml
 ```
 
 [collatz]: https://en.wikipedia.org/wiki/Collatz_conjecture

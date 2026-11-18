@@ -20,13 +20,13 @@ package foo
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 type foo interface {
 	M(context.Context)
 }
 
-type impl struct{ weaver.Implements[foo] }
+type impl struct{ weft.Implements[foo] }
 
 func (l *impl) M(context.Context) {}

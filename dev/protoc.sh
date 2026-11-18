@@ -35,7 +35,7 @@ if test -z $protoc; then
 fi
 gengo=$(which protoc-gen-go)
 if test -z $gengo; then
-  printf "protoc-gen-go binary not found.  Please run:\n\tgo install google.golang.org/protobuf/cmd/protoc-gen-go@v1.26\nand then re-run this command."
+  printf "protoc-gen-go binary not found.  Please run:\n\tgo install google.golang.org/protobuf/cmd/protoc-gen-go@v1.34.1\nand then re-run this command."
   exit 1
 fi
 

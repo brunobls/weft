@@ -27,8 +27,8 @@ import (
 	"math/rand"
 	"testing"
 
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
-	"github.com/ServiceWeaver/weaver/weavertest"
+	"github.com/brunobls/weft/runtime/codegen"
+	"github.com/brunobls/weft/weavertest"
 	"github.com/google/go-cmp/cmp"
 	"google.golang.org/protobuf/proto"
 )
@@ -75,7 +75,7 @@ func (d *weaverCodec) Encode(p *payloadC) []byte {
 	// buffer).
 	enc := codegen.NewEncoder()
 	if d.presizeBuffer {
-		enc.Reset(serviceweaver_size_payloadC_7e82696e(p))
+		enc.Reset(serviceweaver_size_payloadC_df002b7c(p))
 	}
 	p.WeaverMarshal(enc)
 	return enc.Data()

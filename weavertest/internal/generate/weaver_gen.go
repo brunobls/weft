@@ -7,8 +7,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/ServiceWeaver/weaver"
-	"github.com/ServiceWeaver/weaver/runtime/codegen"
+	"github.com/brunobls/weft"
+	"github.com/brunobls/weft/runtime/codegen"
 	"go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 	"reflect"
@@ -16,14 +16,14 @@ import (
 
 func init() {
 	codegen.Register(codegen.Registration{
-		Name:  "github.com/ServiceWeaver/weaver/weavertest/internal/generate/testApp",
+		Name:  "github.com/brunobls/weft/weavertest/internal/generate/testApp",
 		Iface: reflect.TypeOf((*testApp)(nil)).Elem(),
 		Impl:  reflect.TypeOf(impl{}),
 		LocalStubFn: func(impl any, caller string, tracer trace.Tracer) any {
-			return testApp_local_stub{impl: impl.(testApp), tracer: tracer, divModMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/weavertest/internal/generate/testApp", Method: "DivMod", Remote: false, Generated: true}), getMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/weavertest/internal/generate/testApp", Method: "Get", Remote: false, Generated: true}), incPointerMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/weavertest/internal/generate/testApp", Method: "IncPointer", Remote: false, Generated: true})}
+			return testApp_local_stub{impl: impl.(testApp), tracer: tracer, divModMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/weavertest/internal/generate/testApp", Method: "DivMod", Remote: false, Generated: true}), getMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/weavertest/internal/generate/testApp", Method: "Get", Remote: false, Generated: true}), incPointerMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/weavertest/internal/generate/testApp", Method: "IncPointer", Remote: false, Generated: true})}
 		},
 		ClientStubFn: func(stub codegen.Stub, caller string) any {
-			return testApp_client_stub{stub: stub, divModMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/weavertest/internal/generate/testApp", Method: "DivMod", Remote: true, Generated: true}), getMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/weavertest/internal/generate/testApp", Method: "Get", Remote: true, Generated: true}), incPointerMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/ServiceWeaver/weaver/weavertest/internal/generate/testApp", Method: "IncPointer", Remote: true, Generated: true})}
+			return testApp_client_stub{stub: stub, divModMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/weavertest/internal/generate/testApp", Method: "DivMod", Remote: true, Generated: true}), getMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/weavertest/internal/generate/testApp", Method: "Get", Remote: true, Generated: true}), incPointerMetrics: codegen.MethodMetricsFor(codegen.MethodLabels{Caller: caller, Component: "github.com/brunobls/weft/weavertest/internal/generate/testApp", Method: "IncPointer", Remote: true, Generated: true})}
 		},
 		ServerStubFn: func(impl any, addLoad func(uint64, float64)) codegen.Server {
 			return testApp_server_stub{impl: impl.(testApp), addLoad: addLoad}
@@ -35,11 +35,11 @@ func init() {
 	})
 }
 
-// weaver.InstanceOf checks.
-var _ weaver.InstanceOf[testApp] = (*impl)(nil)
+// weft.InstanceOf checks.
+var _ weft.InstanceOf[testApp] = (*impl)(nil)
 
-// weaver.Router checks.
-var _ weaver.Unrouted = (*impl)(nil)
+// weft.Router checks.
+var _ weft.Unrouted = (*impl)(nil)
 
 // Local stub implementations.
 
@@ -143,7 +143,7 @@ func (s testApp_client_stub) DivMod(ctx context.Context, a0 int, a1 int) (r0 int
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -173,7 +173,7 @@ func (s testApp_client_stub) DivMod(ctx context.Context, a0 int, a1 int) (r0 int
 	results, err = s.stub.Run(ctx, 0, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -202,7 +202,7 @@ func (s testApp_client_stub) Get(ctx context.Context, a0 string, a1 behaviorType
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -232,7 +232,7 @@ func (s testApp_client_stub) Get(ctx context.Context, a0 string, a1 behaviorType
 	results, err = s.stub.Run(ctx, 1, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -260,7 +260,7 @@ func (s testApp_client_stub) IncPointer(ctx context.Context, a0 *int) (r0 *int, 
 		if err == nil {
 			err = codegen.CatchPanics(recover())
 			if err != nil {
-				err = errors.Join(weaver.RemoteCallError, err)
+				err = errors.Join(weft.RemoteCallError, err)
 			}
 		}
 
@@ -288,7 +288,7 @@ func (s testApp_client_stub) IncPointer(ctx context.Context, a0 *int) (r0 *int, 
 	results, err = s.stub.Run(ctx, 2, enc.Data(), shardKey)
 	replyBytes = len(results)
 	if err != nil {
-		err = errors.Join(weaver.RemoteCallError, err)
+		err = errors.Join(weft.RemoteCallError, err)
 		return
 	}
 
@@ -299,26 +299,26 @@ func (s testApp_client_stub) IncPointer(ctx context.Context, a0 *int) (r0 *int, 
 	return
 }
 
-// Note that "weaver generate" will always generate the error message below.
+// Note that "weft generate" will always generate the error message below.
 // Everything is okay. The error message is only relevant if you see it when
 // you run "go build" or "go run".
 var _ codegen.LatestVersion = codegen.Version[[0][24]struct{}](`
 
-ERROR: You generated this file with 'weaver generate' (devel) (codegen
+ERROR: You generated this file with 'weft generate' (devel) (codegen
 version v0.24.0). The generated code is incompatible with the version of the
-github.com/ServiceWeaver/weaver module that you're using. The weaver module
+github.com/brunobls/weft module that you're using. The weft module
 version can be found in your go.mod file or by running the following command.
 
-    go list -m github.com/ServiceWeaver/weaver
+    go list -m github.com/brunobls/weft
 
-We recommend updating the weaver module and the 'weaver generate' command by
+We recommend updating the weft module and the 'weft generate' command by
 running the following.
 
-    go get github.com/ServiceWeaver/weaver@latest
-    go install github.com/ServiceWeaver/weaver/cmd/weaver@latest
+    go get github.com/brunobls/weft@latest
+    go install github.com/brunobls/weft/cmd/weft@latest
 
-Then, re-run 'weaver generate' and re-build your code. If the problem persists,
-please file an issue at https://github.com/ServiceWeaver/weaver/issues.
+Then, re-run 'weft generate' and re-build your code. If the problem persists,
+please file an issue at https://github.com/brunobls/weft/issues.
 
 `)
 
@@ -455,7 +455,7 @@ func (s testApp_reflect_stub) IncPointer(ctx context.Context, a0 *int) (r0 *int,
 var _ codegen.AutoMarshal = (*customErrorValue)(nil)
 
 type __is_customErrorValue[T ~struct {
-	weaver.AutoMarshal
+	weft.AutoMarshal
 	key string
 }] struct{}
 

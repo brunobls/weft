@@ -18,7 +18,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -29,7 +29,7 @@ type Odd interface {
 }
 
 type odd struct {
-	weaver.Implements[Odd]
+	weft.Implements[Odd]
 }
 
 func (o *odd) Do(ctx context.Context, x int) (int, error) {

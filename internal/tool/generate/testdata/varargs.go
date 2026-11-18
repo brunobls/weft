@@ -17,7 +17,7 @@ package foo
 import (
 	"context"
 
-	"github.com/ServiceWeaver/weaver"
+	"github.com/brunobls/weft"
 )
 
 type foo interface {
@@ -28,7 +28,7 @@ type foo interface {
 }
 
 type impl struct {
-	weaver.Implements[foo]
+	weft.Implements[foo]
 }
 
 func (l *impl) A(context.Context, ...int) error                 { return nil }
