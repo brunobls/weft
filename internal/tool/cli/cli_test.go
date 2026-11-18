@@ -16,7 +16,6 @@ package cli
 
 import (
 	"errors"
-	"os"
 	"os/exec"
 	"path/filepath"
 	"reflect"
@@ -130,5 +129,4 @@ func TestBinaries(t *testing.T) {
 			t.Errorf("%s nosuch error does not use invoked name:\n%s", name, out)
 		}
 	}
-	_ = os.Stdout
 }

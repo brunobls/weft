@@ -50,7 +50,7 @@ var (
 
 	purgeSpec = &tool.PurgeSpec{
 		Tool:  "weaver multi",
-		Kill:  "weaver multi (dashboard|deploy|logs|profile)",
+		Kill:  "(weft|weaver) multi (dashboard|deploy|logs|profile)",
 		Paths: []string{logDir, dataDir},
 	}
 

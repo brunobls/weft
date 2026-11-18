@@ -82,7 +82,7 @@ func deploy(ctx context.Context, args []string) error {
 	cmd.Stdin = os.Stdin
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
-	cmd.Env = append(cmd.Environ(), "WEFT_CONFIG="+configFile)
+	cmd.Env = appEnv(cmd.Environ(), configFile)
 
 	// Make sure that the subprocess dies when we die. This isn't perfect, as
 	// we can't catch a SIGKILL, but it's good in the common case.
@@ -98,4 +98,11 @@ func deploy(ctx context.Context, args []string) error {
 
 	// Run the binary
 	return cmd.Run()
+}
+
+// appEnv returns env plus the variables that tell the application where its
+// config file is: WEFT_CONFIG and, for applications built with a runtime that
+// predates Weft, SERVICEWEAVER_CONFIG.
+func appEnv(env []string, configFile string) []string {
+	return append(env, "WEFT_CONFIG="+configFile, "SERVICEWEAVER_CONFIG="+configFile)
 }

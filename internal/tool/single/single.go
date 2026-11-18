@@ -45,7 +45,7 @@ var (
 	}
 	purgeSpec = &tool.PurgeSpec{
 		Tool:  "weaver single",
-		Kill:  "weaver single (dashboard|profile)",
+		Kill:  "(weft|weaver) single (dashboard|profile)",
 		Paths: []string{dataDir},
 	}
 
