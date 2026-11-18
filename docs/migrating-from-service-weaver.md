@@ -47,7 +47,15 @@ tool, `weft`:
 
     go install github.com/brunobls/weft/cmd/weft@latest
 
-Then run `weft generate` in your module, as before. The `weft` command accepts
+Then run `weft generate` in your module, as before.
+
+If you generate with `go generate`, change the directive in your Go files from
+`//go:generate weaver generate` to `//go:generate weft generate`. Do not leave
+it as it is: when the `weaver` found in your `PATH` is Service Weaver's,
+`go generate` succeeds (exit status 0) and writes code for the old module, and
+the failure only shows up at the next build, as `cannot find module providing
+package` for the old Service Weaver import path. If you see that error, run
+`go version -m "$(command -v weaver)"` (see below) and regenerate with `weft`. The `weft` command accepts
 the same subcommands as `weaver` (`generate`, `version`, `single`, `multi`,
 `ssh`, ...). Deployers outside this repository are found as `weft-<deployer>`,
 and as `weaver-<deployer>` when no `weft-<deployer>` exists.
