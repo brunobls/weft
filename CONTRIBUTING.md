@@ -213,19 +213,21 @@ requests on GitHub are the project's channel for coordination.
 
 Source files in this repository carry an Apache 2.0 license header:
 
-*   A **new** file that does not come from Service Weaver gets the header
+*   A **new** file that contains no code from Service Weaver gets the header
     `Copyright <year> The Weft Authors`.
 *   A file that **already has** a `Copyright Google LLC` header keeps that line
     unchanged when you modify it (the Apache License requires keeping existing
     copyright notices).
-*   A file copied from Service Weaver keeps its original header.
+*   A file copied from Service Weaver, or that contains code copied or extracted
+    from it, keeps its original copyright header.
 
 ## What to contribute to?
 
 Here are the current areas where the community contributions would be most
 valuable:
 
-* Implement deployers for platforms other than local, SSH, and GKE.
+* Implement deployers for platforms other than local and SSH. The `kube` and
+  `gke` deployers are still open: see [brunobls/weft#9][deployers].
 * Bug fixes for the existing libraries.
 * Non-Go language support. (Note: please open an [issue][new_issue] first, to
   coordinate development. We will likely require a fair bit of API and
@@ -240,6 +242,7 @@ created by Google LLC and licensed under the Apache License 2.0. See the
 [conduct]: CODE_OF_CONDUCT.md
 [dco]: https://developercertificate.org/
 [github_help]: https://help.github.com/articles/about-pull-requests/
+[deployers]: https://github.com/brunobls/weft/issues/9
 [github_weft]: https://github.com/brunobls/weft
 [issues]: https://github.com/brunobls/weft/issues
 [new_issue]: https://github.com/brunobls/weft/issues/new
